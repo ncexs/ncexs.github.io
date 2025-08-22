@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ncexs Projects</title>
+<style>
+body { font-family: 'Segoe UI', sans-serif; margin:0; padding:0; color:#222; background:#f6f8fa; }
+header {
+  background: linear-gradient(135deg, #0366d6, #00aaff);
+  padding:3rem 1rem;
+  text-align:center;
+  color:white;
+  position:relative;
+  box-shadow:0 2px 10px rgba(0,0,0,0.1);
+}
+header h1 { margin:0; font-size:2.5rem; }
+header p { margin:0.8rem 0 0; font-size:1.1rem; line-height:1.5rem; font-weight:500;}
+#datetime { 
+  margin-top:1.5rem; 
+  font-weight:bold; 
+  background:rgba(255,255,255,0.2); 
+  display:inline-block; 
+  padding:1rem 1.8rem; 
+  border-radius:18px;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255,255,255,0.15);
+}
+#datetime:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.18);
+  background:rgba(255,255,255,0.25);
+}
+#time {
+  font-size: 2.2rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  margin-bottom: 0.3rem;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  font-family: 'Segoe UI', monospace;
+}
+#date {
+  font-size: 1.1rem;
+  font-weight: 500;
+  opacity: 0.95;
+  letter-spacing: 0.5px;
+}
+.tabs { display:flex; justify-content:center; margin:1rem 0; }
+.tab { padding:0.7rem 1.5rem; margin:0 0.5rem; border-radius:8px; cursor:pointer; background:#e1e4e8; color:#333; font-weight:600; transition:0.3s; }
+.tab.active { background:#0366d6; color:white; }
+.container { width:90%; max-width:800px; margin:auto; }
+.projects-section { background: linear-gradient(120deg, #f0f4ff, #e8ebf0); padding:2rem 1rem; border-radius:15px;}
+.card { background:#e8ebf0; border-radius:12px; padding:1.5rem; margin:1rem 0; border:1px solid #d0d4d9; box-shadow:0 3px 12px rgba(0,0,0,0.06); transition:all 0.3s ease; opacity:0; transform:translateY(20px);}
+.card.visible { opacity:1; transform:translateY(0);}
+.card:hover { transform:translateY(-5px); box-shadow:0 10px 25px rgba(0,0,0,0.18); }
+.card h3 { 
+  margin:0 0 0.5rem 0; 
+  color:#0366d6; 
+  background: linear-gradient(90deg, rgba(3, 102, 214, 0.15), rgba(3, 102, 214, 0.05));
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  display: inline-block;
+}
+.card p, .card ul, .card ol { 
+  margin:0.5rem 0; 
+  color:#444; 
+  background-color: rgba(255, 255, 255, 0.6);
+  padding: 0.8rem 1rem;
+  border-radius: 8px;
+  border-left: 3px solid #0366d6;
+}
+.download-btn, .changelog-btn {
+  display:inline-block; margin-top:0.8rem; padding:0.5rem 1rem; border-radius:8px; text-decoration:none; font-weight:bold; transition:all 0.3s ease;
+}
+.download-btn { background:#28a745; color:white; }
+.download-btn:hover { background:linear-gradient(45deg, #28a745, #1e7e34);}
+.changelog-btn { background:#0366d6; color:white; margin-left:6px; }
+.changelog-btn:hover { background:linear-gradient(45deg, #0366d6, #0256a3);}
+.hidden { display:none; }
+.lang-toggle { display:flex; justify-content:center; margin:1rem; }
+.switch { position:relative; display:inline-block; width:60px; height:34px; }
+.switch input { display:none; }
+.slider { position:absolute; cursor:pointer; top:0; left:0; right:0; bottom:0; background-color:#ccc; transition:.4s; border-radius:34px; display:flex; align-items:center; justify-content:center; font-weight:bold;}
+.slider:before { position:absolute; content:"ID"; height:26px; width:26px; left:4px; bottom:4px; background:white; transition:.4s; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:bold;}
+input:checked + .slider { background-color:#0366d6;}
+input:checked + .slider:before { transform:translateX(26px); content:"EN";}
+
+/* Gaya khusus untuk bagian GitHub dan Support */
+.section-title {
+  background: linear-gradient(90deg, rgba(0, 170, 255, 0.2), rgba(3, 102, 214, 0.15));
+  padding: 0.7rem 1rem;
+  border-radius: 8px;
+  display: inline-block;
+  margin-bottom: 0.8rem;
+  font-weight: bold;
+  color: #0366d6;
+}
+
+/* Animasi untuk jam */
+@keyframes pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.8; }
+  100% { opacity: 1; }
+}
+.pulse { animation: pulse 1s ease-in-out; }
+
+/* PERBAIKAN: Menambahkan padding kiri yang lebih besar untuk konten */
+#projects .card > div,
+#howto .card > div {
+  padding-left: 1.2rem; /* Menambah ruang di sebelah kiri konten */
+}
+
+/* PERBAIKAN: Memastikan daftar tidak terlalu mepet ke kiri */
+#projects ul, #projects ol,
+#howto ul, #howto ol {
+  padding-left: 1.8rem; /* Menambah padding kiri untuk list */
+  margin: 0.8rem 0;
+}
+
+/* PERBAIKAN: Spesifik untuk konten howto */
+#howto-toolkit-text, #howto-jc-text {
+  padding-left: 0.5rem;
+}
+</style>
+</head>
+<body>
+<header>
+  <h1>ncexs Toolkit</h1>
+  <p id="header-desc-id">ncexs Toolkit adalah evolusi dari ncexs JunkCleaner<br>Alat sederhana untuk mengoptimalkan dan membersihkan Windows kamu dalam "satu klik" — tanpa ribet, tanpa drama.</p>
+  <p id="header-desc-en" class="hidden">ncexs Toolkit is the evolution of ncexs JunkCleaner<br>A simple tool to optimize and clean your Windows in "one click" — no bloat, no drama.</p>
+  <div id="datetime">
+    <div id="time"></div>
+    <div id="date"></div>
+  </div>
+</header>
+
+<div class="tabs">
+  <div class="tab active" onclick="switchTab('intro', event)">Introduction</div>
+  <div class="tab" onclick="switchTab('projects', event)">Projects</div>
+  <div class="tab" onclick="switchTab('howto', event)">How to Use</div>
+</div>
+
+<div class="lang-toggle">
+  <label class="switch">
+    <input type="checkbox" id="langSwitch">
+    <span class="slider"></span>
+  </label>
+</div>
+
+<div id="intro" class="container">
+  <div class="card" id="profile-card"></div>
+  <div class="card" id="github-card"></div>
+  <div class="card" id="support-card"></div>
+</div>
+
+<div id="projects" class="container projects-section hidden">
+  <div class="card" id="card-toolkit">
+    <h3>ncexs Toolkit v2.0</h3>
+    <div id="changelog-toolkit"></div>
+    <a class="download-btn" href="https://github.com/ncexs/ncexs-toolkit/releases/download/v2.0/ncexs.Toolkit.v2.0.Extended.zip" target="_blank">Download</a>
+    <a class="changelog-btn" href="https://github.com/ncexs/ncexs-toolkit/releases/tag/v2.0" target="_blank">Full Changelog</a>
+  </div>
+  <div class="card" id="card-jc13">
+    <h3>ncexs JunkCleaner v1.3</h3>
+    <div id="changelog-jc13"></div>
+    <a class="download-btn" href="https://github.com/ncexs/ncexs-junkcleaner/releases/download/v1.3/ncexs-junkcleaner-v1.3-EOL.zip" target="_blank">Download</a>
+    <a class="changelog-btn" href="https://github.com/ncexs/ncexs-junkcleaner/releases/tag/v1.3" target="_blank">Full Changelog</a>
+  </div>
+  <div class="card" id="card-jc12">
+    <h3>ncexs JunkCleaner v1.2</h3>
+    <div id="changelog-jc12"></div>
+    <a class="download-btn" href="https://github.com/ncexs/ncexs-junkcleaner/releases/download/v1.2/ncexs-junkcleaner-v1.2.zip" target="_blank">Download</a>
+    <a class="changelog-btn" href="https://github.com/ncexs/ncexs-junkcleaner/releases/tag/v1.2" target="_blank">Full Changelog</a>
+  </div>
+  <div class="card" id="card-jc11">
+    <h3>ncexs JunkCleaner v1.1</h3>
+    <div id="changelog-jc11"></div>
+    <a class="download-btn" href="https://github.com/ncexs/ncexs-junkcleaner/releases/tag/v1.1" target="_blank">Download</a>
+    <a class="changelog-btn" href="https://github.com/ncexs/ncexs-junkcleaner/releases/tag/v1.1" target="_blank">Full Changelog</a>
+  </div>
+  <div class="card" id="card-jc10">
+    <h3>ncexs JunkCleaner v1.0</h3>
+    <div id="changelog-jc10"></div>
+    <a class="download-btn" href="https://github.com/ncexs/ncexs-junkcleaner/releases/download/v1.0/ncexs-junkcleaner-v1.0.zip" target="_blank">Download</a>
+    <a class="changelog-btn" href="https://github.com/ncexs/ncexs-junkcleaner/releases/tag/v1.0" target="_blank">Full Changelog</a>
+  </div>
+</div>
+
+<div id="howto" class="container hidden">
+  <div class="card" id="howto-toolkit-card">
+    <div id="howto-toolkit-text"></div>
+  </div>
+  <div class="card" id="howto-jc-card">
+    <div id="howto-jc-text"></div>
+  </div>
+</div>
+
+<script>
+// Bahasa & teks
+let currentLang = "id";
+const introTexts = {
+  id: {
+    "profile-card":"<span class='section-title'>👤 Halo, saya ncexs</span><p>Developer yang sedang belajar membuat tool ringan & berguna untuk semua.</p>",
+    "github-card":"<span class='section-title'>📦 Repository GitHub</span><p>🔹 Semua proyek tersedia di GitHub.<br>🔹 Bisa dicek untuk versi terbaru dan changelog lengkap.</p><a class='download-btn' href='https://github.com/ncexs' target='_blank'>Lihat Profil GitHub</a>",
+    "support-card":"<span class='section-title'>💖 Dukung Saya</span><p>🙏 Jika kamu suka projek ini, dukung saya melalui Saweria.</p><a class='download-btn' href='https://saweria.co/ncexs' target='_blank'>Saweria</a>",
+    "changelog-toolkit":"<ul><li>✨ Menu interaktif (1–5) untuk berbagai fungsi</li><li>🛠️ Pembersihan mendalam: leftover uninstall, registry orphan, temp files</li><li>🛡️ Integrasi antivirus</li><li>📝 Sistem log bersih dengan timestamp</li><li>🔧 Migrasi dari .bat ke PowerShell</li><li>🧩 Desain modular</li><li>🚀 Evolusi dari JunkCleaner ke Toolkit penuh</li></ul>",
+    "changelog-jc13":"<ul><li>💾 Opsi pembersihan RAM</li><li>🖥️ Prompt interaktif</li><li>📂 Pembersihan cache browser efisien</li><li>📝 Log output bersih</li><li>⚠️ Versi ini EOL</li></ul>",
+    "changelog-jc12":"<ul><li>🧹 Pembersihan file sisa uninstall</li><li>🛠️ Peningkatan performa</li><li>📝 Log lebih lengkap</li></ul>",
+    "changelog-jc11":"<ul><li>🧹 Pembersihan temp & leftover uninstall</li><li>⚡ Bug minor diperbaiki</li><li>📁 Struktur folder lebih rapi</li></ul>",
+    "changelog-jc10":"<ul><li>🚀 Rilis awal ncexs JunkCleaner</li><li>🧹 Pembersihan file sementara dasar</li><li>📁 Mendukung folder default Windows</li></ul>"
+  },
+  en: {
+    "profile-card":"<span class='section-title'>👤 Hello, I'm ncexs</span><p>A developer learning to build lightweight & useful tools for everyone.</p>",
+    "github-card":"<span class='section-title'>📦 GitHub Repository</span><p>🔹 All projects are available on GitHub.<br>🔹 Check for latest versions and full changelog.</p><a class='download-btn' href='https://github.com/ncexs' target='_blank'>View GitHub Profile</a>",
+    "support-card":"<span class='section-title'>💖 Support Me</span><p>🙏 If you like these projects, support me via Saweria.</p><a class='download-btn' href='https://saweria.co/ncexs' target='_blank'>Saweria</a>",
+    "changelog-toolkit":"<ul><li>✨ Interactive menu (1–5) for multiple functions</li><li>🛠️ Deep cleaning: leftover uninstall files, registry orphan, temp files</li><li>🛡️ Antivirus scan integration</li><li>📝 Clean log system with timestamps</li><li>🔧 Migration from .bat to PowerShell</li><li>🧩 Modular design</li><li>🚀 Evolution from JunkCleaner to full Toolkit</li></ul>",
+    "changelog-jc13":"<ul><li>💾 RAM cleaning option</li><li>🖥️ Interactive prompts</li><li>📂 Efficient browser cache cleanup</li><li>📝 Clear output logs</li><li>⚠️ This version is EOL</li></ul>",
+    "changelog-jc12":"<ul><li>🧹 Uninstall leftover cleanup</li><li>🛠️ Performance improvements</li><li>📝 More detailed log files</li></ul>",
+    "changelog-jc11":"<ul><li>🧹 Temp & leftover uninstall cleanup</li><li>⚡ Minor bug fixes</li><li>📁 Cleaner folder structure</li></ul>",
+    "changelog-jc10":"<ul><li>🚀 Initial release of ncexs JunkCleaner</li><li>🧹 Basic temporary file cleanup</li><li>📁 Default Windows folder support</li></ul>"
+  }
+};
+
+const howtoTexts = {
+  id: {
+    "howto-toolkit-text": `<span class='section-title'>📝 Cara Penggunaan - ncexs Toolkit</span>
+      <ol>
+        <li>Ekstrak file ZIP (klik kanan → Extract All)</li>
+        <li>Klik kanan pada <b>ncexs Toolkit.ps1</b> → Pilih Run with PowerShell</li>
+        <li>Jika muncul 'Windows protected your PC': Klik 'More info' → 'Run anyway'</li>
+        <li>Klik 'Yes' jika diminta izin administrator</li>
+        <li>Pilih menu interaktif (1–5):
+          <ul>
+            <li>1 → Junk & Cache Cleaner</li>
+            <li>2 → Deep Cleanup</li>
+            <li>3 → Antivirus Scan</li>
+            <li>4 → Clear RAM</li>
+            <li>5 → Exit</li>
+          </ul>
+        </li>
+        <li>Cek <b>log_ncexs.txt</b> untuk laporan pembersihan</li>
+      </ol>
+      <p>💡 Tip: Jalankan PowerShell sebagai Administrator untuk akses penuh</p>`,
+    "howto-jc-text": `<span class='section-title'>📝 Cara Penggunaan - ncexs JunkCleaner</span>
+      <ol>
+        <li>Ekstrak file ZIP (klik kanan → Extract All)</li>
+        <li>Double-click file .bat</li>
+        <li>Jika muncul 'Windows protected your PC': Klik 'More info' → 'Run anyway'</li>
+        <li>Izinkan akses admin saat diminta</li>
+        <li>Ikuti instruksi (Y/N) untuk:
+          <ul>
+            <li>1 → Junk & Cache Cleaner</li>
+            <li>2 → Deep Cleanup</li>
+            <li>3 → Antivirus Scan</li>
+            <li>4 → Clear RAM</li>
+          </ul>
+        </li>
+        <li>Cek <b>log_ncexs.txt</b> untuk laporan pembersihan</li>
+      </ol>`
+  },
+  en: {
+    "howto-toolkit-text": `<span class='section-title'>📝 How to Use - ncexs Toolkit</span>
+      <ol>
+        <li>Extract the ZIP file (right-click → Extract All)</li>
+        <li>Right-click <b>ncexs Toolkit.ps1</b> → Select Run with PowerShell</li>
+        <li>If 'Windows protected your PC' appears: Click 'More info' → 'Run anyway'</li>
+        <li>Click 'Yes' if administrator permission is requested</li>
+        <li>Select interactive menu (1–5):
+          <ul>
+            <li>1 → Junk & Cache Cleaner</li>
+            <li>2 → Deep Cleanup</li>
+            <li>3 → Antivirus Scan</li>
+            <li>4 → Clear RAM</li>
+            <li>5 → Exit</li>
+          </ul>
+        </li>
+        <li>Check <b>log_ncexs.txt</b> for cleanup report</li>
+      </ol>
+      <p>💡 Tip: Run PowerShell as Administrator for full access</p>`,
+    "howto-jc-text": `<span class='section-title'>📝 How to Use - ncexs JunkCleaner</span>
+      <ol>
+        <li>Extract the ZIP file (right-click → Extract All)</li>
+        <li>Double-click the .bat file</li>
+        <li>If 'Windows protected your PC' appears: Click 'More info' → 'Run anyway'</li>
+        <li>Allow admin access when prompted</li>
+        <li>Follow Y/N prompts for:
+          <ul>
+            <li>1 → Junk & Cache Cleaner</li>
+            <li>2 → Deep Cleanup</li>
+            <li>3 → Antivirus Scan</li>
+            <li>4 → Clear RAM</li>
+          </ul>
+        </li>
+        <li>Check <b>log_ncexs.txt</b> for cleanup report</li>
+      </ol>`
+  }
+};
+
+// Update content
+function updateContent() {
+  for (const id in introTexts[currentLang]) {
+    if(document.getElementById(id)) document.getElementById(id).innerHTML = introTexts[currentLang][id];
+  }
+  for (const id in howtoTexts[currentLang]) {
+    if(document.getElementById(id)) document.getElementById(id).innerHTML = howtoTexts[currentLang][id];
+  }
+  document.getElementById('header-desc-id').classList.toggle('hidden', currentLang==='en');
+  document.getElementById('header-desc-en').classList.toggle('hidden', currentLang==='id');
+  
+  // Update waktu dan tanggal dengan bahasa yang sesuai
+  updateTime();
+}
+
+// Tab switch
+function switchTab(tabName, evt){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  evt.currentTarget.classList.add('active');
+  document.querySelectorAll('.container').forEach(c=>c.classList.add('hidden'));
+  document.getElementById(tabName).classList.remove('hidden');
+}
+
+// Daftar nama hari dan bulan dalam bahasa Indonesia dan Inggris
+const dayNames = {
+  id: ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"],
+  en: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+};
+
+const monthNames = {
+  id: ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"],
+  en: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+};
+
+// Jam & tanggal
+function updateTime(){
+  const now = new Date();
+  const hours = now.getHours().toString().padStart(2, '0');
+  const minutes = now.getMinutes().toString().padStart(2, '0');
+  const seconds = now.getSeconds().toString().padStart(2, '0');
+  
+  const day = now.getDay();
+  const date = now.getDate();
+  const month = now.getMonth();
+  const year = now.getFullYear();
+  
+  // Format waktu
+  const time = `${hours}:${minutes}:${seconds}`;
+  
+  // Format tanggal dengan bahasa yang sesuai
+  const formattedDate = `${dayNames[currentLang][day]}, ${date} ${monthNames[currentLang][month]} ${year}`;
+  
+  document.getElementById('time').textContent = time;
+  document.getElementById('date').textContent = formattedDate;
+}
+setInterval(updateTime, 1000); updateTime();
+
+// Toggle bahasa
+document.getElementById('langSwitch').addEventListener('change', ()=>{
+  currentLang = document.getElementById('langSwitch').checked ? 'en' : 'id';
+  updateContent();
+});
+
+// Fade-in card animation
+window.addEventListener('scroll', ()=>{
+  document.querySelectorAll('.card').forEach(card=>{
+    const rect = card.getBoundingClientRect();
+    if(rect.top < window.innerHeight-50){
+      card.classList.add('visible');
+    }
+  });
+});
+
+updateContent();
+</script>
+</body>
+</html>
