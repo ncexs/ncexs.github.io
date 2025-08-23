@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>ncexs Projects</title>
 <style>
 body { font-family: 'Segoe UI', sans-serif; margin:0; padding:0; color:#222; background:#f6f8fa; }
@@ -14,7 +14,37 @@ header {
   position:relative;
   box-shadow:0 2px 10px rgba(0,0,0,0.1);
 }
-header h1 { margin:0; font-size:2.5rem; }
+header h1 { 
+  margin:0; 
+  font-size:2.5rem; 
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+header h1 span {
+  display: inline-block;
+  animation: bounce 1.5s ease infinite alternate;
+  color: #ffffff;
+  text-shadow: 0 2px 8px rgba(0, 123, 255, 0.8), 0 4px 12px rgba(0, 86, 179, 0.6);
+}
+@keyframes bounce {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-15px); }
+}
+header h1 span:nth-child(1) { animation-delay: 0.1s; }
+header h1 span:nth-child(2) { animation-delay: 0.2s; }
+header h1 span:nth-child(3) { animation-delay: 0.3s; }
+header h1 span:nth-child(4) { animation-delay: 0.4s; }
+header h1 span:nth-child(5) { animation-delay: 0.5s; }
+header h1 span:nth-child(6) { animation-delay: 0.6s; }
+header h1 span:nth-child(7) { animation-delay: 0.7s; }
+header h1 span:nth-child(8) { animation-delay: 0.8s; }
+header h1 span:nth-child(9) { animation-delay: 0.9s; }
+header h1 span:nth-child(10) { animation-delay: 1.0s; }
+header h1 span:nth-child(11) { animation-delay: 1.1s; }
+header h1 span:nth-child(12) { animation-delay: 1.2s; }
+header h1 span:nth-child(13) { animation-delay: 1.3s; }
+
 header p { margin:0.8rem 0 0; font-size:1.1rem; line-height:1.5rem; font-weight:500;}
 #datetime { 
   margin-top:1.5rem; 
@@ -48,13 +78,100 @@ header p { margin:0.8rem 0 0; font-size:1.1rem; line-height:1.5rem; font-weight:
   opacity: 0.95;
   letter-spacing: 0.5px;
 }
-.tabs { display:flex; justify-content:center; margin:1rem 0; }
-.tab { padding:0.7rem 1.5rem; margin:0 0.5rem; border-radius:8px; cursor:pointer; background:#e1e4e8; color:#333; font-weight:600; transition:0.3s; }
+.tabs-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 1rem 0;
+  padding: 0 1rem;
+}
+.tabs { 
+  display:flex; 
+  gap:1rem;
+}
+.tab { 
+  padding:0.7rem 1.5rem; 
+  border-radius:8px; 
+  cursor:pointer; 
+  background:#e1e4e8; 
+  color:#333; 
+  font-weight:600; 
+  transition:0.3s; 
+  border:none;
+}
 .tab.active { background:#0366d6; color:white; }
-.container { width:90%; max-width:800px; margin:auto; }
-.projects-section { background: linear-gradient(120deg, #f0f4ff, #e8ebf0); padding:2rem 1rem; border-radius:15px;}
-.card { background:#e8ebf0; border-radius:12px; padding:1.5rem; margin:1rem 0; border:1px solid #d0d4d9; box-shadow:0 3px 12px rgba(0,0,0,0.06); transition:all 0.3s ease; opacity:0; transform:translateY(20px);}
-.card.visible { opacity:1; transform:translateY(0);}
+.lang-toggle {
+  display: flex;
+  align-items: center;
+  margin-left: 1rem;
+}
+.switch { 
+  position:relative; 
+  display:inline-block; 
+  width:60px; 
+  height:34px; 
+  margin-left: 0.5rem;
+}
+.switch input { display:none; }
+.slider { 
+  position:absolute; 
+  cursor:pointer; 
+  top:0; 
+  left:0; 
+  right:0; 
+  bottom:0; 
+  background-color:#ccc; 
+  transition:.4s; 
+  border-radius:34px; 
+  display:flex; 
+  align-items:center; 
+  justify-content:center; 
+  font-weight:bold;
+}
+.slider:before { 
+  position:absolute; 
+  content:"ID"; 
+  height:26px; 
+  width:26px; 
+  left:4px; 
+  bottom:4px; 
+  background:white; 
+  transition:.4s; 
+  border-radius:50%; 
+  display:flex; 
+  align-items:center; 
+  justify-content:center; 
+  font-size:14px; 
+  font-weight:bold;
+}
+input:checked + .slider { background-color:#0366d6;}
+input:checked + .slider:before { transform:translateX(26px); content:"EN";}
+
+.container { 
+  width:90%; 
+  max-width:800px; 
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+.projects-section { 
+  background: transparent;
+  padding: 0;
+  border-radius: 0;
+  margin-top: 2rem;
+}
+.card { 
+  background:#e8ebf0; 
+  border-radius:12px; 
+  padding:1.5rem; 
+  margin:1rem 0; 
+  border:1px solid #d0d4d9; 
+  box-shadow:0 3px 12px rgba(0,0,0,0.06); 
+  transition:all 0.3s ease; 
+  opacity:1;
+  transform:translateY(0);
+}
 .card:hover { transform:translateY(-5px); box-shadow:0 10px 25px rgba(0,0,0,0.18); }
 .card h3 { 
   margin:0 0 0.5rem 0; 
@@ -80,15 +197,7 @@ header p { margin:0.8rem 0 0; font-size:1.1rem; line-height:1.5rem; font-weight:
 .changelog-btn { background:#0366d6; color:white; margin-left:6px; }
 .changelog-btn:hover { background:linear-gradient(45deg, #0366d6, #0256a3);}
 .hidden { display:none; }
-.lang-toggle { display:flex; justify-content:center; margin:1rem; }
-.switch { position:relative; display:inline-block; width:60px; height:34px; }
-.switch input { display:none; }
-.slider { position:absolute; cursor:pointer; top:0; left:0; right:0; bottom:0; background-color:#ccc; transition:.4s; border-radius:34px; display:flex; align-items:center; justify-content:center; font-weight:bold;}
-.slider:before { position:absolute; content:"ID"; height:26px; width:26px; left:4px; bottom:4px; background:white; transition:.4s; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:bold;}
-input:checked + .slider { background-color:#0366d6;}
-input:checked + .slider:before { transform:translateX(26px); content:"EN";}
 
-/* Gaya khusus untuk bagian GitHub dan Support */
 .section-title {
   background: linear-gradient(90deg, rgba(0, 170, 255, 0.2), rgba(3, 102, 214, 0.15));
   padding: 0.7rem 1rem;
@@ -99,7 +208,6 @@ input:checked + .slider:before { transform:translateX(26px); content:"EN";}
   color: #0366d6;
 }
 
-/* Animasi untuk jam */
 @keyframes pulse {
   0% { opacity: 1; }
   50% { opacity: 0.8; }
@@ -107,28 +215,48 @@ input:checked + .slider:before { transform:translateX(26px); content:"EN";}
 }
 .pulse { animation: pulse 1s ease-in-out; }
 
-/* PERBAIKAN: Menambahkan padding kiri yang lebih besar untuk konten */
 #projects .card > div,
 #howto .card > div {
-  padding-left: 1.2rem; /* Menambah ruang di sebelah kiri konten */
+  padding-left: 1.2rem;
 }
 
-/* PERBAIKAN: Memastikan daftar tidak terlalu mepet ke kiri */
 #projects ul, #projects ol,
 #howto ul, #howto ol {
-  padding-left: 1.8rem; /* Menambah padding kiri untuk list */
+  padding-left: 1.8rem;
   margin: 0.8rem 0;
 }
 
-/* PERBAIKAN: Spesifik untuk konten howto */
 #howto-toolkit-text, #howto-jc-text {
   padding-left: 0.5rem;
+}
+
+@media (max-width: 768px) {
+  header h1 { font-size: 2rem; }
+  .tabs-container { flex-direction: column; }
+  .tabs { flex-wrap: wrap; justify-content: center; }
+  .tab { margin-bottom: 0.5rem; }
+  #time { font-size: 1.8rem; }
+  .lang-toggle { margin-top: 0.5rem; margin-left: 0; }
 }
 </style>
 </head>
 <body>
 <header>
-  <h1>ncexs Toolkit</h1>
+  <h1>
+    <span>n</span>
+    <span>c</span>
+    <span>e</span>
+    <span>x</span>
+    <span>s</span>
+    <span> </span>
+    <span>T</span>
+    <span>o</span>
+    <span>o</span>
+    <span>l</span>
+    <span>k</span>
+    <span>i</span>
+    <span>t</span>
+  </h1>
   <p id="header-desc-id">ncexs Toolkit adalah evolusi dari ncexs JunkCleaner<br>Alat sederhana untuk mengoptimalkan dan membersihkan Windows kamu dalam "satu klik" — tanpa ribet, tanpa drama.</p>
   <p id="header-desc-en" class="hidden">ncexs Toolkit is the evolution of ncexs JunkCleaner<br>A simple tool to optimize and clean your Windows in "one click" — no bloat, no drama.</p>
   <div id="datetime">
@@ -137,22 +265,24 @@ input:checked + .slider:before { transform:translateX(26px); content:"EN";}
   </div>
 </header>
 
-<div class="tabs">
-  <div class="tab active" onclick="switchTab('intro', event)">Introduction</div>
-  <div class="tab" onclick="switchTab('projects', event)">Projects</div>
-  <div class="tab" onclick="switchTab('howto', event)">How to Use</div>
-</div>
-
-<div class="lang-toggle">
-  <label class="switch">
-    <input type="checkbox" id="langSwitch">
-    <span class="slider"></span>
-  </label>
+<div class="tabs-container">
+  <div class="tabs">
+    <div class="tab active" data-key="intro" onclick="switchTab('intro', event)" id="tab-intro">Introduction</div>
+    <div class="tab" data-key="projects" onclick="switchTab('projects', event)" id="tab-projects">Projects</div>
+    <div class="tab" data-key="howto" onclick="switchTab('howto', event)" id="tab-howto">How to Use</div>
+  </div>
+  <div class="lang-toggle">
+    <label class="switch" title="Toggle bahasa (ID/EN)">
+      <input type="checkbox" id="langSwitch">
+      <span class="slider"></span>
+    </label>
+  </div>
 </div>
 
 <div id="intro" class="container">
   <div class="card" id="profile-card"></div>
   <div class="card" id="github-card"></div>
+  <div class="card" id="security-card"></div>
   <div class="card" id="support-card"></div>
 </div>
 
@@ -199,25 +329,26 @@ input:checked + .slider:before { transform:translateX(26px); content:"EN";}
 </div>
 
 <script>
-// Bahasa & teks
 let currentLang = "id";
 const introTexts = {
   id: {
     "profile-card":"<span class='section-title'>👤 Halo, saya ncexs</span><p>Developer yang sedang belajar membuat tool ringan & berguna untuk semua.</p>",
+    "security-card":"<span class='section-title'>🛡️ Keamanan & Kepercayaan</span><p>🔹 Script open-source untuk transparansi penuh<br>🔹 Terverifikasi VirusTotal - Periksa rilis terbaru</p><a class='download-btn' href='https://www.virustotal.com/' target='_blank'>Cek di VirusTotal</a>",
     "github-card":"<span class='section-title'>📦 Repository GitHub</span><p>🔹 Semua proyek tersedia di GitHub.<br>🔹 Bisa dicek untuk versi terbaru dan changelog lengkap.</p><a class='download-btn' href='https://github.com/ncexs' target='_blank'>Lihat Profil GitHub</a>",
     "support-card":"<span class='section-title'>💖 Dukung Saya</span><p>🙏 Jika kamu suka projek ini, dukung saya melalui Saweria.</p><a class='download-btn' href='https://saweria.co/ncexs' target='_blank'>Saweria</a>",
     "changelog-toolkit":"<ul><li>✨ Menu interaktif (1–5) untuk berbagai fungsi</li><li>🛠️ Pembersihan mendalam: leftover uninstall, registry orphan, temp files</li><li>🛡️ Integrasi antivirus</li><li>📝 Sistem log bersih dengan timestamp</li><li>🔧 Migrasi dari .bat ke PowerShell</li><li>🧩 Desain modular</li><li>🚀 Evolusi dari JunkCleaner ke Toolkit penuh</li></ul>",
-    "changelog-jc13":"<ul><li>💾 Opsi pembersihan RAM</li><li>🖥️ Prompt interaktif</li><li>📂 Pembersihan cache browser efisien</li><li>📝 Log output bersih</li><li>⚠️ Versi ini EOL</li></ul>",
+    "changelog-jc13":"<ul><li>💾 Opsi pembersihan RAM (🙏 Spesial terima kasih untuk <a href='https://www.youtube.com/@ryzprogm' target='_blank'>Ryzki Romadoni</a>)</li><li>🖥️ Prompt interaktif</li><li>📂 Pembersihan cache browser efisien</li><li>📝 Log output bersih</li><li>⚠️ Versi ini EOL</li></ul>",
     "changelog-jc12":"<ul><li>🧹 Pembersihan file sisa uninstall</li><li>🛠️ Peningkatan performa</li><li>📝 Log lebih lengkap</li></ul>",
     "changelog-jc11":"<ul><li>🧹 Pembersihan temp & leftover uninstall</li><li>⚡ Bug minor diperbaiki</li><li>📁 Struktur folder lebih rapi</li></ul>",
     "changelog-jc10":"<ul><li>🚀 Rilis awal ncexs JunkCleaner</li><li>🧹 Pembersihan file sementara dasar</li><li>📁 Mendukung folder default Windows</li></ul>"
   },
   en: {
     "profile-card":"<span class='section-title'>👤 Hello, I'm ncexs</span><p>A developer learning to build lightweight & useful tools for everyone.</p>",
+    "security-card":"<span class='section-title'>🛡️ Security & Trust</span><p>🔹 Open-source scripts for full transparency<br>🔹 VirusTotal verified – Check latest release</p><a class='download-btn' href='https://www.virustotal.com/' target='_blank'>Check on VirusTotal</a>",
     "github-card":"<span class='section-title'>📦 GitHub Repository</span><p>🔹 All projects are available on GitHub.<br>🔹 Check for latest versions and full changelog.</p><a class='download-btn' href='https://github.com/ncexs' target='_blank'>View GitHub Profile</a>",
     "support-card":"<span class='section-title'>💖 Support Me</span><p>🙏 If you like these projects, support me via Saweria.</p><a class='download-btn' href='https://saweria.co/ncexs' target='_blank'>Saweria</a>",
     "changelog-toolkit":"<ul><li>✨ Interactive menu (1–5) for multiple functions</li><li>🛠️ Deep cleaning: leftover uninstall files, registry orphan, temp files</li><li>🛡️ Antivirus scan integration</li><li>📝 Clean log system with timestamps</li><li>🔧 Migration from .bat to PowerShell</li><li>🧩 Modular design</li><li>🚀 Evolution from JunkCleaner to full Toolkit</li></ul>",
-    "changelog-jc13":"<ul><li>💾 RAM cleaning option</li><li>🖥️ Interactive prompts</li><li>📂 Efficient browser cache cleanup</li><li>📝 Clear output logs</li><li>⚠️ This version is EOL</li></ul>",
+    "changelog-jc13":"<ul><li>💾 RAM cleaning option (🙏 Special thanks to <a href='https://www.youtube.com/@ryzprogm' target='_blank'>Ryzki Romadoni</a>)</li><li>🖥️ Interactive prompts</li><li>📂 Efficient browser cache cleanup</li><li>📝 Clear output logs</li><li>⚠️ This version is EOL</li></ul>",
     "changelog-jc12":"<ul><li>🧹 Uninstall leftover cleanup</li><li>🛠️ Performance improvements</li><li>📝 More detailed log files</li></ul>",
     "changelog-jc11":"<ul><li>🧹 Temp & leftover uninstall cleanup</li><li>⚡ Minor bug fixes</li><li>📁 Cleaner folder structure</li></ul>",
     "changelog-jc10":"<ul><li>🚀 Initial release of ncexs JunkCleaner</li><li>🧹 Basic temporary file cleanup</li><li>📁 Default Windows folder support</li></ul>"
@@ -299,7 +430,6 @@ const howtoTexts = {
   }
 };
 
-// Update content
 function updateContent() {
   for (const id in introTexts[currentLang]) {
     if(document.getElementById(id)) document.getElementById(id).innerHTML = introTexts[currentLang][id];
@@ -309,67 +439,73 @@ function updateContent() {
   }
   document.getElementById('header-desc-id').classList.toggle('hidden', currentLang==='en');
   document.getElementById('header-desc-en').classList.toggle('hidden', currentLang==='id');
-  
-  // Update waktu dan tanggal dengan bahasa yang sesuai
+  updateTabLabels(currentLang);
   updateTime();
 }
 
-// Tab switch
 function switchTab(tabName, evt){
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-  evt.currentTarget.classList.add('active');
+  if(evt && evt.currentTarget) evt.currentTarget.classList.add('active');
   document.querySelectorAll('.container').forEach(c=>c.classList.add('hidden'));
   document.getElementById(tabName).classList.remove('hidden');
 }
 
-// Daftar nama hari dan bulan dalam bahasa Indonesia dan Inggris
 const dayNames = {
   id: ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"],
   en: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
 };
-
 const monthNames = {
   id: ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"],
   en: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
 };
 
-// Jam & tanggal
 function updateTime(){
   const now = new Date();
   const hours = now.getHours().toString().padStart(2, '0');
   const minutes = now.getMinutes().toString().padStart(2, '0');
   const seconds = now.getSeconds().toString().padStart(2, '0');
-  
   const day = now.getDay();
   const date = now.getDate();
   const month = now.getMonth();
   const year = now.getFullYear();
-  
-  // Format waktu
   const time = `${hours}:${minutes}:${seconds}`;
-  
-  // Format tanggal dengan bahasa yang sesuai
   const formattedDate = `${dayNames[currentLang][day]}, ${date} ${monthNames[currentLang][month]} ${year}`;
-  
   document.getElementById('time').textContent = time;
   document.getElementById('date').textContent = formattedDate;
 }
-setInterval(updateTime, 1000); updateTime();
+setInterval(updateTime, 1000);
 
-// Toggle bahasa
-document.getElementById('langSwitch').addEventListener('change', ()=>{
-  currentLang = document.getElementById('langSwitch').checked ? 'en' : 'id';
+const tabTranslations = {
+  en: {
+    intro: "Introduction",
+    projects: "Projects",
+    howto: "How to Use"
+  },
+  id: {
+    intro: "Pendahuluan",
+    projects: "Proyek",
+    howto: "Cara Penggunaan"
+  }
+};
+
+function updateTabLabels(lang){
+  const tIntro = document.getElementById('tab-intro');
+  const tProjects = document.getElementById('tab-projects');
+  const tHowto = document.getElementById('tab-howto');
+  if(tIntro) tIntro.textContent = tabTranslations[lang].intro;
+  if(tProjects) tProjects.textContent = tabTranslations[lang].projects;
+  if(tHowto) tHowto.textContent = tabTranslations[lang].howto;
+}
+
+const langSwitch = document.getElementById('langSwitch');
+langSwitch.addEventListener('change', () => {
+  currentLang = langSwitch.checked ? 'en' : 'id';
   updateContent();
 });
 
-// Fade-in card animation
-window.addEventListener('scroll', ()=>{
-  document.querySelectorAll('.card').forEach(card=>{
-    const rect = card.getBoundingClientRect();
-    if(rect.top < window.innerHeight-50){
-      card.classList.add('visible');
-    }
-  });
+window.addEventListener('load', ()=>{
+  document.querySelectorAll('.card').forEach(card=> card.classList.add('visible'));
+  switchTab('intro', { currentTarget: document.getElementById('tab-intro') });
 });
 
 updateContent();
