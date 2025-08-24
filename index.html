@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>ncexs Projects</title>
+<title>ncexs Toolkit</title>
 <style>
 body { font-family: 'Segoe UI', sans-serif; margin:0; padding:0; color:#222; background:#f6f8fa; }
 header {
@@ -288,13 +288,21 @@ input:checked + .slider:before { transform:translateX(26px); content:"EN";}
 
 <div id="projects" class="container projects-section hidden">
   <div class="card" id="card-toolkit">
-    <h3>ncexs Toolkit v2.0</h3>
+    <h3>ncexs Toolkit v2.1 Enhanced Edition</h3>
     <div id="changelog-toolkit"></div>
+    <a class="download-btn" href="https://github.com/ncexs/ncexs-toolkit/releases/download/v2.1/ncexs.Toolkit.v2.1.Enhanced.Edition.zip" target="_blank">Download</a>
+    <a class="changelog-btn" href="https://github.com/ncexs/ncexs-toolkit/releases/tag/v2.1" target="_blank">Full Changelog</a>
+  </div>
+  
+  <div class="card" id="card-toolkit20">
+    <h3>ncexs Toolkit v2.0 Extended</h3>
+    <div id="changelog-toolkit20"></div>
     <a class="download-btn" href="https://github.com/ncexs/ncexs-toolkit/releases/download/v2.0/ncexs.Toolkit.v2.0.Extended.zip" target="_blank">Download</a>
     <a class="changelog-btn" href="https://github.com/ncexs/ncexs-toolkit/releases/tag/v2.0" target="_blank">Full Changelog</a>
   </div>
+  
   <div class="card" id="card-jc13">
-    <h3>ncexs JunkCleaner v1.3</h3>
+    <h3>ncexs JunkCleaner v1.3 (EOL)</h3>
     <div id="changelog-jc13"></div>
     <a class="download-btn" href="https://github.com/ncexs/ncexs-junkcleaner/releases/download/v1.3/ncexs-junkcleaner-v1.3-EOL.zip" target="_blank">Download</a>
     <a class="changelog-btn" href="https://github.com/ncexs/ncexs-junkcleaner/releases/tag/v1.3" target="_blank">Full Changelog</a>
@@ -336,7 +344,8 @@ const introTexts = {
     "security-card":"<span class='section-title'>🛡️ Keamanan & Kepercayaan</span><p>🔹 Script open-source untuk transparansi penuh<br>🔹 Terverifikasi VirusTotal - Periksa rilis terbaru</p><a class='download-btn' href='https://www.virustotal.com/' target='_blank'>Cek di VirusTotal</a>",
     "github-card":"<span class='section-title'>📦 Repository GitHub</span><p>🔹 Semua proyek tersedia di GitHub.<br>🔹 Bisa dicek untuk versi terbaru dan changelog lengkap.</p><a class='download-btn' href='https://github.com/ncexs' target='_blank'>Lihat Profil GitHub</a>",
     "support-card":"<span class='section-title'>💖 Dukung Saya</span><p>🙏 Jika kamu suka projek ini, dukung saya melalui Saweria.</p><a class='download-btn' href='https://saweria.co/ncexs' target='_blank'>Saweria</a>",
-    "changelog-toolkit":"<ul><li>✨ Menu interaktif (1–5) untuk berbagai fungsi</li><li>🛠️ Pembersihan mendalam: leftover uninstall, registry orphan, temp files</li><li>🛡️ Integrasi antivirus</li><li>📝 Sistem log bersih dengan timestamp</li><li>🔧 Migrasi dari .bat ke PowerShell</li><li>🧩 Desain modular</li><li>🚀 Evolusi dari JunkCleaner ke Toolkit penuh</li></ul>",
+    "changelog-toolkit":"<ul><li>✨ Menu interaktif (1–7) dengan lebih banyak fitur</li><li>📊 System Info - Informasi sistem lengkap</li><li>🌐 Network Repair - Perbaikan jaringan (TCP/IP reset, DNS flush)</li><li>🛠️ Pembersihan mendalam dengan penghitungan file</li><li>📝 Enhanced logging dengan level dan warna</li><li>⏳ Progress indicators untuk operasi panjang</li><li>🔄 Dukungan browser lebih banyak (Chrome, Edge, Brave, Firefox)</li><li>🔧 Error handling yang lebih baik</li></ul>",
+    "changelog-toolkit20":"<ul><li>✨ Menu interaktif (1–5) untuk berbagai fungsi</li><li>🛠️ Pembersihan mendalam: leftover uninstall, registry orphan, temp files</li><li>🛡️ Integrasi antivirus</li><li>📝 Sistem log bersih dengan timestamp</li><li>🔧 Migrasi dari .bat ke PowerShell</li><li>🧩 Desain modular</li><li>🚀 Evolusi dari JunkCleaner ke Toolkit penuh</li></ul>",
     "changelog-jc13":"<ul><li>💾 Opsi pembersihan RAM (🙏 Spesial terima kasih untuk <a href='https://www.youtube.com/@ryzprogm' target='_blank'>Ryzki Romadoni</a>)</li><li>🖥️ Prompt interaktif</li><li>📂 Pembersihan cache browser efisien</li><li>📝 Log output bersih</li><li>⚠️ Versi ini EOL</li></ul>",
     "changelog-jc12":"<ul><li>🧹 Pembersihan file sisa uninstall</li><li>🛠️ Peningkatan performa</li><li>📝 Log lebih lengkap</li></ul>",
     "changelog-jc11":"<ul><li>🧹 Pembersihan temp & leftover uninstall</li><li>⚡ Bug minor diperbaiki</li><li>📁 Struktur folder lebih rapi</li></ul>",
@@ -347,7 +356,8 @@ const introTexts = {
     "security-card":"<span class='section-title'>🛡️ Security & Trust</span><p>🔹 Open-source scripts for full transparency<br>🔹 VirusTotal verified – Check latest release</p><a class='download-btn' href='https://www.virustotal.com/' target='_blank'>Check on VirusTotal</a>",
     "github-card":"<span class='section-title'>📦 GitHub Repository</span><p>🔹 All projects are available on GitHub.<br>🔹 Check for latest versions and full changelog.</p><a class='download-btn' href='https://github.com/ncexs' target='_blank'>View GitHub Profile</a>",
     "support-card":"<span class='section-title'>💖 Support Me</span><p>🙏 If you like these projects, support me via Saweria.</p><a class='download-btn' href='https://saweria.co/ncexs' target='_blank'>Saweria</a>",
-    "changelog-toolkit":"<ul><li>✨ Interactive menu (1–5) for multiple functions</li><li>🛠️ Deep cleaning: leftover uninstall files, registry orphan, temp files</li><li>🛡️ Antivirus scan integration</li><li>📝 Clean log system with timestamps</li><li>🔧 Migration from .bat to PowerShell</li><li>🧩 Modular design</li><li>🚀 Evolution from JunkCleaner to full Toolkit</li></ul>",
+    "changelog-toolkit":"<ul><li>✨ Interactive menu (1–7) with more features</li><li>📊 System Info - Complete system information dashboard</li><li>🌐 Network Repair - Network troubleshooting (TCP/IP reset, DNS flush)</li><li>🛠️ Deep cleanup with file counters</li><li>📝 Enhanced logging with levels and colors</li><li>⏳ Progress indicators for lengthy operations</li><li>🔄 Expanded browser support (Chrome, Edge, Brave, Firefox)</li><li>🔧 Improved error handling</li></ul>",
+    "changelog-toolkit20":"<ul><li>✨ Interactive menu (1–5) for various functions</li><li>🛠️ Deep cleanup: uninstall leftovers, registry orphans, temp files</li><li>🛡️ Antivirus integration</li><li>📝 Clean logging system with timestamps</li><li>🔧 Migration from .bat to PowerShell</li><li>🧩 Modular design</li><li>🚀 Evolution from JunkCleaner to full Toolkit</li></ul>",
     "changelog-jc13":"<ul><li>💾 RAM cleaning option (🙏 Special thanks to <a href='https://www.youtube.com/@ryzprogm' target='_blank'>Ryzki Romadoni</a>)</li><li>🖥️ Interactive prompts</li><li>📂 Efficient browser cache cleanup</li><li>📝 Clear output logs</li><li>⚠️ This version is EOL</li></ul>",
     "changelog-jc12":"<ul><li>🧹 Uninstall leftover cleanup</li><li>🛠️ Performance improvements</li><li>📝 More detailed log files</li></ul>",
     "changelog-jc11":"<ul><li>🧹 Temp & leftover uninstall cleanup</li><li>⚡ Minor bug fixes</li><li>📁 Cleaner folder structure</li></ul>",
@@ -360,21 +370,24 @@ const howtoTexts = {
     "howto-toolkit-text": `<span class='section-title'>📝 Cara Penggunaan - ncexs Toolkit</span>
       <ol>
         <li>Ekstrak file ZIP (klik kanan → Extract All)</li>
-        <li>Klik kanan pada <b>ncexs Toolkit.ps1</b> → Pilih Run with PowerShell</li>
+        <li>Klik kanan pada <b>ncexs Toolkit.ps1</b> → Pilih "Run with PowerShell"</li>
         <li>Jika muncul 'Windows protected your PC': Klik 'More info' → 'Run anyway'</li>
         <li>Klik 'Yes' jika diminta izin administrator</li>
-        <li>Pilih menu interaktif (1–5):
+        <li>Pilih menu interaktif (1–7):
           <ul>
-            <li>1 → Junk & Cache Cleaner</li>
-            <li>2 → Deep Cleanup</li>
-            <li>3 → Antivirus Scan</li>
-            <li>4 → Clear RAM</li>
-            <li>5 → Exit</li>
+            <li>1 → System Info (Informasi sistem lengkap)</li>
+            <li>2 → Junk Cleaner (File temporary & cache browser)</li>
+            <li>3 → Deep Cleanup (Pembersihan mendalam)</li>
+            <li>4 → AV Scan (Microsoft Defender Quick Scan)</li>
+            <li>5 → Clear RAM (Optimisasi memori)</li>
+            <li>6 → Network Repair (Perbaikan jaringan)</li>
+            <li>7 → Exit (Keluar program)</li>
           </ul>
         </li>
-        <li>Cek <b>log_ncexs.txt</b> untuk laporan pembersihan</li>
+        <li>Cek <b>log_ncexs-toolkit-*.txt</b> untuk laporan operasi</li>
       </ol>
-      <p>💡 Tip: Jalankan PowerShell sebagai Administrator untuk akses penuh</p>`,
+      <p>💡 Tip: Jalankan PowerShell sebagai Administrator untuk akses penuh</p>
+      <p>💡 Tip: Gunakan Junk Cleaner secara rutin, Deep Cleanup setiap bulan, dan System Info untuk memantau kesehatan sistem Anda.</p>`,
     "howto-jc-text": `<span class='section-title'>📝 Cara Penggunaan - ncexs JunkCleaner</span>
       <ol>
         <li>Ekstrak file ZIP (klik kanan → Extract All)</li>
@@ -395,22 +408,25 @@ const howtoTexts = {
   en: {
     "howto-toolkit-text": `<span class='section-title'>📝 How to Use - ncexs Toolkit</span>
       <ol>
-        <li>Extract the ZIP file (right-click → Extract All)</li>
-        <li>Right-click <b>ncexs Toolkit.ps1</b> → Select Run with PowerShell</li>
+        <li>Extract the ZIP file first (right-click → "Extract All")</li>
+        <li>Right-click <b>ncexs Toolkit.ps1</b> → Select "Run with PowerShell"</li>
         <li>If 'Windows protected your PC' appears: Click 'More info' → 'Run anyway'</li>
         <li>Click 'Yes' if administrator permission is requested</li>
-        <li>Select interactive menu (1–5):
+        <li>Select interactive menu (1–7):
           <ul>
-            <li>1 → Junk & Cache Cleaner</li>
-            <li>2 → Deep Cleanup</li>
-            <li>3 → Antivirus Scan</li>
-            <li>4 → Clear RAM</li>
-            <li>5 → Exit</li>
+            <li>1 → System Info (Complete system information)</li>
+            <li>2 → Junk Cleaner (Temporary files & browser cache)</li>
+            <li>3 → Deep Cleanup (Advanced cleaning)</li>
+            <li>4 → AV Scan (Microsoft Defender Quick Scan)</li>
+            <li>5 → Clear RAM (Memory optimization)</li>
+            <li>6 → Network Repair (Network troubleshooting)</li>
+            <li>7 → Exit (Close the program)</li>
           </ul>
         </li>
-        <li>Check <b>log_ncexs.txt</b> for cleanup report</li>
+        <li>Check <b>log_ncexs-toolkit-*.txt</b> for operation reports</li>
       </ol>
-      <p>💡 Tip: Run PowerShell as Administrator for full access</p>`,
+      <p>💡 Tip: Run PowerShell as Administrator for full access</p>
+      <p>💡 Tip: Use Junk Cleaner regularly, Deep Cleanup monthly, and System Info to monitor your system health.</p>`,
     "howto-jc-text": `<span class='section-title'>📝 How to Use - ncexs JunkCleaner</span>
       <ol>
         <li>Extract the ZIP file (right-click → Extract All)</li>
