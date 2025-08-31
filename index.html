@@ -46,18 +46,32 @@ header h1 span:nth-child(12) { animation-delay: 1.2s; }
 header h1 span:nth-child(13) { animation-delay: 1.3s; }
 
 header p { margin:0.8rem 0 0; font-size:1.1rem; line-height:1.5rem; font-weight:500;}
+
+.datetime-language-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 1.5rem;
+  gap: 1rem;
+  width: 100%;
+}
+
 #datetime { 
-  margin-top:1.5rem; 
   font-weight:bold; 
   background:rgba(255,255,255,0.2); 
   display:inline-block; 
-  padding:1rem 1.8rem; 
+  padding:1rem 1.5rem; 
   border-radius:18px;
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
   box-shadow: 0 4px 20px rgba(0,0,0,0.12);
   transition: all 0.3s ease;
   border: 1px solid rgba(255,255,255,0.15);
+  order: 1;
+  min-width: 260px;
+  max-width: 280px;
+  text-align: center;
+  box-sizing: border-box;
 }
 #datetime:hover {
   transform: translateY(-3px);
@@ -71,13 +85,120 @@ header p { margin:0.8rem 0 0; font-size:1.1rem; line-height:1.5rem; font-weight:
   margin-bottom: 0.3rem;
   text-shadow: 0 2px 4px rgba(0,0,0,0.2);
   font-family: 'Segoe UI', monospace;
+  display: block;
 }
 #date {
   font-size: 1.1rem;
   font-weight: 500;
   opacity: 0.95;
   letter-spacing: 0.5px;
+  display: block;
 }
+
+.language-toggler {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.8rem 1.2rem;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 18px;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+  transition: all 0.3s ease;
+  order: 2;
+  width: 260px;
+  max-width: 260px;
+  box-sizing: border-box;
+}
+
+.language-toggler:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.18);
+}
+
+.language-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: white;
+  white-space: nowrap;
+}
+
+.toggle-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.language-flag {
+  font-size: 1rem;
+  transition: transform 0.3s ease;
+}
+
+.switch { 
+  position: relative; 
+  display: inline-block; 
+  width: 40px; 
+  height: 20px; 
+}
+.switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.slider { 
+  position: absolute; 
+  cursor: pointer; 
+  top: 0; 
+  left: 0; 
+  right: 0; 
+  bottom: 0; 
+  background-color: rgba(255, 255, 255, 0.3); 
+  transition: .4s; 
+  border-radius: 34px; 
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  font-weight: bold;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.slider:before { 
+  position: absolute; 
+  content: ""; 
+  height: 16px; 
+  width: 16px; 
+  left: 2px; 
+  bottom: 2px; 
+  background: white; 
+  transition: .4s; 
+  border-radius: 50%; 
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+input:checked + .slider { 
+  background-color: rgba(255, 255, 255, 0.4);
+}
+input:checked + .slider:before { 
+  transform: translateX(20px); 
+}
+
+input:checked ~ .language-flag.id-flag,
+input:not(:checked) ~ .language-flag.en-flag {
+  opacity: 0.7;
+  transform: scale(0.9);
+}
+
+input:checked ~ .language-flag.en-flag,
+input:not(:checked) ~ .language-flag.id-flag {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
 .tabs-container {
   display: flex;
   justify-content: center;
@@ -102,52 +223,6 @@ header p { margin:0.8rem 0 0; font-size:1.1rem; line-height:1.5rem; font-weight:
   border:none;
 }
 .tab.active { background:#0366d6; color:white; }
-.lang-toggle {
-  display: flex;
-  align-items: center;
-  margin-left: 1rem;
-}
-.switch { 
-  position:relative; 
-  display:inline-block; 
-  width:60px; 
-  height:34px; 
-  margin-left: 0.5rem;
-}
-.switch input { display:none; }
-.slider { 
-  position:absolute; 
-  cursor:pointer; 
-  top:0; 
-  left:0; 
-  right:0; 
-  bottom:0; 
-  background-color:#ccc; 
-  transition:.4s; 
-  border-radius:34px; 
-  display:flex; 
-  align-items:center; 
-  justify-content:center; 
-  font-weight:bold;
-}
-.slider:before { 
-  position:absolute; 
-  content:"ID"; 
-  height:26px; 
-  width:26px; 
-  left:4px; 
-  bottom:4px; 
-  background:white; 
-  transition:.4s; 
-  border-radius:50%; 
-  display:flex; 
-  align-items:center; 
-  justify-content:center; 
-  font-size:14px; 
-  font-weight:bold;
-}
-input:checked + .slider { background-color:#0366d6;}
-input:checked + .slider:before { transform:translateX(26px); content:"EN";}
 
 .container { 
   width:90%; 
@@ -230,13 +305,106 @@ input:checked + .slider:before { transform:translateX(26px); content:"EN";}
   padding-left: 0.5rem;
 }
 
+.back-to-top {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: #0366d6;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  transition: all 0.3s ease;
+  opacity: 0;
+  visibility: hidden;
+  z-index: 1000;
+  border: none;
+  font-size: 24px;
+}
+
+.back-to-top.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.back-to-top:hover {
+  background: #0256a3;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.25);
+}
+
 @media (max-width: 768px) {
   header h1 { font-size: 2rem; }
   .tabs-container { flex-direction: column; }
   .tabs { flex-wrap: wrap; justify-content: center; }
   .tab { margin-bottom: 0.5rem; }
   #time { font-size: 1.8rem; }
-  .lang-toggle { margin-top: 0.5rem; margin-left: 0; }
+  
+  .datetime-language-container {
+    gap: 0.8rem;
+  }
+  
+  .language-toggler {
+    padding: 0.5rem 1rem;
+    width: 240px;
+  }
+  
+  .language-label {
+    font-size: 0.8rem;
+  }
+  
+  .language-flag {
+    font-size: 0.9rem;
+  }
+  
+  .switch { 
+    width: 36px; 
+    height: 18px; 
+  }
+  
+  .slider:before { 
+    height: 14px; 
+    width: 14px; 
+  }
+  
+  input:checked + .slider:before { 
+    transform: translateX(18px); 
+  }
+}
+
+@media (max-width: 480px) {
+  .datetime-language-container {
+    width: 100%;
+  }
+  
+  #datetime {
+    width: 90%;
+    padding: 0.8rem 1.2rem;
+    min-width: 220px;
+    max-width: 240px;
+  }
+  
+  #time {
+    font-size: 1.6rem;
+  }
+  
+  #date {
+    font-size: 1rem;
+  }
+  
+  .language-toggler {
+    width: 220px;
+    padding: 0.4rem 0.8rem;
+  }
+  
+  .language-label {
+    font-size: 0.75rem;
+  }
 }
 </style>
 </head>
@@ -259,9 +427,24 @@ input:checked + .slider:before { transform:translateX(26px); content:"EN";}
   </h1>
   <p id="header-desc-id">ncexs Toolkit adalah evolusi dari ncexs JunkCleaner<br>Alat sederhana untuk mengoptimalkan dan membersihkan Windows kamu dalam "satu klik" — tanpa ribet, tanpa drama.</p>
   <p id="header-desc-en" class="hidden">ncexs Toolkit is the evolution of ncexs JunkCleaner<br>A simple tool to optimize and clean your Windows in "one click" — no bloat, no drama.</p>
-  <div id="datetime">
-    <div id="time"></div>
-    <div id="date"></div>
+  
+  <div class="datetime-language-container">
+    <div id="datetime">
+      <div id="time">00:00</div>
+      <div id="date">Loading...</div>
+    </div>
+    
+    <div class="language-toggler">
+      <span class="language-label" id="language-label">Ubah Bahasa</span>
+      <div class="toggle-container">
+        <span class="language-flag id-flag">🇮🇩</span>
+        <label class="switch" title="Toggle bahasa (ID/EN)">
+          <input type="checkbox" id="langSwitch">
+          <span class="slider"></span>
+        </label>
+        <span class="language-flag en-flag">🇺🇸</span>
+      </div>
+    </div>
   </div>
 </header>
 
@@ -271,22 +454,22 @@ input:checked + .slider:before { transform:translateX(26px); content:"EN";}
     <div class="tab" data-key="projects" onclick="switchTab('projects', event)" id="tab-projects">Projects</div>
     <div class="tab" data-key="howto" onclick="switchTab('howto', event)" id="tab-howto">How to Use</div>
   </div>
-  <div class="lang-toggle">
-    <label class="switch" title="Toggle bahasa (ID/EN)">
-      <input type="checkbox" id="langSwitch">
-      <span class="slider"></span>
-    </label>
-  </div>
 </div>
 
 <div id="intro" class="container">
   <div class="card" id="profile-card"></div>
-  <div class="card" id="github-card"></div>
   <div class="card" id="security-card"></div>
   <div class="card" id="support-card"></div>
 </div>
 
 <div id="projects" class="container projects-section hidden">
+  <div class="card" id="card-toolkit221">
+    <h3>ncexs Toolkit v2.2.1 Hotfix Release</h3>
+    <div id="changelog-toolkit221"></div>
+    <a class="download-btn" href="https://github.com/ncexs/ncexs-toolkit/releases/download/v2.2.1/ncexs.Toolkit.v2.2.1.hotfix.zip" target="_blank">Download</a>
+    <a class="changelog-btn" href="https://github.com/ncexs/ncexs-toolkit/releases/tag/v2.2.1" target="_blank">Full Changelog</a>
+  </div>
+
   <div class="card" id="card-toolkit22">
     <h3>ncexs Toolkit v2.2 Advanced Release</h3>
     <div id="changelog-toolkit22"></div>
@@ -314,18 +497,21 @@ input:checked + .slider:before { transform:translateX(26px); content:"EN";}
     <a class="download-btn" href="https://github.com/ncexs/ncexs-junkcleaner/releases/download/v1.3/ncexs-junkcleaner-v1.3-EOL.zip" target="_blank">Download</a>
     <a class="changelog-btn" href="https://github.com/ncexs/ncexs-junkcleaner/releases/tag/v1.3" target="_blank">Full Changelog</a>
   </div>
+  
   <div class="card" id="card-jc12">
     <h3>ncexs JunkCleaner v1.2</h3>
     <div id="changelog-jc12"></div>
     <a class="download-btn" href="https://github.com/ncexs/ncexs-junkcleaner/releases/download/v1.2/ncexs-junkcleaner-v1.2.zip" target="_blank">Download</a>
     <a class="changelog-btn" href="https://github.com/ncexs/ncexs-junkcleaner/releases/tag/v1.2" target="_blank">Full Changelog</a>
   </div>
+  
   <div class="card" id="card-jc11">
     <h3>ncexs JunkCleaner v1.1</h3>
     <div id="changelog-jc11"></div>
     <a class="download-btn" href="https://github.com/ncexs/ncexs-junkcleaner/releases/tag/v1.1" target="_blank">Download</a>
     <a class="changelog-btn" href="https://github.com/ncexs/ncexs-junkcleaner/releases/tag/v1.1" target="_blank">Full Changelog</a>
   </div>
+  
   <div class="card" id="card-jc10">
     <h3>ncexs JunkCleaner v1.0</h3>
     <div id="changelog-jc10"></div>
@@ -347,10 +533,10 @@ input:checked + .slider:before { transform:translateX(26px); content:"EN";}
 let currentLang = "id";
 const introTexts = {
   id: {
-    "profile-card":"<span class='section-title'>👤 Halo, saya ncexs</span><p>Developer yang sedang belajar membuat tool ringan & berguna untuk semua.<br>Saya membuat toolkit ini untuk membantu saya dan orang lain mengelola sistem Windows mereka dengan lebih efisien dan terus berupaya untuk meningkatkan toolkit ini.</p>",
+    "profile-card":"<span class='section-title'>👤 Halo, saya ncexs</span><p>Developer yang sedang belajar membuat tool ringan & berguna untuk semua.<br>Saya membuat toolkit ini untuk membantu saya dan orang lain mengelola sistem Windows mereka dengan lebih efisien dan terus berupaya untuk meningkatkan toolkit ini.</p><a class='download-btn' href='https://github.com/ncexs' target='_blank'>Lihat Profil GitHub</a>",
     "security-card":"<span class='section-title'>🛡️ Keamanan & Kepercayaan</span><p>Toolkit ini transparan, tidak menyimpan data pribadi, dan sepenuhnya open-source.<br>Anda dapat memeriksanya sendiri menggunakan VirusTotal yang telah disediakan.</p><a class='download-btn' href='https://www.virustotal.com/' target='_blank'>Cek di VirusTotal</a>",
-    "github-card":"<span class='section-title'>📦 Repository GitHub</span><p>Proyek ini sepenuhnya open-source, dan Anda bisa berkontribusi dengan melaporkan bug, menyarankan fitur, atau menambah kode.</p><a class='download-btn' href='https://github.com/ncexs' target='_blank'>Lihat Profil GitHub</a>",
-    "support-card":"<span class='section-title'>💖 Dukung Saya</span><p>Saya menghargai dukungan dan umpan balik Anda. Jika kamu suka projek ini, dukung saya melalui Saweria. 🙏</p><a class='download-btn' href='https://saweria.co/ncexs' target='_blank'>Saweria</a>",
+    "support-card":"<span class='section-title'>💖 Dukung Saya</span><p>Saya mengucapkan terima kasih atas dukungan dan umpan balik yang telah diberikan. Apabila Anda tertarik dengan proyek ini, Anda dapat memberikan dukungan melalui tautan Saweria berikut.</p><a class='download-btn' href='https://saweria.co/ncexs' target='_blank'>Saweria</a>",
+    "changelog-toolkit221": "<ul><li>🌐 Dukungan Multi-bahasa (Indonesia/English)</li><li>🔐 Advanced Startup Manager</li><li>📋 Kompatibilitas Universal untuk Semua PC</li><li>🛡️ Smart Admin Access Management</li><li>🔧 Perbaikan Kebijakan Eksekusi PowerShell</li><li>🐛 Perbaikan Error pada Sistem Windows Lama</li><li>⚡ Peningkatan Performa dan Stabilitas</li><li>🛠️ Perbaikan Kompatibilitas Network Utilities</li></ul>",
     "changelog-toolkit22": "<ul><li>🗑️ Menu Recycle Bin Khusus</li><li>📋 Tata Letak Menu Utama Baru</li><li>🔧 Perbaikan dan peningkatan sistem</li><li>⚡ Peningkatan performa keseluruhan</li><li>🐛 Perbaikan bug dan error handling</li><li>🛡️ Peningkatan keamanan dan manajemen akses</li></ul>",
     "changelog-toolkit": "<ul><li>✨ Menu interaktif (1–7) dengan lebih banyak fitur</li><li>📊 System Info - Informasi sistem lengkap</li><li>🌐 Network Repair - Reset TCP/IP & flush DNS</li><li>🛠️ Deep Cleanup dengan penghitungan file</li><li>📝 Enhanced logging (level & warna)</li><li>🔄 Dukungan browser lebih banyak</li><li>🔧 Error handling lebih baik</li><li>🛡️ Fitur keamanan tambahan</li><li>📁 Struktur kode modular & terorganisir</li></ul>",
     "changelog-toolkit20": "<ul><li>✨ Menu interaktif (1–5) untuk fungsi utama</li><li>🛠️ Deep Cleanup: leftover uninstall, registry orphan, temp files</li><li>🛡️ Integrasi antivirus (Windows Defender)</li><li>📝 Logging bersih dengan timestamp</li><li>🔧 Migrasi dari .bat ke PowerShell modular</li><li>🚀 Evolusi dari JunkCleaner → Toolkit penuh</li><li>⚡ Peningkatan performa & stabilitas</li></ul>",
@@ -360,10 +546,10 @@ const introTexts = {
     "changelog-jc10":"<ul><li>🚀 Rilis awal ncexs JunkCleaner v1.0</li><li>🧹 Pembersihan temp dasar (%TEMP%, C:\\Windows\\Temp)</li><li>📁 Mendukung folder default Windows & cache app populer</li><li>📝 Logging sederhana</li><li>🔧 Script batch dasar untuk cleaning</li></ul>"
   },
   en: {
-    "profile-card":"<span class='section-title'>👤 Hello, I'm ncexs</span><p>A developer learning to build lightweight & useful tools for everyone.<br>I created this toolkit to help myself and others manage their Windows systems more efficiently and continuously strive to improve it.",
+    "profile-card":"<span class='section-title'>👤 Hello, I'm ncexs</span><p>A developer learning to build lightweight & useful tools for everyone.<br>I created this toolkit to help myself and others manage their Windows systems more efficiently and continuously strive to improve it.</p><a class='download-btn' href='https://github.com/ncexs' target='_blank'>View GitHub Profile</a>",
     "security-card":"<span class='section-title'>🛡️ Security & Trust</span><p>This toolkit is transparent, does not store personal data, and fully open-source.<br>You can check it yourself using the provided VirusTotal link.</p><a class='download-btn' href='https://www.virustotal.com/' target='_blank'>Check on VirusTotal</a>",
-    "github-card":"<span class='section-title'>📦 GitHub Repository</span><p>This project is fully open-source, and you can contribute by reporting bugs, suggesting features, or adding code.</p><a class='download-btn' href='https://github.com/ncexs' target='_blank'>View GitHub Profile</a>",
-    "support-card":"<span class='section-title'>💖 Support Me</span><p>I appreciate your support and feedback. If you like these projects, support me via Saweria. 🙏</p><a class='download-btn' href='https://saweria.co/ncexs' target='_blank'>Saweria</a>",
+    "support-card":"<span class='section-title'>💖 Support Me</span><p>I would like to express my gratitude for your support and feedback. If you are interested in this project, you can provide support via the Saweria link below</p><a class='download-btn' href='https://saweria.co/ncexs' target='_blank'>Saweria</a>",
+    "changelog-toolkit221": "<ul><li>🌐 Multi-language Support (ID/EN)</li><li>🔐 Advanced Startup Manager</li><li>📋 Universal PC Compatibility</li><li>🛡️ Smart Admin Access Management</li><li>🔧 PowerShell Execution Policy Fixes</li><li>🐛 Legacy Windows System Error Fixes</li><li>⚡ Performance and Stability Enhancements</li><li>🛠️ Network Utilities Compatibility Fixes</li></ul>",
     "changelog-toolkit22":"<ul><li>🗑️ Custom Recycle Bin Menu</li><li>📋 New Main Menu Layout</li><li>🔧 System fixes and improvements</li><li>⚡ Overall performance enhancements</li><li>🐛 Bug fixes and error handling</li><li>🛡️ Security and access management upgrades</li></ul>",
     "changelog-toolkit":"<ul><li>✨ Interactive menu (1–7) with more features</li><li>📊 System Info - Complete system information dashboard</li><li>🌐 Network Repair - Network troubleshooting (TCP/IP reset, DNS flush)</li><li>🛠️ Deep cleanup with file counters</li><li>📝 Enhanced logging with levels and colors</li><li>🔄 Expanded browser support</li><li>🔧 Improved error handling</li><li>🛡️ Additional security features</li><li>📁 More organized code structure</li></ul>",
     "changelog-toolkit20":"<ul><li>✨ Interactive menu (1–5) for various functions</li><li>🛠️ Deep cleanup: uninstall leftovers, registry orphans, temp files</li><li>🛡️ Antivirus integration</li><li>📝 Clean logging system with timestamps</li><li>🔧 Migration from .bat to PowerShell</li><li>🧩 Modular design</li><li>🚀 Evolution from JunkCleaner to full Toolkit</li><li>⚡ Performance and stability improvements</li></ul>",
@@ -380,25 +566,26 @@ const howtoTexts = {
       <ol>
         <li>Ekstrak file ZIP (klik kanan → Extract All)</li>
         <li>Klik kanan pada <b>ncexs Toolkit.ps1</b> → Pilih "Run with PowerShell"</li>
-        <li>Jika muncul 'Windows protected your PC': Klik 'More info' → 'Run anyway'</li>
-        <li>Klik 'Yes' jika diminta izin administrator</li>
-        <li>Pilih menu interaktif (1–8):
+        <li>Jika muncul 'Do you want to allow this app?': Klik 'Yes' untuk izin administrator</li>
+        <li>Pilih menu interaktif (1–10):
           <ul>
             <li>1 → System Info (Informasi spesifikasi sistem lengkap)</li>
             <li>2 → Junk Cleaner (File temporary & cache browser)</li>
             <li>3 → Empty Recycle Bin (Kosongkan Recycle Bin - PERMANEN!)</li>
-            <li>4 → Deep Cleanup (Sisa uninstall & pembersihan registry)</li>
-            <li>5 → Network Repair (Reset TCP/IP & flush DNS)</li>
-            <li>6 → Clear RAM (Optimisasi memori)</li>
-            <li>7 → AV Scan (Microsoft Defender Quick Scan))</li>
-            <li>8 → Exit (Keluar program)</li>
+            <li>4 → Deep Cleanup (Sisa Windows Update & pembersihan mendalam)</li>
+            <li>5 → Network Utilities (Perbaikan jaringan & optimasi internet)</li>
+            <li>6 → Memory Optimizer (Optimisasi memori RAM)</li>
+            <li>7 → AV Scan (Microsoft Defender Quick Scan)</li>
+            <li>8 → Startup Manager (Kelola program startup)</li>
+            <li>9 → Language Settings (Pengaturan bahasa Indonesia/English)</li>
+            <li>10 → Exit (Keluar program)</li>
           </ul>
         </li>
         <li>Cek <b>log_ncexs-toolkit-*.txt</b> untuk laporan operasi</li>
       </ol>
       <p>⚠️ Peringatan: Menu 3 (Empty Recycle Bin) akan menghapus file secara PERMANEN. Pastikan file tersebut sudah tidak dibutuhkan lagi sebelum melanjutkan.</p>
-      <p>⚠️ Peringatan: Menu 6 (Antivirus Scan) dapat memakan waktu lama tergantung jumlah file di sistem Anda. Disarankan untuk tidak menutup program selama pemindaian berlangsung.</p>
-      <p>💡 Tip: Gunakan Junk Cleaner secara rutin, Deep Cleanup setiap bulan, dan System Info untuk memantau kesehatan sistem Anda.</p>`,
+      <p>⚠️ Peringatan: Menu 7 (Antivirus Scan) dapat memakan waktu lama tergantung jumlah file di sistem Anda.</p>
+      <p>💡 Tip: Gunakan secara rutin untuk performa sistem optimal. Backup data penting sebelum melakukan operasi pembersihan.</p>`,
     "howto-jc-text": `<span class='section-title'>📝 Cara Penggunaan - ncexs JunkCleaner</span>
       <ol>
         <li>Ekstrak file ZIP (klik kanan → Extract All)</li>
@@ -421,25 +608,26 @@ const howtoTexts = {
       <ol>
         <li>Extract the ZIP file first (right-click → "Extract All")</li>
         <li>Right-click <b>ncexs Toolkit.ps1</b> → Select "Run with PowerShell"</li>
-        <li>If 'Windows protected your PC' appears: Click 'More info' → 'Run anyway'</li>
-        <li>Click 'Yes' if administrator permission is requested</li>
-        <li>Select interactive menu (1–8):
+        <li>If 'Do you want to allow this app?' appears: Click 'Yes' for administrator permission</li>
+        <li>Select interactive menu (1–10):
           <ul>
             <li>1 → System Info (Complete system specifications)</li>
             <li>2 → Junk Cleaner (Temporary files & browser cache)</li>
             <li>3 → Empty Recycle Bin (Permanently delete Recycle Bin contents!)</li>
-            <li>4 → Deep Cleanup (Uninstall leftovers & registry cleanup)</li>
-            <li>5 → Network Repair (TCP/IP reset & DNS flush)</li>
-            <li>6 → Clear RAM (Memory optimization)</li>
+            <li>4 → Deep Cleanup (Windows Update leftovers & deep cleaning)</li>
+            <li>5 → Network Utilities (Network repair & internet optimization)</li>
+            <li>6 → Memory Optimizer (RAM memory optimization)</li>
             <li>7 → AV Scan (Microsoft Defender Quick Scan)</li>
-            <li>8 → Exit (Close the program)</li>
+            <li>8 → Startup Manager (Manage startup programs)</li>
+            <li>9 → Language Settings (Indonesian/English language preferences)</li>
+            <li>10 → Exit (Close the program)</li>
           </ul>
         </li>
         <li>Check <b>log_ncexs-toolkit-*.txt</b> for operation reports</li>
       </ol>
       <p>⚠️ Warning: Menu 3 (Empty Recycle Bin) will permanently delete files. Make sure the files are no longer needed before proceeding.</p>
-      <p>⚠️ Warning: Menu 6 (Antivirus Scan) may take a long time depending on the number of files being scanned. Please be patient until the process is complete.</p>
-      <p>💡 Tip: Use Junk Cleaner regularly, Deep Cleanup monthly, and System Info to monitor your system health.</p>`,
+      <p>⚠️ Warning: Menu 7 (Antivirus Scan) may take a long time depending on the number of files being scanned.</p>
+      <p>💡 Tip: Use regularly for optimal system performance. Always backup important data before cleanup operations.</p>`,
     "howto-jc-text": `<span class='section-title'>📝 How to Use - ncexs JunkCleaner</span>
       <ol>
         <li>Extract the ZIP file (right-click → Extract All)</li>
@@ -468,8 +656,20 @@ function updateContent() {
   }
   document.getElementById('header-desc-id').classList.toggle('hidden', currentLang==='en');
   document.getElementById('header-desc-en').classList.toggle('hidden', currentLang==='id');
+  
+  // Perbaikan: Update teks "Ubah Bahasa" menjadi "Change Language"
+  document.getElementById('language-label').textContent = currentLang === 'id' ? 'Ubah Bahasa' : 'Change Language';
+  
   updateTabLabels(currentLang);
   updateTime();
+  
+  backToTopBtn.setAttribute('title', tabTranslations[currentLang].backToTop);
+  
+  const activeTab = document.querySelector('.tab.active');
+  if (activeTab) {
+    const tabKey = activeTab.getAttribute('data-key');
+    switchTab(tabKey, { currentTarget: activeTab });
+  }
 }
 
 function switchTab(tabName, evt){
@@ -490,14 +690,23 @@ const monthNames = {
 
 function updateTime(){
   const now = new Date();
-  const hours = now.getHours().toString().padStart(2, '0');
+  let hours = now.getHours();
   const minutes = now.getMinutes().toString().padStart(2, '0');
-  const seconds = now.getSeconds().toString().padStart(2, '0');
   const day = now.getDay();
   const date = now.getDate();
   const month = now.getMonth();
   const year = now.getFullYear();
-  const time = `${hours}:${minutes}:${seconds}`;
+  
+  let time = "";
+  if (currentLang === "id") {
+    time = `${hours.toString().padStart(2, '0')}:${minutes}`;
+  } else {
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+    hours = hours % 12;
+    hours = hours ? hours : 12;
+    time = `${hours.toString().padStart(2, '0')}:${minutes} ${ampm}`;
+  }
+  
   const formattedDate = `${dayNames[currentLang][day]}, ${date} ${monthNames[currentLang][month]} ${year}`;
   document.getElementById('time').textContent = time;
   document.getElementById('date').textContent = formattedDate;
@@ -507,13 +716,15 @@ setInterval(updateTime, 1000);
 const tabTranslations = {
   en: {
     intro: "Introduction",
-    projects: "Projects",
-    howto: "How to Use"
+    projects: "Projects", 
+    howto: "How to Use",
+    backToTop: "Back to Top"
   },
   id: {
     intro: "Pendahuluan",
     projects: "Proyek",
-    howto: "Cara Penggunaan"
+    howto: "Cara Penggunaan", 
+    backToTop: "Kembali ke Atas"
   }
 };
 
@@ -521,6 +732,7 @@ function updateTabLabels(lang){
   const tIntro = document.getElementById('tab-intro');
   const tProjects = document.getElementById('tab-projects');
   const tHowto = document.getElementById('tab-howto');
+  
   if(tIntro) tIntro.textContent = tabTranslations[lang].intro;
   if(tProjects) tProjects.textContent = tabTranslations[lang].projects;
   if(tHowto) tHowto.textContent = tabTranslations[lang].howto;
@@ -530,17 +742,42 @@ const langSwitch = document.getElementById('langSwitch');
 langSwitch.addEventListener('change', () => {
   currentLang = langSwitch.checked ? 'en' : 'id';
   updateContent();
+  updateTime();
+});
+
+const backToTopBtn = document.createElement('button');
+backToTopBtn.id = 'backToTop';
+backToTopBtn.className = 'back-to-top';
+backToTopBtn.innerHTML = '↑';
+backToTopBtn.setAttribute('title', tabTranslations[currentLang].backToTop);
+document.body.appendChild(backToTopBtn);
+
+window.addEventListener('scroll', () => {
+  if (window.pageYOffset > 300) {
+    backToTopBtn.classList.add('show');
+  } else {
+    backToTopBtn.classList.remove('show');
+  }
+});
+
+backToTopBtn.addEventListener('click', () => {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
 });
 
 window.addEventListener('load', ()=>{
   document.querySelectorAll('.card').forEach(card=> card.classList.add('visible'));
   switchTab('intro', { currentTarget: document.getElementById('tab-intro') });
+  langSwitch.checked = currentLang === 'en';
+  updateContent();
+  updateTime();
 });
 
+updateTime();
 updateContent();
 </script>
-<!-- Tambahkan div id="top" di atas halaman -->
-<div id="top"></div>
 
 <footer style="text-align:center; margin-top:1rem; padding:1.5rem 0; font-size:0.8rem; color:#888; border-top:1px solid #ccc; position:relative;">
     <p>© 2025 ncexs Toolkit<br>
