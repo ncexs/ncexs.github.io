@@ -306,6 +306,14 @@ input:not(:checked) ~ .language-flag.id-flag {
   padding-left: 0.5rem;
 }
 
+/* === PERUBAHAN DIMULAI DI SINI === */
+
+@keyframes pulse-button {
+  0% { transform: scale(1); box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
+  50% { transform: scale(1.03); box-shadow: 0 6px 15px rgba(0,0,0,0.3); }
+  100% { transform: scale(1); box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
+}
+
 .back-to-top {
   position: fixed;
   bottom: 30px;
@@ -313,14 +321,14 @@ input:not(:checked) ~ .language-flag.id-flag {
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  background: #0366d6;
+  background: linear-gradient(45deg, #0366d6, #00aaff); /* Background gradient */
   color: white;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-  transition: all 0.3s ease;
+  transition: all 0.4s ease; /* Transisi lebih lambat */
   opacity: 0;
   visibility: hidden;
   z-index: 1000;
@@ -331,13 +339,17 @@ input:not(:checked) ~ .language-flag.id-flag {
 .back-to-top.show {
   opacity: 1;
   visibility: visible;
+  animation: pulse-button 2s infinite ease-in-out; /* Animasi denyutan */
 }
 
 .back-to-top:hover {
-  background: #0256a3;
-  transform: translateY(-3px);
-  box-shadow: 0 6px 15px rgba(0,0,0,0.25);
+  background: linear-gradient(45deg, #0256a3, #0088cc); /* Gradient sedikit berbeda saat hover */
+  transform: scale(1.1); /* Sedikit membesar */
+  box-shadow: 0 8px 20px rgba(0,0,0,0.4); /* Bayangan lebih intens */
+  animation: none; /* Hentikan animasi denyutan saat dihover */
 }
+
+/* === PERUBAHAN BERAKHIR DI SINI === */
 
 @media (max-width: 768px) {
   header h1 { font-size: 2rem; }
@@ -464,6 +476,14 @@ input:not(:checked) ~ .language-flag.id-flag {
 </div>
 
 <div id="projects" class="container projects-section hidden">
+  
+  <div class="card" id="card-toolkit23">
+    <h3><i class="fas fa-rocket"></i> ncexs Toolkit v2.3 Refined Release</h3>
+    <div id="changelog-toolkit23"></div>
+    <a class="download-btn" href="https://github.com/ncexs/ncexs-toolkit/releases/download/v2.3/ncexs-Toolkit-v2.3.refined-release.ps1" target="_blank"><i class="fas fa-download"></i> Download</a>
+    <a class="changelog-btn" href="https://github.com/ncexs/ncexs-toolkit/releases/tag/v2.3" target="_blank"><i class="fas fa-list"></i> Full Changelog</a>
+  </div>
+  
   <div class="card" id="card-toolkit222">
     <h3><i class="fas fa-toolbox"></i> ncexs Toolkit v2.2.2 Final Hotfix</h3>
     <div id="changelog-toolkit222"></div>
@@ -532,6 +552,9 @@ input:not(:checked) ~ .language-flag.id-flag {
   <div class="card" id="howto-toolkit-card">
     <div id="howto-toolkit-text"></div>
   </div>
+  <div class="card" id="education-card">
+    <div id="education-text"></div>
+  </div>
   <div class="card" id="howto-jc-card">
     <div id="howto-jc-text"></div>
   </div>
@@ -544,6 +567,7 @@ const introTexts = {
     "profile-card":"<span class='section-title'><i class='fas fa-user'></i> Halo, saya ncexs</span><p>Developer yang sedang belajar membuat tool ringan & berguna untuk semua.<br>Saya membuat toolkit ini untuk membantu saya dan orang lain mengelola sistem Windows mereka dengan lebih efisien dan terus berupaya untuk meningkatkan toolkit ini.</p><a class='download-btn' href='https://github.com/ncexs' target='_blank'>Lihat Profil GitHub</a>",
     "security-card":"<span class='section-title'><i class='fas fa-shield-alt'></i> Keamanan & Kepercayaan</span><p>Toolkit ini transparan, tidak menyimpan data pribadi, dan sepenuhnya open-source.<br>Anda dapat memeriksanya sendiri menggunakan VirusTotal yang telah disediakan.</p><a class='download-btn' href='https://www.virustotal.com/' target='_blank'>Cek di VirusTotal</a>",
     "support-card":"<span class='section-title'><i class='fas fa-mug-hot'></i> Dukung Saya</span><p>Saya mengucapkan terima kasih atas dukungan dan umpan balik yang telah diberikan. Apabila Anda tertarik dengan proyek ini, Anda dapat memberikan dukungan melalui tautan Saweria berikut.</p><a class='download-btn' href='https://saweria.co/ncexs' target='_blank'>Saweria</a>",
+    "changelog-toolkit23": "<ul><li>🚀 Optimasi Memori Kuat – Membersihkan cache sistem untuk RAM lebih lega.</li><li>🌐 Utilitas Jaringan Disederhanakan – Perbaikan otomatis sekali klik yang lebih andal.</li><li>🛡️ Pengecekan Keamanan SSD – Fitur optimasi drive kini aman untuk SSD.</li><li>🧹 Pembersih Sampah Ditingkatkan – Menargetkan folder Prefetch & cache browser.</li><li>🔧 Perbaikan Bug Kritis – Memperbaiki logika konfirmasi & error jaringan.</li></ul>",
     "changelog-toolkit222": "<ul><li>🔧 Manajer Startup Ditingkatkan – Memperbaiki masalah path folder</li><li>🌐 Dukungan Multi-bahasa Lebih Akurat</li><li>📋 Sistem Logging Lebih Baik – Pelacakan error dan diagnostik ditingkatkan</li><li>🔧 Perbaikan Folder Startup – Disabled folder tidak lagi terbuka otomatis</li><li>🔧 Perbaikan Path Handling pada manajemen startup</li><li>🔧 Patch Registry Startup – Lebih andal untuk item startup berbasis registry</li><li>🔧 Perbaikan Logika Pemindahan File antar Startup dan Disabled</li><li>⚡ Optimasi Loading Script – Waktu startup lebih cepat</li><li>⚡ Penggunaan Resource Lebih Efisien</li><li>⚡ Admin Elevation Lebih Lancar</li></ul>",
     "changelog-toolkit221": "<ul><li>🌐 Dukungan Multi-bahasa (Indonesia/English)</li><li>⚙️ Manajer Startup Lanjutan</li><li>💻 Kompatibilitas Universal untuk Semua PC</li><li>🛡️ Manajemen Akses Admin Pintar</li><li>🔧 Perbaikan Kebijakan Eksekusi PowerShell</li><li>🐞 Perbaikan Error pada Sistem Windows Lama</li><li>⚡ Peningkatan Performa dan Stabilitas</li><li>🌐 Perbaikan Kompatibilitas Network Utilities</li></ul>",
     "changelog-toolkit22": "<ul><li>🗑️ Menu Recycle Bin Khusus</li><li>📋 Tata Letak Menu Utama Baru</li><li>🔧 Perbaikan dan peningkatan sistem</li><li>⚡ Peningkatan performa keseluruhan</li><li>🐞 Perbaikan bug dan error handling</li><li>🛡️ Peningkatan keamanan dan manajemen akses</li></ul>",
@@ -558,6 +582,7 @@ const introTexts = {
     "profile-card":"<span class='section-title'><i class='fas fa-user'></i> Hello, I'm ncexs</span><p>A developer learning to build lightweight & useful tools for everyone.<br>I created this toolkit to help myself and others manage their Windows systems more efficiently and continuously strive to improve it.</p><a class='download-btn' href='https://github.com/ncexs' target='_blank'>View GitHub Profile</a>",
     "security-card":"<span class='section-title'><i class='fas fa-shield-alt'></i> Security & Trust</span><p>This toolkit is transparent, does not store personal data, and fully open-source.<br>You can check it yourself using the provided VirusTotal link.</p><a class='download-btn' href='https://www.virustotal.com/' target='_blank'>Check on VirusTotal</a>",
     "support-card":"<span class='section-title'><i class='fas fa-mug-hot'></i> Support Me</span><p>I would like to express my gratitude for your support and feedback. If you are interested in this project, you can provide support via the Saweria link below.</p><a class='download-btn' href='https://saweria.co/ncexs' target='_blank'>Saweria</a>",
+    "changelog-toolkit23": "<ul><li>🚀 Powerful Memory Optimizer – Clears system cache for more free RAM.</li><li>🌐 Streamlined Network Utility – One-click automatic repair for better reliability.</li><li>🛡️ SSD Safety Check – Drive optimizer is now safe for SSDs.</li><li>🧹 Enhanced Junk Cleaner – Now targets the Prefetch folder & browser cache.</li><li>🔧 Critical Bug Fixes – Fixed confirmation logic & network errors.</li></ul>",
     "changelog-toolkit222": "<ul><li>🔧 Enhanced Startup Manager – Fixed folder path handling issues</li><li>🌐 Improved Multi-language Support – More accurate translations</li><li>📋 Better Logging System – Enhanced error tracking and diagnostics</li><li>🔧 Fixed Startup Folder Issue – Disabled folder no longer opens automatically</li><li>🔧 Corrected Path Handling in startup management</li><li>🔧 Patched Registry Startup Handling – More reliable registry-based startup items</li><li>🔧 Fixed File Movement Logic between Startup and Disabled folders</li><li>⚡ Optimized Script Loading – Faster startup time</li><li>⚡ Reduced Resource Usage – More efficient memory management</li><li>⚡ Streamlined Admin Elevation – Smoother permission handling</li></ul>",
     "changelog-toolkit221": "<ul><li>🌐 Multi-language Support (ID/EN)</li><li>⚙️ Advanced Startup Manager</li><li>💻 Universal PC Compatibility</li><li>🛡️ Smart Admin Access Management</li><li>🔧 PowerShell Execution Policy Fixes</li><li>🐞 Legacy Windows System Error Fixes</li><li>⚡ Performance and Stability Enhancements</li><li>🌐 Network Utilities Compatibility Fixes</li></ul>",
     "changelog-toolkit22": "<ul><li>🗑️ Custom Recycle Bin Menu</li><li>📋 New Main Menu Layout</li><li>🔧 System Fixes and Improvements</li><li>⚡ Overall Performance Enhancements</li><li>🐞 Bug Fixes and Error Handling</li><li>🛡️ Security and Access Management Upgrades</li></ul>",
@@ -574,28 +599,29 @@ const howtoTexts = {
   id: {
     "howto-toolkit-text": `<span class='section-title'><i class='fas fa-book-open'></i> Cara Penggunaan - ncexs Toolkit</span>
       <ol>
-        <li>Ekstrak file ZIP (klik kanan → Extract All)</li>
-        <li>Klik kanan pada <b>ncexs Toolkit.ps1</b> → Pilih "Run with PowerShell"</li>
+        <li>Unduh file <b>.ps1</b> dari rilis terbaru.</li>
+        <li>Klik kanan pada file <b>.ps1</b> → Pilih "Run with PowerShell"</li>
         <li>Jika muncul 'Do you want to allow this app?': Klik 'Yes' untuk izin administrator</li>
-        <li>Pilih menu interaktif (1–10):
+        <li>Pilih menu interaktif (1–12):
           <ul>
-            <li>1 → System Info (Informasi spesifikasi sistem lengkap)</li>
-            <li>2 → Junk Cleaner (File temporary & cache browser)</li>
-            <li>3 → Empty Recycle Bin (Kosongkan Recycle Bin - PERMANEN!)</li>
-            <li>4 → Deep Cleanup (Sisa Windows Update & pembersihan mendalam)</li>
-            <li>5 → Network Utilities (Perbaikan jaringan & optimasi internet)</li>
-            <li>6 → Memory Optimizer (Optimisasi memori RAM)</li>
-            <li>7 → AV Scan (Microsoft Defender Quick Scan)</li>
-            <li>8 → Startup Manager (Kelola program startup)</li>
-            <li>9 → Language Settings (Pengaturan bahasa Indonesia/English)</li>
-            <li>10 → Exit (Keluar program)</li>
+            <li>1 → Informasi Sistem (Spesifikasi PC lengkap)</li>
+            <li>2 → Pembersih Sampah (File temporary & cache browser)</li>
+            <li>3 → Kosongkan Recycle Bin (Hapus permanen isi Recycle Bin)</li>
+            <li>4 → Buka Disk Cleanup (Pembersihan disk bawaan Windows)</li>
+            <li>5 → Perbaikan Jaringan Otomatis (Perbaiki masalah koneksi internet)</li>
+            <li>6 → Optimasi Memori (Melegakan RAM secara signifikan)</li>
+            <li>7 → Buka Keamanan Windows (Akses cepat ke Windows Security)</li>
+            <li>8 → Defragment & Optimasi Drive (Optimasi HDD & SSD)</li>
+            <li>9 → Pemeriksa Kesehatan Sistem (Jalankan SFC & DISM)</li>
+            <li>10 → Pengelola Startup (Kelola program yang berjalan saat booting)</li>
+            <li>11 → Pengaturan Bahasa (Ganti bahasa ke Indonesia/Inggris)</li>
+            <li>12 → Keluar (Tutup program)</li>
           </ul>
         </li>
-        <li>Cek <b>log_ncexs-toolkit-*.txt</b> untuk laporan operasi</li>
+        <li>Cek <b>log_ncexs-toolkit.txt</b> untuk laporan operasi</li>
       </ol>
-      <p>⚠️ Peringatan: Menu 3 (Empty Recycle Bin) akan menghapus file secara PERMANEN. Pastikan file tersebut sudah tidak dibutuhkan lagi sebelum melanjutkan.</p>
-      <p>⚠️ Peringatan: Menu 7 (Antivirus Scan) dapat memakan waktu lama tergantung jumlah file di sistem Anda.</p>
-      <p>💡 Tip: Gunakan secara rutin untuk performa sistem optimal. Backup data penting sebelum melakukan operasi pembersihan.</p>`,
+      <p>💡 Tip: Gunakan secara rutin untuk performa sistem optimal. Selalu backup data penting sebelum melakukan operasi pembersihan.</p>`,
+    // KONTEN YANG HILANG DIKEMBALIKAN DI SINI
     "howto-jc-text": `<span class='section-title'><i class='fas fa-book-open'></i> Cara Penggunaan - ncexs JunkCleaner</span>
       <ol>
         <li>Ekstrak file ZIP (klik kanan → Extract All)</li>
@@ -616,28 +642,29 @@ const howtoTexts = {
   en: {
     "howto-toolkit-text": `<span class='section-title'><i class='fas fa-book-open'></i> How to Use - ncexs Toolkit</span>
       <ol>
-        <li>Extract the ZIP file first (right-click → "Extract All")</li>
-        <li>Right-click <b>ncexs Toolkit.ps1</b> → Select "Run with PowerShell"</li>
+        <li>Download the latest <b>.ps1</b> file from the latest release.</li>
+        <li>Right-click the <b>.ps1</b> file → Select "Run with PowerShell"</li>
         <li>If 'Do you want to allow this app?' appears: Click 'Yes' for administrator permission</li>
-        <li>Select interactive menu (1–10):
+        <li>Select from the interactive menu (1–12):
           <ul>
-            <li>1 → System Info (Complete system specifications)</li>
+            <li>1 → System Information (View full PC specs)</li>
             <li>2 → Junk Cleaner (Temporary files & browser cache)</li>
-            <li>3 → Empty Recycle Bin (Permanently delete Recycle Bin contents!)</li>
-            <li>4 → Deep Cleanup (Windows Update leftovers & deep cleaning)</li>
-            <li>5 → Network Utilities (Network repair & internet optimization)</li>
-            <li>6 → Memory Optimizer (RAM memory optimization)</li>
-            <li>7 → AV Scan (Microsoft Defender Quick Scan)</li>
-            <li>8 → Startup Manager (Manage startup programs)</li>
-            <li>9 → Language Settings (Indonesian/English language preferences)</li>
-            <li>10 → Exit (Close the program)</li>
+            <li>3 → Empty Recycle Bin (Permanently delete Recycle Bin contents)</li>
+            <li>4 → Open Disk Cleanup (Windows' built-in disk cleaner)</li>
+            <li>5 → Automatic Network Repair (Fix common internet connection issues)</li>
+            <li>6 → Memory Optimizer (Free up a significant amount of RAM)</li>
+            <li>7 → Open Windows Security (Quickly access the Security dashboard)</li>
+            <li>8 → Defragment & Optimize Drives (Optimize HDDs & SSDs)</li>
+            <li>9 → System Health Checker (Run SFC & DISM scans)</li>
+            <li>10 → Startup Manager (Manage programs that run on boot)</li>
+            <li>11 → Language Settings (Switch between Indonesian/English)</li>
+            <li>12 → Exit (Close the program)</li>
           </ul>
         </li>
-        <li>Check <b>log_ncexs-toolkit-*.txt</b> for operation reports</li>
+        <li>Check <b>log_ncexs-toolkit.txt</b> for operation reports</li>
       </ol>
-      <p>⚠️ Warning: Menu 3 (Empty Recycle Bin) will permanently delete files. Make sure the files are no longer needed before proceeding.</p>
-      <p>⚠️ Warning: Menu 7 (Antivirus Scan) may take a long time depending on the number of files being scanned.</p>
-      <p>💡 Tip: Use regularly for optimal system performance. Always backup important data before cleanup operations.</p>`,
+      <p>💡 Tip: Use regularly for optimal system performance. Always backup important data before performing any cleanup operations.</p>`,
+    // THE MISSING CONTENT IS RESTORED HERE
     "howto-jc-text": `<span class='section-title'><i class='fas fa-book-open'></i> How to Use - ncexs JunkCleaner</span>
       <ol>
         <li>Extract the ZIP file (right-click → Extract All)</li>
@@ -657,6 +684,33 @@ const howtoTexts = {
   }
 };
 
+const educationTexts = {
+  id: {
+    "education-text": `<span class='section-title'><i class='fas fa-info-circle'></i> Penjelasan Fitur Penting</span>
+    <p><b>Disk Cleanup (Menu 4):</b><br>
+    Ini adalah alat pembersih resmi dari Windows. Fungsinya adalah menghapus file sampah yang aman dihapus seperti sisa-sisa Windows Update, file log, dan thumbnail cache. Menggunakan ini secara rutin dapat menghemat ruang penyimpanan secara signifikan.</p>
+    <p><b>SFC & DISM (Menu 9):</b><br>
+    Ini adalah dua alat "perbaikan diri" paling kuat di Windows untuk mengatasi masalah sistem.
+    <ul>
+      <li><b>SFC (System File Checker)</b> adalah pertolongan pertama. Ia akan memindai dan memperbaiki file-file penting Windows yang rusak atau hilang.</li>
+      <li><b>DISM (Deployment Image Servicing and Management)</b> adalah "dokter spesialis". Jika SFC gagal, DISM akan memperbaiki "sumber" file sistem yang digunakan oleh SFC.</li>
+    </ul>
+    <p>Jalankan kedua alat ini jika Anda mengalami error aneh, blue screen, atau fitur Windows yang tidak berfungsi dengan benar.</p>`
+  },
+  en: {
+    "education-text": `<span class='section-title'><i class='fas fa-info-circle'></i> Key Feature Explanation</span>
+    <p><b>Disk Cleanup (Menu 4):</b><br>
+    This is the official cleaning tool from Windows. Its purpose is to delete safe-to-remove junk files like old Windows Update leftovers, log files, and thumbnail caches. Using this regularly can save a significant amount of disk space.</p>
+    <p><b>SFC & DISM (Menu 9):</b><br>
+    These are the two most powerful "self-repair" tools in Windows for fixing system issues.
+    <ul>
+      <li><b>SFC (System File Checker)</b> is the first aid. It scans and repairs critical Windows files that are corrupt or missing.</li>
+      <li><b>DISM (Deployment Image Servicing and Management)</b> is the "specialist". If SFC fails, DISM repairs the core system image that SFC relies on.</li>
+    </ul>
+    <p>Run these tools if you experience strange errors, blue screens, or if Windows features are not working correctly.</p>`
+  }
+};
+
 function updateContent() {
   for (const id in introTexts[currentLang]) {
     if(document.getElementById(id)) document.getElementById(id).innerHTML = introTexts[currentLang][id];
@@ -664,10 +718,13 @@ function updateContent() {
   for (const id in howtoTexts[currentLang]) {
     if(document.getElementById(id)) document.getElementById(id).innerHTML = howtoTexts[currentLang][id];
   }
+  if(document.getElementById('education-text')) {
+    document.getElementById('education-text').innerHTML = educationTexts[currentLang]['education-text'];
+  }
+  
   document.getElementById('header-desc-id').classList.toggle('hidden', currentLang==='en');
   document.getElementById('header-desc-en').classList.toggle('hidden', currentLang==='id');
   
-  // Perbaikan: Update teks "Ubah Bahasa" menjadi "Change Language"
   document.getElementById('language-label').textContent = currentLang === 'id' ? 'Ubah Bahasa' : 'Change Language';
   
   updateTabLabels(currentLang);
