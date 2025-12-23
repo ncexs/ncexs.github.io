@@ -1,28 +1,30 @@
+# ncexs.github.io
 
-Here is the new workflow for managing project releases on the website:
+Official landing page for **ncexs Toolkit** and other projects.
+<br>
+**Live Site:** [https://ncexs.github.io](https://ncexs.github.io)
 
-1.  **Automation:** The `index.html` file now has a `loadProjects()` JavaScript function. It automatically fetches the release list (title, download link, changelog link) directly from the GitHub API.
+---
 
-2.  **Your Task (New Release):** You no longer need to edit the HTML to add a new project card.
+### 🚀 About
+This repository hosts the static landing page for my software projects. It is designed to be lightweight, fast, and low-maintenance. The website automatically fetches the latest release data from my other repositories using the GitHub API.
 
-3.  **Steps to Add a New Release (e.g., v2.4):**
-    * Open the `index.html` file.
-    * Find the `const introTexts = { ... }` JavaScript object.
-    * Add a new changelog entry for the release. The key must match the release tag (e.g., 'v2.4' becomes 'changelog-toolkit24').
-    * Add this key to both the `id:` (Indonesian) and `en:` (English) sections.
+### ✨ Features
+* **Auto-Update:** No manual HTML editing required. The site fetches the latest version, download links, and changelogs directly from the `ncexs-toolkit` and `ncexs-junkcleaner` repositories.
+* **Markdown Support:** Automatically converts GitHub Release descriptions (Markdown) into clean HTML.
+* **Test Build Detection:** Automatically checks for experimental builds in the repository and displays a warning banner if found.
+* **Responsive Design:** Optimized for Desktop and Mobile.
+* **Pure Performance:** Built with Vanilla HTML, CSS, and JavaScript. No heavy frameworks.
 
-4.  **Example Addition:**
-    ```javascript
-    const introTexts = {
-      id: {
-        "changelog-toolkit24": "<ul><li>Fitur baru...</li></ul>", // <-- ADD THIS
-        "changelog-toolkit23": "<ul><li>...</li></ul>",
-      },
-      en: {
-        "changelog-toolkit24": "<ul><li>New feature...</li></ul>", // <-- ADD THIS
-        "changelog-toolkit23": "<ul><li>...</li></ul>",
-      }
-    };
-    ```
+### 🛠️ How It Works
+1.  **Visitor opens the site.**
+2.  **JavaScript triggers:** The script calls the GitHub REST API.
+3.  **Data Fetching:** It retrieves the latest "Releases" and "Test Build" folder contents.
+4.  **Rendering:** The content is dynamically injected into the HTML cards.
 
-5.  **Final Step:** Save, commit, and push the `index.html` file. The website will automatically display the new release.
+### 📦 Projects Included
+* [ncexs-toolkit](https://github.com/ncexs/ncexs-toolkit)
+* [ncexs-junkcleaner](https://github.com/ncexs/ncexs-junkcleaner)
+
+---
+&copy; 2025 ncexs. All rights reserved.
