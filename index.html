@@ -246,14 +246,16 @@ header p {
 .btn-secondary:hover { background: #f0f8ff; }
 
 .code-box {
-  background: #24292f;
-  color: #fff;
+  background: #eef7ff;
+  color: #004488;
   padding: 1rem;
   border-radius: 8px;
+  border: 1px solid #b8daff;
   font-family: monospace;
   margin: 0.5rem 0;
   display: block;
   overflow-x: auto;
+  font-weight: bold;
 }
 
 .hidden { display: none; }
@@ -283,7 +285,7 @@ footer a { color: var(--primary-color); text-decoration: none; }
   .card { padding: 1.5rem; }
   .btn { width: 100%; justify-content: center; }
 }
-</style>
+</style>  
 </head>
 <body>
 
@@ -296,9 +298,9 @@ footer a { color: var(--primary-color); text-decoration: none; }
   <p>All-in-One Windows Toolkit<br>Simple, fast, and safe tools to clean, optimize, and maintain your PC</p>
   
   <div class="date-badge">
-    <span id="time">00:00</span>
+    <span id="time">11:47 AM</span>
     <span style="opacity:0.5">|</span>
-    <span id="date">Loading...</span>
+    <span id="date">Wed, 24 Dec 2025</span>
   </div>
 </header>
 
@@ -514,25 +516,8 @@ async function loadProjects() {
   }
 }
 
-function updateTime() {
-  const now = new Date();
-  const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-  const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-  
-  let h = now.getHours();
-  let m = now.getMinutes();
-  const ampm = h >= 12 ? 'PM' : 'AM';
-  h = h % 12; h = h ? h : 12;
-  m = m < 10 ? '0'+m : m;
-  
-  document.getElementById('time').innerText = `${h}:${m} ${ampm}`;
-  document.getElementById('date').innerText = `${days[now.getDay()]}, ${now.getDate()} ${months[now.getMonth()]}`;
-}
-
 window.addEventListener('DOMContentLoaded', () => {
   loadProjects();
-  updateTime();
-  setInterval(updateTime, 1000);
 });
 </script>
 
