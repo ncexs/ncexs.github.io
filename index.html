@@ -298,9 +298,9 @@ footer a { color: var(--primary-color); text-decoration: none; }
   <p>All-in-One Windows Toolkit<br>Simple, fast, and safe tools to clean, optimize, and maintain your PC</p>
   
   <div class="date-badge">
-    <span id="time">11:47 AM</span>
+    <span id="time">--:-- --</span>
     <span style="opacity:0.5">|</span>
-    <span id="date">Wed, 24 Dec 2025</span>
+    <span id="date">Checking...</span>
   </div>
 </header>
 
@@ -408,6 +408,18 @@ footer a { color: var(--primary-color); text-decoration: none; }
 </footer>
 
 <script>
+function updateRealTimeClock() {
+  const now = new Date();
+  const timeOptions = { hour: 'numeric', minute: '2-digit', hour12: true };
+  document.getElementById('time').textContent = now.toLocaleTimeString('en-US', timeOptions);
+  
+  const dateOptions = { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' };
+  document.getElementById('date').textContent = now.toLocaleDateString('en-GB', dateOptions);
+}
+
+setInterval(updateRealTimeClock, 1000);
+updateRealTimeClock();
+
 function parseMarkdown(text) {
   if (!text) return "<em>No description available.</em>";
   
