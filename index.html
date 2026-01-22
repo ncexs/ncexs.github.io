@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ncexs Toolkit - New Year Edition</title>
+  <title>ncexs Toolkit</title>
   <meta name="description" content="ncexs Toolkit - Simple tool to optimize and clean Windows">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
@@ -34,7 +34,7 @@
 
     header {
       background: var(--header-bg-dark);
-      padding: 6rem 1rem 5rem;
+      padding: 5rem 1rem 4rem; /* Disesuaikan sedikit karena badge hilang */
       text-align: center;
       color: white;
       border-bottom-left-radius: 30px;
@@ -43,66 +43,6 @@
       margin-bottom: 2rem;
       position: relative;
       overflow: hidden;
-    }
-
-    @keyframes firework {
-      0% { width: 0.5vmin; opacity: 1; }
-      100% { width: 45vmin; opacity: 0; }
-    }
-
-    .firework,
-    .firework::before,
-    .firework::after {
-      --particleSize: 0.2vmin;
-      --color1: #ff0000;
-      --color2: #44ff00;
-      --color3: #0088ff;
-      --color4: #ffff00;
-      --color5: #ff00ff;
-      --color6: #00ffff;
-      content: "";
-      animation: firework 2s infinite;
-      position: absolute;
-      transform: translate(-50%, -50%);
-      width: 0.5vmin;
-      aspect-ratio: 1;
-      background: 
-        radial-gradient(circle, var(--color1) var(--particleSize), #0000 0) 50% 0%,
-        radial-gradient(circle, var(--color2) var(--particleSize), #0000 0) 100% 50%,
-        radial-gradient(circle, var(--color3) var(--particleSize), #0000 0) 50% 100%,
-        radial-gradient(circle, var(--color4) var(--particleSize), #0000 0) 0% 50%,
-        radial-gradient(circle, var(--color5) var(--particleSize), #0000 0) 80% 90%,
-        radial-gradient(circle, var(--color6) var(--particleSize), #0000 0) 95% 90%;
-      background-size: 0.5vmin 0.5vmin;
-      background-repeat: no-repeat;
-      border-radius: 50%;
-    }
-
-    .firework::before { transform: translate(-50%, -50%) rotate(45deg) scale(0.5); opacity: 0.8; }
-    .firework::after { transform: translate(-50%, -50%) rotate(-45deg) scale(0.5); opacity: 0.8; }
-
-    .firework:nth-child(1) { top: 20%; left: 15%; animation-duration: 2.2s; animation-delay: 0.2s; }
-    .firework:nth-child(2) { top: 25%; left: 85%; animation-duration: 2.5s; animation-delay: 0.5s; --color1: #ffcc00; --color2: #ff6600; }
-    .firework:nth-child(3) { top: 15%; left: 50%; animation-duration: 2.8s; animation-delay: 1.2s; --color1: #00ccff; --color2: #cc00ff; }
-    .firework:nth-child(4) { top: 75%; left: 25%; animation-duration: 2.4s; animation-delay: 1.8s; --color1: #ff0099; --color2: #33ff99; }
-    .firework:nth-child(5) { top: 65%; left: 80%; animation-duration: 2.1s; animation-delay: 0.8s; --color1: #aaff00; --color2: #00ffaa; }
-    .firework:nth-child(6) { top: 50%; left: 5%; animation-duration: 3s; animation-delay: 1.5s; }
-    .firework:nth-child(7) { top: 40%; left: 95%; animation-duration: 2.6s; animation-delay: 0.1s; }
-
-    .ny-badge {
-      background: rgba(255, 255, 255, 0.15);
-      color: #fff;
-      border: 1px solid var(--secondary-color);
-      padding: 5px 20px;
-      border-radius: 50px;
-      font-weight: bold;
-      font-size: 0.9rem;
-      display: inline-block;
-      margin-bottom: 15px;
-      box-shadow: 0 0 15px rgba(0, 170, 255, 0.4);
-      position: relative;
-      z-index: 2;
-      backdrop-filter: blur(5px);
     }
 
     header h1 {
@@ -466,16 +406,6 @@
 <body>
 
   <header>
-    <div class="firework"></div>
-    <div class="firework"></div>
-    <div class="firework"></div>
-    <div class="firework"></div>
-    <div class="firework"></div>
-    <div class="firework"></div>
-    <div class="firework"></div>
-
-    <div class="ny-badge">HAPPY NEW YEAR 2026</div>
-
     <h1>
       <span>n</span><span>c</span><span>e</span><span>x</span><span>s</span>
       <span> </span>
@@ -911,6 +841,8 @@
     window.addEventListener('DOMContentLoaded', () => {
       loadProjects();
     });
+
+    window.onload = () => { setLanguage('en'); };
   </script>
 
 </body>
