@@ -31,6 +31,7 @@
     <div class="tabs">
       <div class="tab active" onclick="showTab('home', this)">Introduction</div>
       <div class="tab" onclick="showTab('guide', this)">How to Use</div>
+      <div class="tab" onclick="showTab('changelog', this)">Changelog</div>
     </div>
   </div>
 
@@ -191,6 +192,20 @@
 
       <p style="margin-left: 5px;"><span id="txt-jc-note">After the process finishes, check <b>log_ncexs.txt</b> for the
           cleanup report.</span></p>
+    </div>
+    </div>
+  </div>
+
+  <div id="changelog" class="container hidden">
+    <div class="card">
+      <h3><i class="fas fa-history"></i> <span id="txt-cl-title">Version History / Changelog</span></h3>
+      <p style="color: var(--text-muted); margin-bottom: 20px;"><span id="txt-cl-desc">Recent updates and changes to the ncexs Toolkit (Auto-synced from GitHub).</span></p>
+      <div id="changelog-list">
+        <div style="text-align:center; padding:3rem; color:#888;">
+          <i class="fas fa-circle-notch fa-spin fa-2x" style="color:var(--primary-color)"></i>
+          <p style="margin-top:1rem">Loading changelog from GitHub...</p>
+        </div>
+      </div>
     </div>
   </div>
 

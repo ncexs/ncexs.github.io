@@ -11,6 +11,68 @@ function updateRealTimeClock() {
     updateRealTimeClock();
 
 
+    function showTab(id, el) {
+      document.querySelectorAll('.container').forEach(c => c.classList.add('hidden'));
+      document.getElementById(id).classList.remove('hidden');
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      if (el) el.classList.add('active');
+    }
+
+    function parseMarkdown(text) {
+      if (!text) return "<em>No description available.</em>";
+
+      let html = text.replace(/\r\n/g, '\n').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+      html = html.replace(/^### (.*$)/gim, '<h3>$1</h3>');
+      html = html.replace(/^## (.*$)/gim, '<h2>$1</h2>');
+      html = html.replace(/^# (.*$)/gim, '<h1>$1</h1>');
+      html = html.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>');
+      html = html.replace(/\*(.*?)\*/g, '<i>$1</i>');
+      html = html.replace(/^---$/gim, '<hr>');
+
+      let lines = html.split('\n');
+      let newLines = [];
+      let inList = false;
+
+      lines.forEach(line => {
+        if (/^\s*[-*]\s+(.*)/.test(line)) {
+          if (!inList) {
+            newLines.push('<ul>');
+            inList = true;
+          }
+          newLines.push(`<li>${line.replace(/^\s*[-*]\s+/, '')}</li>`);
+        } else {
+          if (inList) {
+            newLines.push('</ul>');
+            inList = false;
+          }
+          if (line.match(/^<h/) || line.match(/^<hr/)) newLines.push(line);
+          else if (line.trim() !== '') newLines.push(`<p>${line}</p>`);
+        }
+      });
+      if (inList) newLines.push('</ul>');
+      return newLines.join('');
+    }
+
+    async function fetchWithCache(url, cacheKey) {
+      const durationMs = 1800000; // Cache for 30 minutes
+      const cached = localStorage.getItem(cacheKey);
+      const cachedTime = localStorage.getItem(cacheKey + '_time');
+
+      if (cached && cachedTime && (Date.now() - parseInt(cachedTime)) < durationMs) {
+        return JSON.parse(cached);
+      }
+
+      const res = await fetch(url);
+      const data = await res.json();
+
+      if (!data.message || Array.isArray(data)) {
+        localStorage.setItem(cacheKey, JSON.stringify(data));
+        localStorage.setItem(cacheKey + '_time', Date.now().toString());
+      }
+      return data;
+    }
+
     const translations = {
       en: {
         "txt-lang-label": "Language:",
@@ -64,7 +126,9 @@ function updateRealTimeClock() {
         "txt-jc-m2": "2 → Deep Cleanup",
         "txt-jc-m3": "3 → Antivirus Scan",
         "txt-jc-m4": "4 → Clear RAM",
-        "txt-jc-note": "After the process finishes, check <b>log_ncexs.txt</b> for the cleanup report."
+        "txt-jc-note": "After the process finishes, check <b>log_ncexs.txt</b> for the cleanup report.",
+        "txt-cl-title": "Version History / Changelog",
+        "txt-cl-desc": "Recent updates and changes to the ncexs Toolkit (Auto-synced from GitHub)."
       },
       id: {
         "txt-lang-label": "Bahasa:",
@@ -118,7 +182,9 @@ function updateRealTimeClock() {
         "txt-jc-m2": "2 → Pembersihan Mendalam",
         "txt-jc-m3": "3 → Scan Antivirus",
         "txt-jc-m4": "4 → Bersihkan RAM",
-        "txt-jc-note": "Setelah proses selesai, cek <b>log_ncexs.txt</b> untuk laporan pembersihan."
+        "txt-jc-note": "Setelah proses selesai, cek <b>log_ncexs.txt</b> untuk laporan pembersihan.",
+        "txt-cl-title": "Riwayat Versi / Changelog",
+        "txt-cl-desc": "Pembaruan dan perubahan terbaru pada ncexs Toolkit (Otomatis sinkron dari GitHub)."
       }
     };
 
@@ -135,7 +201,41 @@ function updateRealTimeClock() {
     }
 
     window.addEventListener('DOMContentLoaded', () => {
-      loadProjects();
+      loadChangelog();
     });
 
     window.onload = () => { setLanguage('en'); };
+
+    async function loadChangelog() {
+      const container = document.getElementById('changelog-list');
+      try {
+        // Fetch raw CHANGELOG.md from the repository
+        const response = await fetch('https://raw.githubusercontent.com/ncexs/ncexs-toolkit/main/CHANGELOG.md', { cache: "no-store" });
+        
+        if (!response.ok) {
+            throw new Error("CHANGELOG.md not found in the repository. Please create one.");
+        }
+        
+        const markdownText = await response.text();
+        const htmlBody = parseMarkdown(markdownText);
+
+        const htmlContent = `
+          <div class="card" style="margin-bottom: 20px;">
+            <div class="changelog-box" style="max-height: 500px; overflow-y: auto; padding: 15px;">
+              <div class="changelog-content">${htmlBody}</div>
+            </div>
+          </div>
+        `;
+        
+        container.innerHTML = htmlContent;
+      } catch (error) {
+        container.innerHTML = `
+          <div style="text-align:center; padding: 2rem; background: rgba(255,0,0,0.1); border-radius: 12px; border: 1px solid rgba(255,0,0,0.2);">
+            <i class="fas fa-file-alt fa-2x" style="color: #ef4444; margin-bottom: 15px;"></i>
+            <h3 style="margin-top: 0; color: #ef4444;">Changelog File Missing</h3>
+            <p style="color: var(--text-muted);">${error.message}</p>
+            <p style="margin-top: 15px;">To fix this, create a file named <b>CHANGELOG.md</b> in your ncexs-toolkit repository.</p>
+          </div>
+        `;
+      }
+    }
