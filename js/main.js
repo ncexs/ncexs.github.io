@@ -217,16 +217,30 @@ function updateRealTimeClock() {
         }
         
         const markdownText = await response.text();
-        const htmlBody = parseMarkdown(markdownText);
-
-        const htmlContent = `
-          <div class="card" style="margin-bottom: 20px;">
-            <div class="changelog-box" style="max-height: 500px; overflow-y: auto; padding: 15px;">
-              <div class="changelog-content">${htmlBody}</div>
-            </div>
-          </div>
-        `;
+        const versions = markdownText.split(/(?=^# 🚀 ncexs Toolkit v)/m);
         
+        let htmlContent = '';
+        versions.forEach(ver => {
+            if (ver.trim() === '') return;
+            
+            const lines = ver.trim().split('\n');
+            let title = "Release Notes";
+            if (lines[0].startsWith("# 🚀")) {
+                title = lines.shift().replace(/^# /, '').trim();
+            }
+            
+            const htmlBody = parseMarkdown(lines.join('\n'));
+
+            htmlContent += `
+              <div class="card" style="margin-bottom: 20px;">
+                <h3 style="margin-bottom: 15px; color: var(--primary-color);">${title}</h3>
+                <div class="changelog-box" style="padding: 10px 5px;">
+                  <div class="changelog-content">${htmlBody}</div>
+                </div>
+              </div>
+            `;
+        });
+
         container.innerHTML = htmlContent;
       } catch (error) {
         container.innerHTML = `
