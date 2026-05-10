@@ -30,13 +30,16 @@ https.get(SCRIPT_URL, (resp) => {
         const enDict = parseDict(enMatch[1]);
         const idDict = parseDict(idMatch[1]);
 
-        const menuKeys = Object.keys(enDict).filter(k => k.startsWith('Menu_Option') && k !== 'Menu_OptionL' && k !== 'Menu_Option16');
+        const menuKeys = Object.keys(enDict).filter(k => k.startsWith('Menu_Option'));
         
         menuKeys.sort((a, b) => {
             let valA = a.replace('Menu_Option', '').toLowerCase();
             let valB = b.replace('Menu_Option', '').toLowerCase();
+            if (valA === valB) return 0;
             if (valA === 'q') return -1;
             if (valB === 'q') return 1;
+            if (valA === 'l') return 1;
+            if (valB === 'l') return -1;
             return parseInt(valA) - parseInt(valB);
         });
 

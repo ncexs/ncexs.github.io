@@ -14,9 +14,11 @@
 <body>
 
   <header>
-    <div class="top-clock">
-      <span id="time">--:-- --</span>
-      <span id="date">Checking...</span>
+    <div class="top-time">
+      <i class="fa-regular fa-clock"></i> <span id="time">--:-- --</span>
+    </div>
+    <div class="top-date">
+      <i class="fa-regular fa-calendar-alt"></i> <span id="date">Checking...</span>
     </div>
 
     <h1>
@@ -36,25 +38,45 @@
   </div>
 
   <div id="home" class="container">
-    <div class="card">
-      <h3><i class="fas fa-user-circle"></i> Hello, I'm ncexs</h3>
-      <p>I am a developer learning to build lightweight & useful tools for everyone. I created this toolkit to help
-        myself and others manage their Windows systems efficiently without "bloatware".</p>
-      <div class="btn-group">
-        <a href="https://github.com/ncexs" target="_blank" class="btn btn-secondary"><i class="fab fa-github"></i>
-          GitHub Profile</a>
+    <div class="card" style="text-align: center; padding: 3rem 2rem;">
+      <h2 style="font-size: 2.4rem; margin-bottom: 15px; background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1.2; display: inline-block;">Unleash Your PC's Full Potential</h2>
+      <p style="font-size: 1.1rem; color: var(--text-muted); max-width: 600px; margin: 0 auto 20px; line-height: 1.6;">
+        ncexs Toolkit is an open-source, ultra-lightweight Windows optimization powerhouse. Built strictly with PowerShell—no bloatware, no installations, just pure performance at your fingertips.
+      </p>
+      
+      <div style="display: flex; justify-content: center; gap: 15px; margin-top: 35px; flex-wrap: wrap;">
+        <div style="background: rgba(0,0,0,0.2); padding: 20px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.05); flex: 1; min-width: 130px; transition: transform 0.3s ease;">
+            <i class="fas fa-bolt fa-2x" style="color: var(--primary-color); margin-bottom: 12px;"></i>
+            <h4 style="margin: 0; font-size: 1.05rem; color: #fff;">Lightning Fast</h4>
+        </div>
+        <div style="background: rgba(0,0,0,0.2); padding: 20px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.05); flex: 1; min-width: 130px; transition: transform 0.3s ease;">
+            <i class="fas fa-shield-alt fa-2x" style="color: var(--secondary-color); margin-bottom: 12px;"></i>
+            <h4 style="margin: 0; font-size: 1.05rem; color: #fff;">100% Safe</h4>
+        </div>
+        <div style="background: rgba(0,0,0,0.2); padding: 20px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.05); flex: 1; min-width: 130px; transition: transform 0.3s ease;">
+            <i class="fas fa-code-branch fa-2x" style="color: #ec4899; margin-bottom: 12px;"></i>
+            <h4 style="margin: 0; font-size: 1.05rem; color: #fff;">Open Source</h4>
+        </div>
+      </div>
+
+      <div class="btn-group" style="justify-content: center; margin-top: 35px;">
+        <a href="https://github.com/ncexs" target="_blank" class="btn btn-secondary"><i class="fab fa-github"></i> GitHub Profile</a>
       </div>
     </div>
 
-    <div class="card">
-      <h3><i class="fas fa-shield-alt"></i> Security & Trust</h3>
-      <p>This toolkit is 100% transparent and open-source. It does not collect any personal data. You are free to audit
-        the code.</p>
-      <div class="btn-group">
-        <a href="https://www.virustotal.com/" target="_blank" class="btn btn-secondary"><i
-            class="fas fa-check-circle"></i> VirusTotal</a>
-        <a href="https://saweria.co/ncexs" target="_blank" class="btn btn-secondary"><i class="fas fa-coffee"></i>
-          Support Me</a>
+    <div class="card" style="text-align: center; padding: 2.5rem;">
+      <h3 style="justify-content: center; margin-bottom: 15px;"><i class="fas fa-user-astronaut" style="font-size: 1.5rem; color: var(--primary-color);"></i> Hello, I'm ncexs</h3>
+      <p style="max-width: 650px; margin: 0 auto; color: var(--text-muted); line-height: 1.6; font-size: 1.05rem;">
+        I am a developer learning to build lightweight & useful tools for everyone. I created this toolkit to help myself and others manage their Windows systems efficiently without "bloatware".
+      </p>
+    </div>
+
+    <div class="card" style="text-align: center;">
+      <h3 style="justify-content: center;"><i class="fas fa-shield-alt" style="color: var(--secondary-color);"></i> Security & Trust</h3>
+      <p style="max-width: 600px; margin: 0 auto 20px; color: var(--text-muted); line-height: 1.6;">This toolkit is 100% transparent and open-source. It does not collect any personal data. You are free to audit the code.</p>
+      <div class="btn-group" style="justify-content: center;">
+        <a href="https://www.virustotal.com/" target="_blank" class="btn btn-secondary"><i class="fas fa-check-circle"></i> VirusTotal</a>
+        <a href="https://saweria.co/ncexs" target="_blank" class="btn btn-secondary"><i class="fas fa-coffee"></i> Support Me</a>
       </div>
     </div>
 

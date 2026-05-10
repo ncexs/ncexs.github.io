@@ -478,6 +478,201 @@
       justify-content: center;
       align-items: center;
       gap: 15px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      color: white;
+      box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+    }
+
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #4f46e5, #0284c7);
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 6px 20px rgba(99, 102, 241, 0.5);
+    }
+
+    .btn-beta {
+      background: linear-gradient(135deg, #ec4899, #8b5cf6);
+      color: white;
+      box-shadow: 0 4px 15px rgba(236, 72, 153, 0.3);
+    }
+
+    .btn-beta:hover {
+      background: linear-gradient(135deg, #f472b6, #a78bfa);
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 6px 20px rgba(236, 72, 153, 0.5);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text-color);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.2);
+      transform: translateY(-2px);
+    }
+
+    .code-box {
+      background: rgba(0, 0, 0, 0.3);
+      color: #38bdf8;
+      padding: 12px 16px;
+      border-radius: 8px;
+      font-family: 'Fira Code', monospace;
+      margin: 10px 0;
+      border: 1px solid rgba(56, 189, 248, 0.2);
+      font-weight: 500;
+      width: 100%;
+      display: block;
+      overflow-x: auto;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .menu-grid {
+      column-count: 2;
+      column-gap: 30px;
+      margin: 0;
+    }
+
+    .menu-grid li {
+      break-inside: avoid;
+      margin-bottom: 8px;
+    }
+
+    .lang-switch {
+      float: right;
+      background: rgba(0, 0, 0, 0.2);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 4px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.8rem;
+      margin-bottom: 15px;
+    }
+
+    .lang-switch span {
+      padding: 6px 14px;
+      border-radius: 16px;
+      color: var(--text-muted);
+      transition: all 0.3s ease;
+    }
+
+    .lang-switch span.active {
+      background: var(--primary-color);
+      color: white;
+      box-shadow: 0 2px 8px rgba(99, 102, 241, 0.4);
+    }
+
+    /* Fixes for inline HTML styles */
+    #guide .card [style*="color: #333;"],
+    #guide .card [style*="color:#333;"] {
+      color: var(--text-color) !important;
+      border-bottom-color: rgba(255, 255, 255, 0.1) !important;
+    }
+
+    #guide .card [style*="color: #444;"],
+    #guide .card [style*="color:#444;"] {
+      color: var(--text-muted) !important;
+    }
+
+    #guide .card [style*="background: #f8f9fa;"],
+    #guide .card [style*="background:#f8f9fa;"] {
+      background: rgba(0, 0, 0, 0.15) !important;
+      border-color: rgba(255, 255, 255, 0.05) !important;
+    }
+
+    #guide .card hr[style] {
+      border-top-color: rgba(255, 255, 255, 0.1) !important;
+    }
+
+    #guide .card [style*="background: #fff3cd;"] {
+      background: rgba(234, 179, 8, 0.1) !important;
+      border-color: rgba(234, 179, 8, 0.2) !important;
+      color: #fde047 !important;
+    }
+
+    .feature-list li {
+      margin-bottom: 16px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 3rem;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-top: 2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    footer a {
+      color: var(--primary-color);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    footer a:hover {
+      color: var(--secondary-color);
+    }
+
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 2.8rem;
+      }
+
+      .tabs {
+        flex-wrap: wrap;
+        justify-content: center;
+        width: 100%;
+      }
+
+      .card {
+        padding: 1.5rem;
+      }
+
+      .btn {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .menu-grid {
+        column-count: 1;
+      }
+
+      .lang-switch {
+        float: none;
+        display: inline-flex;
+        margin-bottom: 20px;
+      }
+    }
+
+    .pagination {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
       margin-top: 1rem;
     }
 
@@ -489,4 +684,57 @@
     .pagination .page-info {
       color: var(--text-color);
       font-weight: 600;
+    }
+
+    .top-time {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 8px 16px;
+      border-radius: 20px;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #ffffff;
+      font-family: 'Consolas', 'Courier New', monospace;
+      font-weight: 600;
+      font-size: 0.95rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      z-index: 50;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .top-date {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 8px 16px;
+      border-radius: 20px;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #ffffff;
+      font-family: 'Consolas', 'Courier New', monospace;
+      font-weight: 600;
+      font-size: 0.95rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      z-index: 50;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    @media (max-width: 600px) {
+      .top-time, .top-date {
+        top: 10px;
+        font-size: 0.75rem;
+        padding: 6px 12px;
+      }
+      .top-time { left: 10px; }
+      .top-date { right: 10px; }
+      header { padding-top: 50px; }
     }
