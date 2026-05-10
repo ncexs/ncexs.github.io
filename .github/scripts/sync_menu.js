@@ -1,7 +1,7 @@
 const fs = require('fs');
 const https = require('https');
 
-const SCRIPT_URL = 'https://raw.githubusercontent.com/ncexs/ncexs-toolkit/main/Test%20Build/ncexs-Toolkit-Test.ps1';
+const SCRIPT_URL = 'https://raw.githubusercontent.com/ncexs/ncexs-toolkit/main/ncexs-Toolkit.ps1';
 const INDEX_PATH = 'index.html';
 const JS_PATH = 'js/main.js';
 
