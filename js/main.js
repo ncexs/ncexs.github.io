@@ -207,6 +207,19 @@ function updateRealTimeClock() {
         const markdownText = await response.text();
         const rawVersions = markdownText.split(/(?=^# 🚀 ncexs Toolkit v)/m);
         allChangelogVersions = rawVersions.filter(v => v.trim() !== '');
+
+        try {
+            const jcReleases = await fetchWithCache('https://api.github.com/repos/ncexs/ncexs-junkcleaner/releases', 'jc_releases_cache');
+            if (jcReleases && Array.isArray(jcReleases)) {
+                jcReleases.forEach(release => {
+                    const versionText = `# 🚀 ncexs Junk Cleaner ${release.tag_name}\n\n${release.body}`;
+                    allChangelogVersions.push(versionText);
+                });
+            }
+        } catch (e) {
+            console.error("Failed to load junk cleaner releases", e);
+        }
+
         changelogCurrentPage = 1;
         displayChangelogPage();
       } catch (error) {
@@ -235,11 +248,44 @@ function updateRealTimeClock() {
               title = lines.shift().replace(/^# /, '').trim();
           }
           
-          const htmlBody = parseMarkdown(lines.join('\n'));
+          let htmlBody = parseMarkdown(lines.join('\n'));
+          let buttonsHtml = "";
+          const versionMatch = title.match(/v([12]\.\d+(?:\.\d+)?)/);
+          
+          if (versionMatch) {
+              const v = versionMatch[1];
+              const repoName = v.startsWith('1.') ? 'ncexs-junkcleaner' : 'ncexs-toolkit';
+              const downloadLinks = {
+                "2.6": "https://github.com/ncexs/ncexs-toolkit/releases/download/v2.6/ncexs-Toolkit-v2.6.birthday-build.ps1",
+                "2.5": "https://github.com/ncexs/ncexs-toolkit/releases/download/v2.5/ncexs-Toolkit-v2.5.new-year-edition.ps1",
+                "2.4": "https://github.com/ncexs/ncexs-toolkit/releases/download/v2.4/ncexs-Toolkit-v2.4.optimized-release.ps1",
+                "2.3": "https://github.com/ncexs/ncexs-toolkit/releases/download/v2.3/ncexs-Toolkit-v2.3.refined-release.ps1",
+                "2.2.2": "https://github.com/ncexs/ncexs-toolkit/releases/download/v2.2.2/ncexs-Toolkit-v2.2.2-final-hotfix.zip",
+                "2.2.1": "https://github.com/ncexs/ncexs-toolkit/releases/download/v2.2.1/ncexs.Toolkit.v2.2.1.hotfix.zip",
+                "2.2": "https://github.com/ncexs/ncexs-toolkit/releases/download/v2.2/ncexs.Toolkit.v2.2.advanced.zip",
+                "2.1": "https://github.com/ncexs/ncexs-toolkit/releases/download/v2.1/ncexs.Toolkit.v2.1.Enhanced.Edition.zip",
+                "2.0": "https://github.com/ncexs/ncexs-toolkit/releases/download/v2.0/ncexs.Toolkit.v2.0.Extended.zip",
+                "1.3": "https://github.com/ncexs/ncexs-junkcleaner/releases/download/v1.3/ncexs-junkcleaner-v1.3-EOL.zip",
+                "1.2": "https://github.com/ncexs/ncexs-junkcleaner/releases/download/v1.2/ncexs-junkcleaner-v1.2.zip",
+                "1.1": "https://github.com/ncexs/ncexs-junkcleaner/releases/download/v1.1/ncexs-junkcleaner-v1.1-nobin.zip",
+                "1.0": "https://github.com/ncexs/ncexs-junkcleaner/releases/download/v1.0/ncexs-junkcleaner-v1.0.zip"
+              };
+              const dlUrl = downloadLinks[v] || `https://github.com/ncexs/${repoName}/releases/tag/v${v}`;
+              
+              buttonsHtml = `
+                <div style="display: flex; gap: 10px;">
+                  <a href="${dlUrl}" target="_blank" class="btn btn-secondary" style="padding: 6px 12px; font-size: 0.85rem; background-color: var(--primary-color); color: #fff; border: none; border-radius: 6px;"><i class="fas fa-download"></i> Download</a>
+                  <a href="https://github.com/ncexs/${repoName}/tree/v${v}" target="_blank" class="btn btn-secondary" style="padding: 6px 12px; font-size: 0.85rem; border-radius: 6px;"><i class="fab fa-github"></i> GitHub</a>
+                </div>
+              `;
+          }
 
           htmlContent += `
             <div class="card" style="margin-bottom: 20px;">
-              <h3 style="margin-bottom: 15px; color: var(--primary-color);">${title}</h3>
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; flex-wrap: wrap; gap: 10px;">
+                <h3 style="margin: 0; color: var(--primary-color);">${title}</h3>
+                ${buttonsHtml}
+              </div>
               <div class="changelog-box" style="padding: 10px 5px;">
                 <div class="changelog-content">${htmlBody}</div>
               </div>
@@ -278,3 +324,14 @@ function updateRealTimeClock() {
         document.getElementById('changelog').scrollIntoView({ behavior: 'smooth' });
       }
     }
+
+    window.addEventListener('scroll', () => {
+      const btn = document.getElementById('scroll-bottom-btn');
+      if (!btn) return;
+      const isAtBottom = (window.innerHeight + window.scrollY) >= document.body.scrollHeight - 50;
+      if (isAtBottom) {
+        btn.classList.remove('show');
+      } else {
+        btn.classList.add('show');
+      }
+    });
