@@ -120,7 +120,7 @@ function updateRealTimeClock() {
         "txt-f6-t": "SFC & DISM (Menu 10):",
         "txt-f6-d": "The two most powerful \"self-repair\" tools in Windows. Use this if your system feels buggy or crashes often.",
         "txt-cl-title": "Version History / Changelog",
-        "txt-cl-desc": "Recent updates and changes to the ncexs Toolkit (Auto-synced from GitHub)."
+        "txt-cl-desc": "Recent updates and changes to the ncexs Toolkit."
       },
       id: {
         "txt-lang-label": "Bahasa:",
@@ -168,7 +168,7 @@ function updateRealTimeClock() {
         "txt-f6-t": "SFC & DISM (Menu 10):",
         "txt-f6-d": "Dua alat \"perbaikan mandiri\" paling ampuh di Windows. Gunakan ini jika sistem terasa error atau sering crash.",
         "txt-cl-title": "Riwayat Versi / Changelog",
-        "txt-cl-desc": "Pembaruan dan perubahan terbaru pada ncexs Toolkit (Otomatis sinkron dari GitHub)."
+        "txt-cl-desc": "Pembaruan dan perubahan terbaru pada ncexs Toolkit."
       }
     };
 
