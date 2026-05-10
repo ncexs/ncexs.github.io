@@ -10,211 +10,15 @@ function updateRealTimeClock() {
     setInterval(updateRealTimeClock, 1000);
     updateRealTimeClock();
 
-    function parseMarkdown(text) {
-      if (!text) return "<em>No description available.</em>";
-
-      let html = text.replace(/\r\n/g, '\n').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-
-      html = html.replace(/^### (.*$)/gim, '<h3>$1</h3>');
-      html = html.replace(/^## (.*$)/gim, '<h2>$1</h2>');
-      html = html.replace(/^# (.*$)/gim, '<h1>$1</h1>');
-      html = html.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>');
-      html = html.replace(/\*(.*?)\*/g, '<i>$1</i>');
-      html = html.replace(/^---$/gim, '<hr>');
-
-      let lines = html.split('\n');
-      let newLines = [];
-      let inList = false;
-
-      lines.forEach(line => {
-        if (/^\s*[-*]\s+(.*)/.test(line)) {
-          if (!inList) {
-            newLines.push('<ul>');
-            inList = true;
-          }
-          newLines.push(`<li>${line.replace(/^\s*[-*]\s+/, '')}</li>`);
-        } else {
-          if (inList) {
-            newLines.push('</ul>');
-            inList = false;
-          }
-          if (line.match(/^<h/) || line.match(/^<hr/)) newLines.push(line);
-          else if (line.trim() !== '') newLines.push(`<p>${line}</p>`);
-        }
-      });
-      if (inList) newLines.push('</ul>');
-      return newLines.join('');
-    }
-
-    function showTab(id, el) {
-      document.querySelectorAll('.container').forEach(c => c.classList.add('hidden'));
-      document.getElementById(id).classList.remove('hidden');
-      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-      if (el) el.classList.add('active');
-    }
-
-    let allReleases = [];
-    let currentPage = 1;
-    const itemsPerPage = 3;
-
-    function renderPagination() {
-      const totalPages = Math.ceil(allReleases.length / itemsPerPage);
-      if (totalPages <= 1) return '';
-
-      let paginationHtml = '<div class="pagination">';
-
-      const prevDisabled = currentPage === 1 ? 'disabled style="opacity:0.5;pointer-events:none;"' : '';
-      paginationHtml += `<button class="btn btn-secondary" onclick="changePage(${currentPage - 1})" ${prevDisabled}><i class="fas fa-chevron-left"></i> Prev</button>`;
-
-      paginationHtml += `<span class="page-info">Page ${currentPage} of ${totalPages}</span>`;
-
-      const nextDisabled = currentPage === totalPages ? 'disabled style="opacity:0.5;pointer-events:none;"' : '';
-      paginationHtml += `<button class="btn btn-secondary" onclick="changePage(${currentPage + 1})" ${nextDisabled}>Next <i class="fas fa-chevron-right"></i></button>`;
-
-      paginationHtml += '</div>';
-      return paginationHtml;
-    }
-
-    window.changePage = function (page) {
-      const totalPages = Math.ceil(allReleases.length / itemsPerPage);
-      if (page < 1 || page > totalPages) return;
-      currentPage = page;
-      displayCurrentPage();
-      document.getElementById('projects').scrollIntoView({ behavior: 'smooth' });
-    }
-
-    const renderReleaseCard = (release, type) => {
-      const body = parseMarkdown(release.body);
-      let dlUrl = release.html_url;
-      if (release.assets && release.assets.length > 0) dlUrl = release.assets[0].browser_download_url;
-
-      return `
-        <div class="card">
-          <h3>${release.name || release.tag_name}</h3>
-          
-          <div class="changelog-box">
-            <div class="changelog-content">${body}</div>
-          </div>
-
-          <div class="btn-group">
-            <a href="${dlUrl}" class="btn btn-primary"><i class="fas fa-download"></i> Download</a>
-            <a href="${release.html_url}" target="_blank" class="btn btn-secondary"><i class="fab fa-github"></i> View on GitHub</a>
-          </div>
-        </div>
-      `;
-    };
-
-    function displayCurrentPage() {
-      const container = document.getElementById('project-list');
-      const start = (currentPage - 1) * itemsPerPage;
-      const end = start + itemsPerPage;
-      const currentItems = allReleases.slice(start, end);
-
-      let htmlContent = '';
-      currentItems.forEach(item => {
-        htmlContent += renderReleaseCard(item.release, item.type);
-      });
-
-      htmlContent += renderPagination();
-      container.innerHTML = htmlContent;
-    }
-
-    async function fetchWithCache(url, cacheKey) {
-      const durationMs = 1800000; // Cache for 30 minutes
-      const cached = localStorage.getItem(cacheKey);
-      const cachedTime = localStorage.getItem(cacheKey + '_time');
-
-      if (cached && cachedTime && (Date.now() - parseInt(cachedTime)) < durationMs) {
-        return JSON.parse(cached);
-      }
-
-      const res = await fetch(url);
-      const data = await res.json();
-
-      if (!data.message || Array.isArray(data)) {
-        localStorage.setItem(cacheKey, JSON.stringify(data));
-        localStorage.setItem(cacheKey + '_time', Date.now().toString());
-      }
-      return data;
-    }
-
-    async function loadProjects() {
-      const container = document.getElementById('project-list');
-      const testBuildArea = document.getElementById('test-build-area');
-
-      try {
-        const dataTest = await fetchWithCache('https://api.github.com/repos/ncexs/ncexs-toolkit/contents/Test%20Build', 'gh_test_builds');
-
-        if (Array.isArray(dataTest) && dataTest.length > 0) {
-          let testHtml = '';
-          dataTest.forEach(file => {
-            if (file.name.toLowerCase() === 'readme.md') return;
-
-            testHtml += `
-          <div class="card test-build">
-              <h3><i class="fas fa-flask"></i> Experimental Build: ${file.name}</h3>
-              <p><b>⚠️ Experimental Build:</b> This version is for testing purposes only. It may contain bugs or unfinished features. Use at your own risk.</p>
-              <div class="btn-group">
-                <a href="${file.download_url}" class="btn btn-beta"><i class="fas fa-download"></i> Download Test Build</a>
-                <a href="https://github.com/ncexs/ncexs-toolkit/tree/main/Test%20Build" target="_blank" class="btn btn-secondary"><i class="fab fa-github"></i> View Source</a>
-              </div>
-          </div>
-        `;
-          });
-          testBuildArea.innerHTML = testHtml;
-        }
-
-        const [dataTk, dataJc] = await Promise.all([
-          fetchWithCache('https://api.github.com/repos/ncexs/ncexs-toolkit/releases', 'gh_tk_releases'),
-          fetchWithCache('https://api.github.com/repos/ncexs/ncexs-junkcleaner/releases', 'gh_jc_releases')
-        ]);
-
-        if (dataTk.message && !Array.isArray(dataTk)) throw new Error("API Rate Limit Exceeded. " + dataTk.message);
-        if (dataJc.message && !Array.isArray(dataJc)) console.warn("JunkCleaner API: " + dataJc.message);
-
-        allReleases = [];
-        if (Array.isArray(dataTk)) dataTk.forEach(r => allReleases.push({ release: r, type: 'tk' }));
-        if (Array.isArray(dataJc)) dataJc.forEach(r => allReleases.push({ release: r, type: 'jc' }));
-
-        if (allReleases.length === 0) {
-           throw new Error("No releases found or API limit reached.");
-        }
-
-        allReleases.sort((a, b) => new Date(b.release.published_at) - new Date(a.release.published_at));
-
-        currentPage = 1;
-        displayCurrentPage();
-
-      } catch (e) {
-        container.innerHTML = `
-          <div style="text-align:center; padding: 2rem; background: rgba(255,0,0,0.1); border-radius: 12px; border: 1px solid rgba(255,0,0,0.2);">
-            <i class="fas fa-exclamation-triangle fa-2x" style="color: #ef4444; margin-bottom: 15px;"></i>
-            <h3 style="margin-top: 0; color: #ef4444;">Oops! Failed to load downloads.</h3>
-            <p style="color: var(--text-muted);">${e.message}</p>
-            <p style="margin-top: 15px;">This usually happens if you refresh the page too many times (GitHub limits requests to 60 per hour). Please try again later, or visit the releases page directly:</p>
-            <div class="btn-group" style="justify-content: center;">
-              <a href="https://github.com/ncexs/ncexs-toolkit/releases" target="_blank" class="btn btn-primary"><i class="fab fa-github"></i> Download from GitHub</a>
-            </div>
-          </div>
-        `;
-      }
-    }
 
     const translations = {
       en: {
         "txt-lang-label": "Language:",
         "txt-how-title": "How to Use - ncexs Toolkit",
-        "txt-m1-title": "Method 1: The Easy Way (Right-Click)",
-        "txt-m1-1": "Download the <b>ncexs-Toolkit.ps1</b> file.",
-        "txt-m1-2": "<b>Right-click</b> the file.",
-        "txt-m1-3": "Select <b>Run with PowerShell</b>.",
-        "txt-m1-4": "If a \"Security Warning\" appears, simply type <b>R</b> and press <b>Enter</b>.",
-        "txt-m1-5": "The toolkit will launch automatically.",
-        "txt-m2-title": "Method 2: Manual (Command Line)",
-        "txt-m2-1": "Open Start Menu, type <b>powershell</b>, and press <b>Enter</b>.",
-        "txt-m2-2": "Copy and paste the command below into the window, then press <b>Enter</b>:",
-        "txt-m2-3": "<b>Drag and drop</b> the .ps1 file directly into the PowerShell window.",
-        "txt-m2-4": "Press <b>Enter</b> to run.",
+        "txt-quick-title": "Quick Run (No Download Required)",
+        "txt-quick-1": "Open your <b>Start Menu</b>, type <b>powershell</b>, right-click it and select <b>Run as Administrator</b>.",
+        "txt-quick-2": "Copy and paste the command below, then press <b>Enter</b>:",
+        "txt-quick-3": "The toolkit will launch automatically.",
         "txt-menu-title": "Interactive Menu Options",
         /* MENU_TRANS_EN_START */
         "txt-opt-0": "<b>0 → Compact OS (Save Space)</b>",
@@ -265,17 +69,10 @@ function updateRealTimeClock() {
       id: {
         "txt-lang-label": "Bahasa:",
         "txt-how-title": "Cara Menggunakan - ncexs Toolkit",
-        "txt-m1-title": "Metode 1: Cara Mudah (Klik Kanan)",
-        "txt-m1-1": "Download file <b>ncexs-Toolkit.ps1</b>.",
-        "txt-m1-2": "<b>Klik kanan</b> file tersebut.",
-        "txt-m1-3": "Pilih <b>Run with PowerShell</b>.",
-        "txt-m1-4": "Jika muncul \"Security Warning\", ketik <b>R</b> lalu tekan <b>Enter</b>.",
-        "txt-m1-5": "Toolkit akan terbuka secara otomatis.",
-        "txt-m2-title": "Metode 2: Manual (Command Line)",
-        "txt-m2-1": "Buka Start Menu, ketik <b>powershell</b>, lalu tekan <b>Enter</b>.",
-        "txt-m2-2": "Copy dan paste perintah di bawah ini ke jendela PowerShell, lalu tekan <b>Enter</b>:",
-        "txt-m2-3": "<b>Tarik dan lepas</b> file .ps1 langsung ke jendela PowerShell.",
-        "txt-m2-4": "Tekan <b>Enter</b> untuk menjalankan.",
+        "txt-quick-title": "Perintah Cepat (Tanpa Perlu Download)",
+        "txt-quick-1": "Buka <b>Start Menu</b>, ketik <b>powershell</b>, klik kanan lalu pilih <b>Run as Administrator</b>.",
+        "txt-quick-2": "Copy dan paste perintah di bawah ini, lalu tekan <b>Enter</b>:",
+        "txt-quick-3": "Toolkit akan langsung terbuka secara otomatis.",
         "txt-menu-title": "Pilihan Menu Interaktif",
         /* MENU_TRANS_ID_START */
         "txt-opt-q": "<b>Q → Perbaikan Cepat (Disarankan)</b>",

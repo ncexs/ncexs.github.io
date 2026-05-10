@@ -14,16 +14,9 @@
 <body>
 
   <header>
-    <div class="date-badge">
-      <div class="badge-item">
-        <i class="fa-regular fa-clock"></i>
-        <span id="time">--:-- --</span>
-      </div>
-      <div class="badge-divider"></div>
-      <div class="badge-item">
-        <i class="fa-regular fa-calendar-alt"></i>
-        <span id="date">Checking...</span>
-      </div>
+    <div class="top-clock">
+      <span id="time">--:-- --</span>
+      <span id="date">Checking...</span>
     </div>
 
     <h1>
@@ -37,7 +30,6 @@
   <div class="tabs-container">
     <div class="tabs">
       <div class="tab active" onclick="showTab('home', this)">Introduction</div>
-      <div class="tab" onclick="showTab('projects', this)">Downloads</div>
       <div class="tab" onclick="showTab('guide', this)">How to Use</div>
     </div>
   </div>
@@ -68,14 +60,7 @@
     <div id="test-build-area"></div>
   </div>
 
-  <div id="projects" class="container hidden">
-    <div id="project-list">
-      <div style="text-align:center; padding:3rem; color:#888;">
-        <i class="fas fa-circle-notch fa-spin fa-2x" style="color:var(--primary-color)"></i>
-        <p style="margin-top:1rem">Loading latest releases from GitHub...</p>
-      </div>
-    </div>
-  </div>
+
 
   <div id="guide" class="container hidden">
     <div class="card">
@@ -89,33 +74,17 @@
       </div>
       <h3><i class="fas fa-book-reader"></i> <span id="txt-how-title">How to Use - ncexs Toolkit</span></h3>
 
-      <div style="margin-bottom: 20px;">
-        <h4 style="color: var(--primary-color); margin-bottom: 10px; font-weight: 600; font-size: 1.1rem;">
-          <span id="txt-m1-title">Method 1: The Easy Way (Right-Click)</span>
-        </h4>
-        <ol style="margin-top: 5px; padding-left: 20px;">
-          <li id="txt-m1-1">Download the <b>ncexs-Toolkit.ps1</b> file.</li>
-          <li id="txt-m1-2"><b>Right-click</b> the file.</li>
-          <li id="txt-m1-3">Select <b>Run with PowerShell</b>.</li>
-          <li id="txt-m1-4">If a "Security Warning" appears, simply type <b>R</b> and press <b>Enter</b>.</li>
-          <li id="txt-m1-5">The toolkit will launch automatically.</li>
-        </ol>
-      </div>
-
-      <hr style="border: 0; border-top: 2px dashed #e1e4e8; margin: 25px 0;">
-
       <div style="margin-bottom: 30px;">
         <h4 style="color: var(--primary-color); margin-bottom: 10px; font-weight: 600; font-size: 1.1rem;">
-          <span id="txt-m2-title">Method 2: Manual (Command Line)</span>
+          <span id="txt-quick-title">Quick Run (No Download Required)</span>
         </h4>
         <ol style="margin-top: 5px; padding-left: 20px;">
-          <li id="txt-m2-1">Open Start Menu, type <b>powershell</b>, and press <b>Enter</b>.</li>
+          <li id="txt-quick-1">Open your <b>Start Menu</b>, type <b>powershell</b>, right-click it and select <b>Run as Administrator</b>.</li>
           <li>
-            <span id="txt-m2-2">Copy and paste the command below into the window, then press <b>Enter</b>:</span>
-            <div class="code-box">Set-ExecutionPolicy Unrestricted -Scope Process</div>
+            <span id="txt-quick-2">Copy and paste the command below, then press <b>Enter</b>:</span>
+            <div class="code-box" style="user-select: all;">Set-ExecutionPolicy Bypass -Scope Process -Force; [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; irm "https://raw.githubusercontent.com/ncexs/ncexs-toolkit/main/ncexs-Toolkit.ps1" | iex</div>
           </li>
-          <li id="txt-m2-3"><b>Drag and drop</b> the .ps1 file directly into the PowerShell window.</li>
-          <li id="txt-m2-4">Press <b>Enter</b> to run.</li>
+          <li id="txt-quick-3">The toolkit will launch automatically.</li>
         </ol>
       </div>
 
