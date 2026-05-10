@@ -98,6 +98,9 @@ function updateRealTimeClock() {
         "txt-opt-11": "11 → Windows Update Fixer",
         "txt-opt-12": "12 → DNS Changer",
         "txt-opt-13": "13 → Language Settings",
+        "txt-opt-14": "14 → Visual FX Booster",
+        "txt-opt-15": "15 → Optimize WhatsApp",
+        "txt-opt-16": "16 → Exit Toolkit",
         /* MENU_TRANS_EN_END */
         "txt-tip-title": "Tip:",
         "txt-tip-desc": "Use <b>Menu [0] Compact OS</b> if your C: drive is full. Always backup important data before performing deep system maintenance.",
@@ -116,17 +119,6 @@ function updateRealTimeClock() {
         "txt-f5-d": "Fixes stuck or failed Windows Updates by resetting the update services (wuauserv, bits, cryptSvc) and renaming the download cache folder.",
         "txt-f6-t": "SFC & DISM (Menu 10):",
         "txt-f6-d": "The two most powerful \"self-repair\" tools in Windows. Use this if your system feels buggy or crashes often.",
-        "txt-jc-title": "How to Use - ncexs JunkCleaner",
-        "txt-jc-1": "Extract the ZIP file (right-click → Extract All).",
-        "txt-jc-2": "Double-click the <b>.bat</b> file.",
-        "txt-jc-3": "If 'Windows protected your PC' appears, click <b>More info</b> → <b>Run anyway</b>.",
-        "txt-jc-4": "Allow admin access when prompted.",
-        "txt-jc-menu": "Menu Options",
-        "txt-jc-m1": "1 → Junk & Cache Cleaner",
-        "txt-jc-m2": "2 → Deep Cleanup",
-        "txt-jc-m3": "3 → Antivirus Scan",
-        "txt-jc-m4": "4 → Clear RAM",
-        "txt-jc-note": "After the process finishes, check <b>log_ncexs.txt</b> for the cleanup report.",
         "txt-cl-title": "Version History / Changelog",
         "txt-cl-desc": "Recent updates and changes to the ncexs Toolkit (Auto-synced from GitHub)."
       },
@@ -154,6 +146,9 @@ function updateRealTimeClock() {
         "txt-opt-11": "11 → Perbaikan Windows Update",
         "txt-opt-12": "12 → Pengubah DNS",
         "txt-opt-13": "13 → Pengaturan Bahasa",
+        "txt-opt-14": "14 → Visual FX Booster",
+        "txt-opt-15": "15 → Optimasi WhatsApp",
+        "txt-opt-16": "16 → Keluar Aplikasi",
         /* MENU_TRANS_ID_END */
         "txt-tip-title": "Tips:",
         "txt-tip-desc": "Gunakan <b>Menu [0] Compact OS</b> jika drive C: penuh. Selalu backup data penting sebelum melakukan perawatan sistem mendalam.",
@@ -172,17 +167,6 @@ function updateRealTimeClock() {
         "txt-f5-d": "Memperbaiki Windows Update yang macet atau gagal dengan mereset layanan update (wuauserv, bits, cryptSvc) dan mengganti nama folder cache download.",
         "txt-f6-t": "SFC & DISM (Menu 10):",
         "txt-f6-d": "Dua alat \"perbaikan mandiri\" paling ampuh di Windows. Gunakan ini jika sistem terasa error atau sering crash.",
-        "txt-jc-title": "Cara Menggunakan - ncexs JunkCleaner",
-        "txt-jc-1": "Ekstrak file ZIP (klik kanan → Extract All).",
-        "txt-jc-2": "Klik dua kali file <b>.bat</b>.",
-        "txt-jc-3": "Jika muncul 'Windows protected your PC', klik <b>More info</b> → <b>Run anyway</b>.",
-        "txt-jc-4": "Izinkan akses admin jika diminta.",
-        "txt-jc-menu": "Pilihan Menu",
-        "txt-jc-m1": "1 → Pembersih Sampah & Cache",
-        "txt-jc-m2": "2 → Pembersihan Mendalam",
-        "txt-jc-m3": "3 → Scan Antivirus",
-        "txt-jc-m4": "4 → Bersihkan RAM",
-        "txt-jc-note": "Setelah proses selesai, cek <b>log_ncexs.txt</b> untuk laporan pembersihan.",
         "txt-cl-title": "Riwayat Versi / Changelog",
         "txt-cl-desc": "Pembaruan dan perubahan terbaru pada ncexs Toolkit (Otomatis sinkron dari GitHub)."
       }
@@ -206,6 +190,10 @@ function updateRealTimeClock() {
 
     window.onload = () => { setLanguage('en'); };
 
+    let allChangelogVersions = [];
+    let changelogCurrentPage = 1;
+    const changelogItemsPerPage = 3;
+
     async function loadChangelog() {
       const container = document.getElementById('changelog-list');
       try {
@@ -217,31 +205,10 @@ function updateRealTimeClock() {
         }
         
         const markdownText = await response.text();
-        const versions = markdownText.split(/(?=^# 🚀 ncexs Toolkit v)/m);
-        
-        let htmlContent = '';
-        versions.forEach(ver => {
-            if (ver.trim() === '') return;
-            
-            const lines = ver.trim().split('\n');
-            let title = "Release Notes";
-            if (lines[0].startsWith("# 🚀")) {
-                title = lines.shift().replace(/^# /, '').trim();
-            }
-            
-            const htmlBody = parseMarkdown(lines.join('\n'));
-
-            htmlContent += `
-              <div class="card" style="margin-bottom: 20px;">
-                <h3 style="margin-bottom: 15px; color: var(--primary-color);">${title}</h3>
-                <div class="changelog-box" style="padding: 10px 5px;">
-                  <div class="changelog-content">${htmlBody}</div>
-                </div>
-              </div>
-            `;
-        });
-
-        container.innerHTML = htmlContent;
+        const rawVersions = markdownText.split(/(?=^# 🚀 ncexs Toolkit v)/m);
+        allChangelogVersions = rawVersions.filter(v => v.trim() !== '');
+        changelogCurrentPage = 1;
+        displayChangelogPage();
       } catch (error) {
         container.innerHTML = `
           <div style="text-align:center; padding: 2rem; background: rgba(255,0,0,0.1); border-radius: 12px; border: 1px solid rgba(255,0,0,0.2);">
@@ -251,5 +218,63 @@ function updateRealTimeClock() {
             <p style="margin-top: 15px;">To fix this, create a file named <b>CHANGELOG.md</b> in your ncexs-toolkit repository.</p>
           </div>
         `;
+      }
+    }
+
+    function displayChangelogPage() {
+      const container = document.getElementById('changelog-list');
+      const start = (changelogCurrentPage - 1) * changelogItemsPerPage;
+      const end = start + changelogItemsPerPage;
+      const pageVersions = allChangelogVersions.slice(start, end);
+
+      let htmlContent = '';
+      pageVersions.forEach(ver => {
+          const lines = ver.trim().split('\n');
+          let title = "Release Notes";
+          if (lines[0].startsWith("# 🚀")) {
+              title = lines.shift().replace(/^# /, '').trim();
+          }
+          
+          const htmlBody = parseMarkdown(lines.join('\n'));
+
+          htmlContent += `
+            <div class="card" style="margin-bottom: 20px;">
+              <h3 style="margin-bottom: 15px; color: var(--primary-color);">${title}</h3>
+              <div class="changelog-box" style="padding: 10px 5px;">
+                <div class="changelog-content">${htmlBody}</div>
+              </div>
+            </div>
+          `;
+      });
+      container.innerHTML = htmlContent;
+      renderChangelogPagination();
+    }
+
+    function renderChangelogPagination() {
+      const totalPages = Math.ceil(allChangelogVersions.length / changelogItemsPerPage);
+      if (totalPages <= 1) return;
+
+      let paginationHtml = '<div class="pagination" style="display:flex; justify-content:center; gap:10px; margin-top:20px;">';
+      
+      const prevDisabled = changelogCurrentPage === 1 ? 'disabled style="opacity:0.5; cursor:not-allowed;"' : '';
+      paginationHtml += `<button class="btn btn-outline" ${prevDisabled} onclick="changeChangelogPage(-1)"><i class="fas fa-chevron-left"></i> Prev</button>`;
+      
+      paginationHtml += `<span style="display:flex; align-items:center; font-weight:600; color:var(--text-muted);">Page ${changelogCurrentPage} of ${totalPages}</span>`;
+      
+      const nextDisabled = changelogCurrentPage === totalPages ? 'disabled style="opacity:0.5; cursor:not-allowed;"' : '';
+      paginationHtml += `<button class="btn btn-outline" ${nextDisabled} onclick="changeChangelogPage(1)">Next <i class="fas fa-chevron-right"></i></button>`;
+      
+      paginationHtml += '</div>';
+      
+      document.getElementById('changelog-list').innerHTML += paginationHtml;
+    }
+
+    window.changeChangelogPage = function(direction) {
+      const totalPages = Math.ceil(allChangelogVersions.length / changelogItemsPerPage);
+      const newPage = changelogCurrentPage + direction;
+      if (newPage >= 1 && newPage <= totalPages) {
+        changelogCurrentPage = newPage;
+        displayChangelogPage();
+        document.getElementById('changelog').scrollIntoView({ behavior: 'smooth' });
       }
     }
