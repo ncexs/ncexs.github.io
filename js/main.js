@@ -228,6 +228,9 @@ const translations = {
 
     // AutoTask Guide
     "txt-how-at-title": "How to Use - ncexs AutoTask",
+    "txt-at-dl-title": "Download Script",
+    "txt-at-dl-desc": "Download the official PowerShell automation script from our GitHub repository:",
+    "txt-at-dl-btn": "Download ncexs-AutoTask.ps1",
     "txt-at-manual-title": "Manual Run Command",
     "txt-at-manual-1": "Open <b>PowerShell</b> (Administrator recommended).",
     "txt-at-manual-2": "Execute the script locally with this command:",
@@ -329,6 +332,9 @@ const translations = {
 
     // AutoTask Guide
     "txt-how-at-title": "Cara Menggunakan - ncexs AutoTask",
+    "txt-at-dl-title": "Unduh Script",
+    "txt-at-dl-desc": "Unduh script otomatisasi PowerShell resmi dari repositori GitHub kami:",
+    "txt-at-dl-btn": "Unduh ncexs-AutoTask.ps1",
     "txt-at-manual-title": "Perintah Jalankan Manual",
     "txt-at-manual-1": "Buka <b>PowerShell</b> (Disarankan sebagai Administrator).",
     "txt-at-manual-2": "Jalankan script secara lokal dengan perintah ini:",
