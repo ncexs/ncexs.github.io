@@ -7,11 +7,13 @@
   <title>ncexs Toolkit</title>
   <meta name="description" content="ncexs Toolkit - Simple tool to optimize and clean Windows">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Outfit:wght@300;400;500;600;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Outfit:wght@300;400;500;600;800&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css?v=1.4">
 </head>
 
-<body>
+<body data-active-tab="home">
 
   <header>
     <div class="top-time">
@@ -30,205 +32,541 @@
         <span style="--char-index: 5;">s</span>
       </span>
       <span class="logo-word">
-        <span style="--char-index: 6;">T</span>
-        <span style="--char-index: 7;">o</span>
-        <span style="--char-index: 8;">o</span>
-        <span style="--char-index: 9;">l</span>
-        <span style="--char-index: 10;">k</span>
-        <span style="--char-index: 11;">i</span>
-        <span style="--char-index: 12;">t</span>
+        <span style="--char-index: 6;">H</span>
+        <span style="--char-index: 7;">u</span>
+        <span style="--char-index: 8;">b</span>
       </span>
     </h1>
     <div class="header-intro">
-      <h2>Unleash Your PC's Full Potential</h2>
-      <p>ncexs Toolkit is an open-source, ultra-lightweight Windows optimization powerhouse. Built strictly with PowerShell—no bloatware, no installations, just pure performance at your fingertips.</p>
-      
-      <div class="header-features">
-        <div class="header-feature-badge">
-          <i class="fas fa-bolt" style="color: var(--primary-color);"></i>
-          <span>Lightning Fast</span>
-        </div>
-        <div class="header-feature-badge">
-          <i class="fas fa-shield-alt" style="color: var(--secondary-color);"></i>
-          <span>100% Safe</span>
-        </div>
-        <div class="header-feature-badge">
-          <i class="fas fa-code-branch" style="color: #ec4899;"></i>
-          <span>Open Source</span>
-        </div>
-      </div>
+      <h2 id="txt-hub-subtitle">Unleash Your PC's Full Potential</h2>
+      <p id="txt-hub-desc">Explore a curated suite of lightweight, safe, and powerful tools designed to optimize, clean,
+        and automate your Windows experience—pure performance, zero bloat.</p>
     </div>
   </header>
 
   <div class="tabs-container">
     <div class="tabs">
-      <div class="tab active" onclick="showTab('home', this)">Introduction</div>
-      <div class="tab" onclick="showTab('guide', this)">How to Use</div>
-      <div class="tab" onclick="showTab('changelog', this)">Changelog</div>
+      <div class="tab active" onclick="showTab('home', this)"><span id="txt-tab-intro">Introduction</span></div>
+      <div class="tab" onclick="showTab('projects', this)"><span id="txt-tab-projects">Projects</span></div>
+    </div>
+
+    <div class="lang-switch">
+      <div class="lang-label">
+        <i class="fas fa-globe"></i>&nbsp; <b id="txt-lang-label">Choose Language:</b>
+      </div>
+      <div class="ios-toggle-container" onclick="toggleLanguage()">
+        <div class="ios-toggle">
+          <div class="ios-toggle-thumb"></div>
+          <span id="btn-en" class="active" onclick="event.stopPropagation(); setLanguage('en')">EN</span>
+          <span id="btn-id" onclick="event.stopPropagation(); setLanguage('id')">ID</span>
+        </div>
+      </div>
     </div>
   </div>
 
   <div id="home" class="container">
-    <div class="card" style="text-align: center; padding: 2.5rem;">
-      <h3 style="justify-content: center; margin-bottom: 15px;"><i class="fas fa-user-astronaut" style="font-size: 1.5rem; color: var(--primary-color);"></i> Hello, I'm ncexs</h3>
-      <p style="max-width: 650px; margin: 0 auto; color: var(--text-muted); line-height: 1.6; font-size: 1.05rem;">
-        I am a developer learning to build lightweight & useful tools for everyone. I created this toolkit to help myself and others manage their Windows systems efficiently without "bloatware".
+    <!-- SHARED BIO CARD (Now Paling Atas!) -->
+    <div class="card" style="text-align: center; padding: 2.5rem; margin-bottom: 2.5rem;">
+      <h3 style="justify-content: center; margin-bottom: 15px;"><i class="fas fa-user-astronaut"
+          style="font-size: 1.5rem; color: #6366f1;"></i> <span id="txt-bio-title">Hello, I'm ncexs</span>
+      </h3>
+      <p style="max-width: 650px; margin: 0 auto; color: var(--text-muted); line-height: 1.6; font-size: 1.05rem;"
+        id="txt-bio-desc">
+        I am a developer learning to build lightweight & useful tools for everyone. I created these utilities to help
+        myself and others manage their Windows systems efficiently without "bloatware".
       </p>
       <div class="btn-group" style="justify-content: center; margin-top: 25px;">
-        <a href="https://github.com/ncexs" target="_blank" class="btn btn-secondary"><i class="fab fa-github"></i> GitHub Profile</a>
+        <a href="https://github.com/ncexs" target="_blank" class="btn btn-secondary"><i class="fab fa-github"></i>
+          GitHub Profile</a>
+        <a href="https://saweria.co/ncexs" target="_blank" class="btn btn-secondary"><i class="fas fa-coffee"></i>
+          Support Me</a>
       </div>
     </div>
 
+    <!-- TOOLKIT INTRO -->
+    <div class="project-content toolkit">
+      <div class="card" style="text-align: center; padding: 2.5rem; margin-bottom: 2.5rem;">
+        <h3 style="justify-content: center; margin-bottom: 15px;"><i class="fas fa-toolbox"
+            style="font-size: 1.5rem; color: #6366f1;"></i> ncexs Toolkit</h3>
+        <p style="max-width: 650px; margin: 0 auto; color: var(--text-muted); line-height: 1.6; font-size: 1.05rem;"
+          id="txt-tk-intro-desc">
+          An open-source, interactive, all-in-one PowerShell console suite. Safely clean, optimize system speed,
+          configure DNS, repair network stacks, and manage Windows updates—all from one lightweight interface with zero
+          installations.
+        </p>
+
+
+        <div class="btn-group" style="justify-content: center; margin-top: 25px;">
+          <button
+            onclick="setProject('toolkit'); showTab('projects', document.querySelectorAll('.tab')[1]); showSubTab('guide');"
+            class="btn btn-primary"><i class="fas fa-play"></i> <span id="txt-tk-btn-guide">Get Started</span></button>
+          <a href="https://github.com/ncexs/ncexs-toolkit" target="_blank" class="btn btn-secondary"><i
+              class="fab fa-github"></i> GitHub</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- AUTOTASK INTRO -->
+    <div class="project-content autotask">
+      <div class="card" style="text-align: center; padding: 2.5rem; margin-bottom: 2.5rem;">
+        <h3 style="justify-content: center; margin-bottom: 15px;"><i class="fas fa-clock"
+            style="font-size: 1.5rem; color: #10b981;"></i> ncexs AutoTask</h3>
+        <p style="max-width: 650px; margin: 0 auto; color: var(--text-muted); line-height: 1.6; font-size: 1.05rem;"
+          id="txt-at-intro-desc">
+          A lightweight background automation script built for silent, scheduled Windows maintenance. It automatically
+          runs in the background via Task Scheduler to clean system caches, browser shader files, and GPU runtimes
+          without interrupting active browser sessions or active processes.
+        </p>
+
+
+        <div class="btn-group" style="justify-content: center; margin-top: 25px;">
+          <button
+            onclick="setProject('autotask'); showTab('projects', document.querySelectorAll('.tab')[1]); showSubTab('guide');"
+            class="btn btn-primary"><i class="fas fa-cog"></i> <span id="txt-at-btn-guide">Setup
+              Scheduler</span></button>
+          <a href="https://github.com/ncexs/ncexs-AutoTask" target="_blank" class="btn btn-secondary"><i
+              class="fab fa-github"></i> GitHub</a>
+        </div>
+      </div>
+
+      <!-- Key Features Grid for AutoTask -->
+      <div class="grid"
+        style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
+        <div class="card" style="margin-bottom: 0; padding: 1.8rem; text-align: center;">
+          <h4 style="margin: 0 0 10px; color: #fff; display: flex; align-items: center; justify-content: center; gap: 8px;"><i
+              class="fas fa-shield-alt" style="color: var(--primary-color);"></i> <span id="txt-at-feat-1-t">100% Safe
+              Cleanup</span></h4>
+          <p style="font-size: 0.95rem; color: var(--text-muted); margin: 0; line-height: 1.5;" id="txt-at-feat-1-d">
+            Targeted strictly at temporary paths and browser/GPU caches. Authentications, cookies, and local files are
+            completely untouched.</p>
+        </div>
+        <div class="card" style="margin-bottom: 0; padding: 1.8rem; text-align: center;">
+          <h4 style="margin: 0 0 10px; color: #fff; display: flex; align-items: center; justify-content: center; gap: 8px;"><i
+              class="fas fa-eye-slash" style="color: var(--primary-color);"></i> <span id="txt-at-feat-2-t">Silent
+              Execution</span></h4>
+          <p style="font-size: 0.95rem; color: var(--text-muted); margin: 0; line-height: 1.5;" id="txt-at-feat-2-d">
+            Designed with background detection. Automatically runs hidden with zero console popups, preventing desktop
+            interruptions.</p>
+        </div>
+        <div class="card" style="margin-bottom: 0; padding: 1.8rem; text-align: center;">
+          <h4 style="margin: 0 0 10px; color: #fff; display: flex; align-items: center; justify-content: center; gap: 8px;"><i
+              class="fas fa-microchip" style="color: var(--primary-color);"></i> <span
+              id="txt-at-feat-3-t">Process-Aware</span></h4>
+          <p style="font-size: 0.95rem; color: var(--text-muted); margin: 0; line-height: 1.5;" id="txt-at-feat-3-d">
+            Checks active applications before deletion. If a browser is active, it skips cache cleaning to protect open
+            database sessions.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- JUNK CLEANER INTRO -->
+    <div class="project-content junkcleaner">
+      <div class="card" style="text-align: center; padding: 2.5rem; margin-bottom: 2.5rem;">
+        <h3 style="justify-content: center; margin-bottom: 15px;"><i class="fas fa-soap"
+            style="font-size: 1.5rem; color: #f43f5e;"></i> ncexs Junk Cleaner</h3>
+        <p style="max-width: 650px; margin: 0 auto; color: var(--text-muted); line-height: 1.6; font-size: 1.05rem;"
+          id="txt-jc-intro-desc">
+          A classic, lightweight, and super-fast Batch Script (`.bat`) for one-click Windows optimization. Designed as a
+          straightforward "run-and-done" utility, it safely empties temporary directories, Recycle Bins, recent logs,
+          and triggers a lightweight system RAM flush.
+        </p>
+
+
+
+        <div class="btn-group" style="justify-content: center; margin-top: 25px;">
+          <button
+            onclick="setProject('junkcleaner'); showTab('projects', document.querySelectorAll('.tab')[1]); showSubTab('guide');"
+            class="btn btn-primary"><i class="fas fa-download"></i> <span id="txt-jc-btn-guide">Get
+              Release</span></button>
+          <a href="https://github.com/ncexs/ncexs-junkcleaner" target="_blank" class="btn btn-secondary"><i
+              class="fab fa-github"></i> GitHub</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECURITY & TRUST -->
+    <hr
+      style="margin: 3rem 0; border: none; height: 1px; background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);">
+
     <div class="card" style="text-align: center;">
-      <h3 style="justify-content: center;"><i class="fas fa-shield-alt" style="color: var(--secondary-color);"></i> Security & Trust</h3>
-      <p style="max-width: 600px; margin: 0 auto 20px; color: var(--text-muted); line-height: 1.6;">This toolkit is 100% transparent and open-source. It does not collect any personal data. You are free to audit the code.</p>
+      <h3 style="justify-content: center;"><i class="fas fa-shield-alt" style="color: var(--secondary-color);"></i>
+        <span id="txt-sec-title">Security & Trust</span>
+      </h3>
+      <p style="max-width: 600px; margin: 0 auto 20px; color: var(--text-muted); line-height: 1.6;" id="txt-sec-desc">
+        These utilities are 100% transparent and open-source. They do not collect any personal data. You are free to
+        audit the code at any time.</p>
       <div class="btn-group" style="justify-content: center;">
-        <a href="https://www.virustotal.com/" target="_blank" class="btn btn-secondary"><i class="fas fa-check-circle"></i> VirusTotal</a>
-        <a href="https://saweria.co/ncexs" target="_blank" class="btn btn-secondary"><i class="fas fa-coffee"></i> Support Me</a>
+        <a href="https://www.virustotal.com/" target="_blank" class="btn btn-secondary"><i
+            class="fas fa-check-circle"></i> VirusTotal</a>
       </div>
     </div>
 
     <div id="test-build-area"></div>
   </div>
 
+  <div id="projects" class="container hidden">
+    <!-- PROJECT SELECTOR CARD BUTTONS -->
+    <div class="project-selector-container" data-active="toolkit">
+      <div class="project-selector">
+        <button class="project-btn active" data-project="toolkit" onclick="setProject('toolkit')">
+          <div class="project-btn-glow"></div>
+          <div class="project-btn-icon">
+            <i class="fas fa-toolbox"></i>
+          </div>
+          <div class="project-btn-meta">
+            <span class="project-btn-title">ncexs Toolkit</span>
+            <span class="project-btn-desc">All-in-One Console Suite</span>
+          </div>
+          <div class="project-btn-badge">Stable</div>
+        </button>
+        <button class="project-btn" data-project="autotask" onclick="setProject('autotask')">
+          <div class="project-btn-glow"></div>
+          <div class="project-btn-icon">
+            <i class="fas fa-clock"></i>
+          </div>
+          <div class="project-btn-meta">
+            <span class="project-btn-title">ncexs AutoTask</span>
+            <span class="project-btn-desc">Silent Background Cleanup</span>
+          </div>
+          <div class="project-btn-badge">Active</div>
+        </button>
+        <button class="project-btn" data-project="junkcleaner" onclick="setProject('junkcleaner')">
+          <div class="project-btn-glow"></div>
+          <div class="project-btn-icon">
+            <i class="fas fa-soap"></i>
+          </div>
+          <div class="project-btn-meta">
+            <span class="project-btn-title">Junk Cleaner</span>
+            <span class="project-btn-desc">Classic One-Click Batch</span>
+          </div>
+          <div class="project-btn-badge">Legacy</div>
+        </button>
+      </div>
+    </div>
 
-
-  <div id="guide" class="container hidden">
-    <div class="card">
-      <div class="lang-switch">
-        <div class="lang-label">
-          <i class="fas fa-globe"></i>&nbsp; <b id="txt-lang-label">Language:</b>
+    <!-- SUB-TABS NAVIGATION (HOW TO USE / CHANGELOG) -->
+    <div class="sub-tabs-container">
+      <div class="sub-tabs">
+        <div class="sub-tab active" id="sub-tab-guide" onclick="showSubTab('guide')">
+          <i class="fas fa-book-reader"></i> <span id="txt-sub-tab-how">How to Use</span>
         </div>
-        <div class="ios-toggle-container">
-          <div class="ios-toggle">
-            <div class="ios-toggle-thumb"></div>
-            <span id="btn-en" class="active" onclick="setLanguage('en')">EN</span>
-            <span id="btn-id" onclick="setLanguage('id')">ID</span>
+        <div class="sub-tab" id="sub-tab-changelog" onclick="showSubTab('changelog')">
+          <i class="fas fa-history"></i> <span id="txt-sub-tab-changelog">Changelog</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- NESTED GUIDE CONTAINER -->
+    <div id="guide">
+      <div class="card">
+
+        <!-- TOOLKIT GUIDE -->
+        <div class="project-content toolkit">
+          <h3><i class="fas fa-book-reader"></i> <span id="txt-how-title">How to Use - ncexs Toolkit</span></h3>
+
+          <div style="margin-bottom: 30px;">
+            <h4 style="color: var(--primary-color); margin-bottom: 10px; font-weight: 600; font-size: 1.1rem;">
+              <span id="txt-quick-title">Quick Run (No Download Required)</span>
+            </h4>
+            <div class="stepper">
+              <div class="step">
+                <div class="step-num">1</div>
+                <div class="step-text">
+                  <p id="txt-quick-1">Open your <b>Start Menu</b>, type <b>powershell</b>, right-click it and select
+                    <b>Run
+                      as Administrator</b>.
+                  </p>
+                </div>
+              </div>
+              <div class="step">
+                <div class="step-num">2</div>
+                <div class="step-text">
+                  <p id="txt-quick-2">Copy and paste the command below, then press <b>Enter</b>:</p>
+                  <div class="code-box" style="user-select: all; white-space: pre-wrap; word-break: break-all; overflow-x: visible; text-align: left;">Set-ExecutionPolicy Bypass -Scope Process -Force; [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; irm "https://raw.githubusercontent.com/ncexs/ncexs-toolkit/main/ncexs-Toolkit.ps1" | iex</div>
+                </div>
+              </div>
+              <div class="step">
+                <div class="step-num">3</div>
+                <div class="step-text">
+                  <p id="txt-quick-3">The toolkit will launch automatically.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <details class="collapsible-section" open>
+            <summary class="collapsible-header">
+              <span class="header-title">
+                <i class="fas fa-list-ul"></i> <span id="txt-menu-title">Interactive Menu Options</span>
+              </span>
+              <i class="fas fa-chevron-down toggle-icon"></i>
+            </summary>
+            <div class="collapsible-content">
+              <ul class="menu-grid" style="padding-left: 20px; margin: 0;">
+                <!-- MENU_LIST_START -->
+                <li id="txt-opt-q"><b>Q → Quick Fix (Recommended)</b></li>
+                <li id="txt-opt-0"><b>0 → Compact OS (Save Space)</b></li>
+                <li id="txt-opt-1">1 → System Information</li>
+                <li id="txt-opt-2">2 → Junk Cleaner (All GPU)</li>
+                <li id="txt-opt-3">3 → Empty Recycle Bin</li>
+                <li id="txt-opt-4">4 → Open Disk Cleanup</li>
+                <li id="txt-opt-5">5 → Smart Uninstaller</li>
+                <li id="txt-opt-6">6 → Network Repair (5-in-1)</li>
+                <li id="txt-opt-7">7 → Power & Battery Utilities</li>
+                <li id="txt-opt-8">8 → Memory Optimizer</li>
+                <li id="txt-opt-9">9 → Defrag & Optimize Drives</li>
+                <li id="txt-opt-10">10 → System Health (SFC/DISM)</li>
+                <li id="txt-opt-11">11 → Windows Update Fixer</li>
+                <li id="txt-opt-12">12 → DNS Changer</li>
+                <li id="txt-opt-13">13 → Language Settings</li>
+                <li id="txt-opt-14">14 → Visual FX Booster</li>
+                <li id="txt-opt-15">15 → Optimize WhatsApp</li>
+                <li id="txt-opt-16">16 → Exit Toolkit</li>
+                <!-- MENU_LIST_END -->
+              </ul>
+            </div>
+          </details>
+
+          <p
+            style="margin-top: 20px; padding: 10px; background: rgba(234, 179, 8, 0.1); border: 1px solid rgba(234, 179, 8, 0.2); border-radius: 6px; color: #fde047;">
+            💡 <b id="txt-tip-title">Tip:</b> <span id="txt-tip-desc">Use <b>Menu [0] Compact OS</b> if your C: drive is
+              full. Always backup important data before performing deep system maintenance.</span>
+          </p>
+        </div>
+
+        <!-- AUTOTASK GUIDE -->
+        <div class="project-content autotask">
+          <h3><i class="fas fa-book-reader"></i> <span id="txt-how-at-title">How to Use - ncexs AutoTask</span></h3>
+
+          <div style="margin-bottom: 30px;">
+            <h4 style="color: var(--primary-color); margin-bottom: 10px; font-weight: 600; font-size: 1.1rem;">
+              <span id="txt-at-manual-title">Manual Run Command</span>
+            </h4>
+            <ol style="margin-top: 5px; padding-left: 20px;">
+              <li id="txt-at-manual-1">Open <b>PowerShell</b> (Administrator recommended).</li>
+              <li>
+                <span id="txt-at-manual-2">Execute the script locally with this command:</span>
+                <div class="code-box" style="user-select: all; white-space: pre-wrap; word-break: break-all; overflow-x: visible;">powershell -ExecutionPolicy Bypass -File ncexs-AutoTask.ps1</div>
+              </li>
+            </ol>
+          </div>
+
+          <details class="collapsible-section" open>
+            <summary class="collapsible-header">
+              <span class="header-title">
+                <i class="fas fa-calendar-alt"></i> <span id="txt-at-sched-title">Automate with Task Scheduler
+                  (Recommended)</span>
+              </span>
+              <i class="fas fa-chevron-down toggle-icon"></i>
+            </summary>
+            <div class="collapsible-content">
+              <div class="stepper">
+                <div class="step">
+                  <div class="step-num">1</div>
+                  <div class="step-text" id="txt-at-step-1">
+                    <b>Open Task Scheduler</b>
+                    <p>Press <b>Win + R</b>, type <code class="code-inline">taskschd.msc</code>, and press <b>Enter</b>.
+                    </p>
+                  </div>
+                </div>
+                <div class="step">
+                  <div class="step-num">2</div>
+                  <div class="step-text" id="txt-at-step-2">
+                    <b>Create a New Task</b>
+                    <p>Click <b>Create Task</b> on the right sidebar (not Basic Task). In the <b>General</b> tab:</p>
+                    <ul>
+                      <li>Name: <code class="code-inline">ncexs Auto Task</code></li>
+                      <li>Check: <b>"Run whether user is logged on or not"</b></li>
+                      <li>Check: <b>"Run with highest privileges"</b></li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="step">
+                  <div class="step-num">3</div>
+                  <div class="step-text" id="txt-at-step-3">
+                    <b>Configure Trigger (Schedule)</b>
+                    <p>Go to the <b>Triggers</b> tab, click <b>New</b>. Set trigger to <b>On a schedule</b>, select
+                      <b>Daily</b>. Optionally, check <b>"Repeat task every:"</b>, type <code
+                        class="code-inline">6 hours</code>, and set duration to <b>Indefinitely</b>.
+                    </p>
+                  </div>
+                </div>
+                <div class="step">
+                  <div class="step-num">4</div>
+                  <div class="step-text" id="txt-at-step-4">
+                    <b>Configure Action</b>
+                    <p>Go to the <b>Actions</b> tab, click <b>New</b>, set Action to <b>"Start a program"</b>:</p>
+                    <ul>
+                      <li>Program/script: <code class="code-inline">powershell.exe</code></li>
+                      <li>Arguments: <code
+                          class="code-inline">-ExecutionPolicy Bypass -File "C:\Path\To\ncexs-AutoTask.ps1" -Silent</code>
+                      </li>
+                      <li><i>(Change folder path to where you saved the script. Omit -Silent for interactive
+                          debugging)</i></li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="step">
+                  <div class="step-num">5</div>
+                  <div class="step-text" id="txt-at-step-5">
+                    <b>Configure Conditions</b>
+                    <p>In the <b>Conditions</b> tab, uncheck: <b>"Start the task only if the computer is on AC
+                        power"</b>
+                      (this allows it to run on laptops on battery power).</p>
+                  </div>
+                </div>
+                <div class="step">
+                  <div class="step-num">6</div>
+                  <div class="step-text" id="txt-at-step-6">
+                    <b>Configure Settings & Save</b>
+                    <p>In the <b>Settings</b> tab, check <b>"Run task as soon as possible after a scheduled start is
+                        missed"</b>. Click <b>OK</b> and enter your password if prompted.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </details>
+        </div>
+
+        <!-- JUNK CLEANER GUIDE -->
+        <div class="project-content junkcleaner">
+          <h3><i class="fas fa-book-reader"></i> <span id="txt-how-jc-title">How to Use - ncexs Junk Cleaner</span></h3>
+
+          <div style="margin-bottom: 30px;">
+            <h4 style="color: var(--primary-color); margin-bottom: 10px; font-weight: 600; font-size: 1.1rem;">
+              <span id="txt-jc-run-title">One-Click Run Instructions</span>
+            </h4>
+            <div class="stepper">
+              <div class="step">
+                <div class="step-num">1</div>
+                <div class="step-text">
+                  <p id="txt-jc-step-1">Download the latest release ZIP from the <a
+                      href="https://github.com/ncexs/ncexs-junkcleaner/releases" target="_blank"
+                      style="color:var(--primary-color); text-decoration:none; font-weight:bold;">GitHub Releases</a>.
+                  </p>
+                </div>
+              </div>
+              <div class="step">
+                <div class="step-num">2</div>
+                <div class="step-text">
+                  <p id="txt-jc-step-2">Extract the downloaded ZIP package.</p>
+                </div>
+              </div>
+              <div class="step">
+                <div class="step-num">3</div>
+                <div class="step-text">
+                  <p id="txt-jc-step-3">Double-click the <code class="code-inline">ncexs-junkcleaner.bat</code> file to
+                    launch the script.</p>
+                </div>
+              </div>
+              <div class="step">
+                <div class="step-num">4</div>
+                <div class="step-text">
+                  <p id="txt-jc-step-4">If SmartScreen blocks execution ("Windows protected your PC"), click <b>More
+                      info</b>
+                    → <b>Run anyway</b>.</p>
+                </div>
+              </div>
+              <div class="step">
+                <div class="step-num">5</div>
+                <div class="step-text">
+                  <p id="txt-jc-step-5">Allow Administrator access when prompted by User Account Control (UAC).</p>
+                </div>
+              </div>
+              <div class="step">
+                <div class="step-num">6</div>
+                <div class="step-text">
+                  <p id="txt-jc-step-6">Follow the on-screen prompts (type <code class="code-inline">Y</code> or <code
+                      class="code-inline">N</code>) for: Junk Cleaner, Deep Cleanup, Antivirus Quick Scan, or RAM
+                    optimization.</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-      <h3><i class="fas fa-book-reader"></i> <span id="txt-how-title">How to Use - ncexs Toolkit</span></h3>
 
-      <div style="margin-bottom: 30px;">
-        <h4 style="color: var(--primary-color); margin-bottom: 10px; font-weight: 600; font-size: 1.1rem;">
-          <span id="txt-quick-title">Quick Run (No Download Required)</span>
-        </h4>
-        <ol style="margin-top: 5px; padding-left: 20px;">
-          <li id="txt-quick-1">Open your <b>Start Menu</b>, type <b>powershell</b>, right-click it and select <b>Run as Administrator</b>.</li>
-          <li>
-            <span id="txt-quick-2">Copy and paste the command below, then press <b>Enter</b>:</span>
-            <div class="code-box" style="user-select: all;">Set-ExecutionPolicy Bypass -Scope Process -Force; [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; irm "https://raw.githubusercontent.com/ncexs/ncexs-toolkit/main/ncexs-Toolkit.ps1" | iex</div>
-          </li>
-          <li id="txt-quick-3">The toolkit will launch automatically.</li>
-        </ol>
-      </div>
-
-      <details class="collapsible-section" open>
-        <summary class="collapsible-header">
-          <span class="header-title">
-            <i class="fas fa-list-ul"></i> <span id="txt-menu-title">Interactive Menu Options</span>
+      <!-- TOOLKIT KEY EXPLANATION (ONLY SHOW FOR TOOLKIT) -->
+      <details class="collapsible-card card project-content toolkit" open>
+        <summary class="collapsible-header-card">
+          <span class="header-title-card">
+            <i class="fas fa-info-circle"></i> <span id="txt-feat-title">Key Feature Explanation</span>
           </span>
           <i class="fas fa-chevron-down toggle-icon"></i>
         </summary>
         <div class="collapsible-content">
-          <ul class="menu-grid" style="padding-left: 20px; margin: 0;">
-            <!-- MENU_LIST_START -->
-            <li id="txt-opt-q"><b>Q → Quick Fix (Recommended)</b></li>
-            <li id="txt-opt-0"><b>0 → Compact OS (Save Space)</b></li>
-            <li id="txt-opt-1">1 → System Information</li>
-            <li id="txt-opt-2">2 → Junk Cleaner (All GPU)</li>
-            <li id="txt-opt-3">3 → Empty Recycle Bin</li>
-            <li id="txt-opt-4">4 → Open Disk Cleanup</li>
-            <li id="txt-opt-5">5 → Smart Uninstaller</li>
-            <li id="txt-opt-6">6 → Network Repair (5-in-1)</li>
-            <li id="txt-opt-7">7 → Power & Battery Utilities</li>
-            <li id="txt-opt-8">8 → Memory Optimizer</li>
-            <li id="txt-opt-9">9 → Defrag & Optimize Drives</li>
-            <li id="txt-opt-10">10 → System Health (SFC/DISM)</li>
-            <li id="txt-opt-11">11 → Windows Update Fixer</li>
-            <li id="txt-opt-12">12 → DNS Changer</li>
-            <li id="txt-opt-13">13 → Language Settings</li>
-            <li id="txt-opt-14">14 → Visual FX Booster</li>
-            <li id="txt-opt-15">15 → Optimize WhatsApp</li>
-            <li id="txt-opt-16">16 → Exit Toolkit</li>
-            <!-- MENU_LIST_END -->
+          <ul class="feature-list" style="padding-left: 20px; color: #444;">
+            <li>
+              <b id="txt-f-q-t">Quick Fix (Menu Q):</b><br>
+              <span id="txt-f-q-d">The ultimate 'One-Click' maintenance tool. It automatically runs Junk Cleanup,
+                Network
+                Repair, and Memory Optimization in a single sequence.</span>
+            </li>
+            <li>
+              <b id="txt-f1-t">Compact OS (Menu 0):</b><br>
+              <span id="txt-f1-d">A powerful Windows feature that compresses system binaries. It is 100% safe,
+                reversible,
+                and can instantly free up <b>2GB to 5GB</b> of storage space without deleting any files.</span>
+            </li>
+            <li>
+              <b id="txt-f2-t">Enhanced Junk Cleaner (Menu 2):</b><br>
+              <span id="txt-f2-d">Safely removes temporary files and browser caches (Chrome, Edge, Brave). Also cleans
+                shader caches for <b>AMD, NVIDIA, and Intel</b> GPUs to fix stuttering issues.</span>
+            </li>
+            <li>
+              <b id="txt-f3-t">Smart Uninstaller (Menu 5):</b><br>
+              <span id="txt-f3-d">Quickly search and remove installed programs using fuzzy logic search. Just type the
+                app
+                name or initials!</span>
+            </li>
+            <li>
+              <b id="txt-f4-t">Network Repair (Menu 6):</b><br>
+              <span id="txt-f4-d">Runs a complete 5-step network reset: Release/Renew IP, Flush DNS, Reset Winsock, and
+                Reset TCP/IP stack. Useful for fixing connection drops.</span>
+            </li>
+            <li>
+              <b id="txt-f5-t">Windows Update Fixer (Menu 11):</b><br>
+              <span id="txt-f5-d">Fixes stuck or failed Windows Updates by resetting the update services (wuauserv,
+                bits,
+                cryptSvc) and renaming the download cache folder.</span>
+            </li>
+            <li>
+              <b id="txt-f6-t">SFC & DISM (Menu 10):</b><br>
+              <span id="txt-f6-d">The two most powerful "self-repair" tools in Windows. Use this if your system feels
+                buggy
+                or crashes often.</span>
+            </li>
           </ul>
         </div>
       </details>
-
-      <p
-        style="margin-top: 20px; padding: 10px; background: #fff3cd; border: 1px solid #ffeeba; border-radius: 6px; color: #856404;">
-        💡 <b id="txt-tip-title">Tip:</b> <span id="txt-tip-desc">Use <b>Menu [0] Compact OS</b> if your C: drive is
-          full. Always backup important data before performing deep system maintenance.</span>
-      </p>
     </div>
+    <!-- End of #guide -->
 
-    <details class="collapsible-card card" open>
-      <summary class="collapsible-header-card">
-        <span class="header-title-card">
-          <i class="fas fa-info-circle"></i> <span id="txt-feat-title">Key Feature Explanation</span>
-        </span>
-        <i class="fas fa-chevron-down toggle-icon"></i>
-      </summary>
-      <div class="collapsible-content">
-        <ul class="feature-list" style="padding-left: 20px; color: #444;">
-          <li>
-            <b id="txt-f-q-t">Quick Fix (Menu Q):</b><br>
-            <span id="txt-f-q-d">The ultimate 'One-Click' maintenance tool. It automatically runs Junk Cleanup, Network Repair, and Memory Optimization in a single sequence.</span>
-          </li>
-          <li>
-            <b id="txt-f1-t">Compact OS (Menu 0):</b><br>
-            <span id="txt-f1-d">A powerful Windows feature that compresses system binaries. It is 100% safe, reversible,
-              and can instantly free up <b>2GB to 5GB</b> of storage space without deleting any files.</span>
-          </li>
-          <li>
-            <b id="txt-f2-t">Enhanced Junk Cleaner (Menu 2):</b><br>
-            <span id="txt-f2-d">Safely removes temporary files and browser caches (Chrome, Edge, Brave). Also cleans
-              shader caches for <b>AMD, NVIDIA, and Intel</b> GPUs to fix stuttering issues.</span>
-          </li>
-          <li>
-            <b id="txt-f3-t">Smart Uninstaller (Menu 5):</b><br>
-            <span id="txt-f3-d">Quickly search and remove installed programs using fuzzy logic search. Just type the app
-              name or initials!</span>
-          </li>
-          <li>
-            <b id="txt-f4-t">Network Repair (Menu 6):</b><br>
-            <span id="txt-f4-d">Runs a complete 5-step network reset: Release/Renew IP, Flush DNS, Reset Winsock, and
-              Reset TCP/IP stack. Useful for fixing connection drops.</span>
-          </li>
-          <li>
-            <b id="txt-f5-t">Windows Update Fixer (Menu 11):</b><br>
-            <span id="txt-f5-d">Fixes stuck or failed Windows Updates by resetting the update services (wuauserv, bits,
-              cryptSvc) and renaming the download cache folder.</span>
-          </li>
-          <li>
-            <b id="txt-f6-t">SFC & DISM (Menu 10):</b><br>
-            <span id="txt-f6-d">The two most powerful "self-repair" tools in Windows. Use this if your system feels buggy
-              or crashes often.</span>
-          </li>
-        </ul>
-      </div>
-    </details>
-  </div>
-
-  <div id="changelog" class="container hidden">
-    <div class="card">
-      <h3><i class="fas fa-history"></i> <span id="txt-cl-title">Version History / Changelog</span></h3>
-      <p style="color: var(--text-muted); margin-bottom: 20px;"><span id="txt-cl-desc">Recent updates and changes to the ncexs Toolkit.</span></p>
-      <div id="changelog-list">
-        <div style="text-align:center; padding:3rem; color:#888;">
-          <i class="fas fa-circle-notch fa-spin fa-2x" style="color:var(--primary-color)"></i>
-          <p style="margin-top:1rem">Loading changelog from GitHub...</p>
+    <!-- NESTED CHANGELOG CONTAINER -->
+    <div id="changelog" class="hidden">
+      <div class="card">
+        <h3><i class="fas fa-history"></i> <span id="txt-cl-title">Version History / Changelog</span></h3>
+        <p style="color: var(--text-muted); margin-bottom: 20px;"><span id="txt-cl-desc">Recent updates and changes to
+            the
+            ncexs Toolkit.</span></p>
+        <div id="changelog-list">
+          <div style="text-align:center; padding:3rem; color:#888;">
+            <i class="fas fa-circle-notch fa-spin fa-2x" style="color:var(--primary-color)"></i>
+            <p style="margin-top:1rem">Loading changelog from GitHub...</p>
+          </div>
         </div>
       </div>
     </div>
+    <!-- End of #changelog -->
   </div>
+  <!-- End of #projects -->
 
   <footer>
-    <p>&copy; 2026 ncexs Toolkit &bull; Developed by <a href="https://github.com/ncexs" target="_blank">ncexs</a></p>
+    <p>&copy; 2026 ncexs Hub &bull; Developed by <a href="https://github.com/ncexs" target="_blank">ncexs</a></p>
   </footer>
 
-  <div id="scroll-bottom-btn" class="show" title="Scroll to Bottom" onclick="window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })">
+  <div id="scroll-bottom-btn" class="show" title="Scroll to Bottom"
+    onclick="window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })">
     <i class="fas fa-chevron-down"></i>
   </div>
 
