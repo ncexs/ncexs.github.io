@@ -22,6 +22,7 @@ This repository hosts the static landing page for my software projects. It is de
 
 ### 📦 Projects Included
 * [ncexs-toolkit](https://github.com/ncexs/ncexs-toolkit)
+* [ncexs-AutoTask](https://github.com/ncexs/ncexs-AutoTask)
 * [ncexs-junkcleaner](https://github.com/ncexs/ncexs-junkcleaner)
 
 ---
