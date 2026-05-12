@@ -10,7 +10,7 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Outfit:wght@300;400;500;600;800&display=swap"
     rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=1.4">
+  <link rel="stylesheet" href="css/style.css?v=1.6">
 </head>
 
 <body data-active-tab="home">
@@ -19,11 +19,24 @@
     <div class="top-time">
       <i class="fa-regular fa-clock"></i> <span id="time">--:-- --</span>
     </div>
+    <div class="top-lang lang-switch">
+      <span class="lang-label">
+        <i class="fas fa-globe" style="margin-right: 6px;"></i>
+        <span id="txt-lang-label">Choose Language:</span>
+      </span>
+      <div class="ios-toggle-container">
+        <div class="ios-toggle">
+          <span id="btn-en" class="lang-btn active" onclick="setLanguage('en')">EN</span>
+          <span id="btn-id" class="lang-btn" onclick="setLanguage('id')">ID</span>
+          <div class="ios-toggle-thumb"></div>
+        </div>
+      </div>
+    </div>
     <div class="top-date">
       <i class="fa-regular fa-calendar-alt"></i> <span id="date">Checking...</span>
     </div>
 
-    <h1>
+    <h1 onclick="goBackToHome()">
       <span class="logo-word">
         <span style="--char-index: 1;">n</span>
         <span style="--char-index: 2;">c</span>
@@ -49,28 +62,63 @@
     </div>
   </header>
 
-  <div class="tabs-container">
-    <div class="tabs">
-      <div class="tab active" onclick="showTab('home', this)"><span id="txt-tab-intro">Introduction</span></div>
-      <div class="tab" onclick="showTab('projects', this)"><span id="txt-tab-projects">Projects</span></div>
+
+
+  <div id="home-view" class="container">
+    <div class="section-title-container" style="text-align: center; margin-bottom: 2rem;">
+      <h3 id="txt-select-project-title" style="font-family: 'Orbitron', sans-serif; font-size: 1.6rem; justify-content: center; margin-bottom: 8px;"><i class="fas fa-compass" style="color: var(--primary-color);"></i> Explore Our Projects</h3>
+      <p id="txt-select-project-desc" style="color: var(--text-muted); max-width: 600px; margin: 0 auto; font-size: 0.98rem; line-height: 1.6;">Click on one of the projects below to view its comprehensive guide, manual commands, and full version history.</p>
     </div>
 
-    <div class="lang-switch">
-      <div class="lang-label">
-        <i class="fas fa-globe"></i>&nbsp; <b id="txt-lang-label">Choose Language:</b>
-      </div>
-      <div class="ios-toggle-container" onclick="toggleLanguage()">
-        <div class="ios-toggle">
-          <div class="ios-toggle-thumb"></div>
-          <span id="btn-en" class="active" onclick="event.stopPropagation(); setLanguage('en')">EN</span>
-          <span id="btn-id" onclick="event.stopPropagation(); setLanguage('id')">ID</span>
-        </div>
+    <!-- PROJECT SELECTOR CARD BUTTONS (LANDING PAGE) -->
+    <div class="project-selector-container" style="margin-bottom: 2.5rem;">
+      <div class="project-selector">
+        <button class="project-btn" data-project="toolkit" onclick="openProjectDetail('toolkit')">
+          <div class="project-btn-glow"></div>
+          <div class="project-btn-icon">
+            <i class="fas fa-toolbox"></i>
+          </div>
+          <div class="project-btn-meta">
+            <span class="project-btn-title">ncexs Toolkit</span>
+            <span class="project-btn-desc">All-in-One Console Suite</span>
+            <div class="project-btn-cta">
+              <span class="project-btn-cta-text" id="txt-cta-tk-home">View Guide &rarr;</span>
+            </div>
+          </div>
+          <div class="project-btn-badge">Stable</div>
+        </button>
+        <button class="project-btn" data-project="autotask" onclick="openProjectDetail('autotask')">
+          <div class="project-btn-glow"></div>
+          <div class="project-btn-icon">
+            <i class="fas fa-clock"></i>
+          </div>
+          <div class="project-btn-meta">
+            <span class="project-btn-title">ncexs AutoTask</span>
+            <span class="project-btn-desc">Silent Background Cleanup</span>
+            <div class="project-btn-cta">
+              <span class="project-btn-cta-text" id="txt-cta-at-home">View Guide &rarr;</span>
+            </div>
+          </div>
+          <div class="project-btn-badge">Active</div>
+        </button>
+        <button class="project-btn" data-project="junkcleaner" onclick="openProjectDetail('junkcleaner')">
+          <div class="project-btn-glow"></div>
+          <div class="project-btn-icon">
+            <i class="fas fa-soap"></i>
+          </div>
+          <div class="project-btn-meta">
+            <span class="project-btn-title">Junk Cleaner</span>
+            <span class="project-btn-desc">Classic One-Click Batch</span>
+            <div class="project-btn-cta">
+              <span class="project-btn-cta-text" id="txt-cta-jc-home">View Guide &rarr;</span>
+            </div>
+          </div>
+          <div class="project-btn-badge">Legacy</div>
+        </button>
       </div>
     </div>
-  </div>
 
-  <div id="home" class="container">
-    <!-- SHARED BIO CARD (Now Paling Atas!) -->
+    <!-- SHARED BIO CARD (Now Di Bawah Project Cards!) -->
     <div class="card" style="text-align: center; padding: 2.5rem; margin-bottom: 2.5rem;">
       <h3 style="justify-content: center; margin-bottom: 15px;"><i class="fas fa-user-astronaut"
           style="font-size: 1.5rem; color: #6366f1;"></i> <span id="txt-bio-title">Hello, I'm ncexs</span>
@@ -88,110 +136,6 @@
       </div>
     </div>
 
-    <!-- TOOLKIT INTRO -->
-    <div class="project-content toolkit">
-      <div class="card" style="text-align: center; padding: 2.5rem; margin-bottom: 2.5rem;">
-        <h3 style="justify-content: center; margin-bottom: 15px;"><i class="fas fa-toolbox"
-            style="font-size: 1.5rem; color: #6366f1;"></i> ncexs Toolkit</h3>
-        <p style="max-width: 650px; margin: 0 auto; color: var(--text-muted); line-height: 1.6; font-size: 1.05rem;"
-          id="txt-tk-intro-desc">
-          An open-source, interactive, all-in-one PowerShell console suite. Safely clean, optimize system speed,
-          configure DNS, repair network stacks, and manage Windows updates—all from one lightweight interface with zero
-          installations.
-        </p>
-
-
-        <div class="btn-group" style="justify-content: center; margin-top: 25px;">
-          <button
-            onclick="setProject('toolkit'); showTab('projects', document.querySelectorAll('.tab')[1]); showSubTab('guide');"
-            class="btn btn-primary"><i class="fas fa-play"></i> <span id="txt-tk-btn-guide">Get Started</span></button>
-          <a href="https://github.com/ncexs/ncexs-toolkit" target="_blank" class="btn btn-secondary"><i
-              class="fab fa-github"></i> GitHub</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- AUTOTASK INTRO -->
-    <div class="project-content autotask">
-      <div class="card" style="text-align: center; padding: 2.5rem; margin-bottom: 2.5rem;">
-        <h3 style="justify-content: center; margin-bottom: 15px;"><i class="fas fa-clock"
-            style="font-size: 1.5rem; color: #10b981;"></i> ncexs AutoTask</h3>
-        <p style="max-width: 650px; margin: 0 auto; color: var(--text-muted); line-height: 1.6; font-size: 1.05rem;"
-          id="txt-at-intro-desc">
-          A lightweight background automation script built for silent, scheduled Windows maintenance. It automatically
-          runs in the background via Task Scheduler to clean system caches, browser shader files, and GPU runtimes
-          without interrupting active browser sessions or active processes.
-        </p>
-
-
-        <div class="btn-group" style="justify-content: center; margin-top: 25px;">
-          <button
-            onclick="setProject('autotask'); showTab('projects', document.querySelectorAll('.tab')[1]); showSubTab('guide');"
-            class="btn btn-primary"><i class="fas fa-cog"></i> <span id="txt-at-btn-guide">Setup
-              Scheduler</span></button>
-          <a href="https://github.com/ncexs/ncexs-AutoTask" target="_blank" class="btn btn-secondary"><i
-              class="fab fa-github"></i> GitHub</a>
-        </div>
-      </div>
-
-      <!-- Key Features Grid for AutoTask -->
-      <div class="grid"
-        style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
-        <div class="card" style="margin-bottom: 0; padding: 1.8rem; text-align: center;">
-          <h4 style="margin: 0 0 10px; color: #fff; display: flex; align-items: center; justify-content: center; gap: 8px;"><i
-              class="fas fa-shield-alt" style="color: var(--primary-color);"></i> <span id="txt-at-feat-1-t">100% Safe
-              Cleanup</span></h4>
-          <p style="font-size: 0.95rem; color: var(--text-muted); margin: 0; line-height: 1.5;" id="txt-at-feat-1-d">
-            Targeted strictly at temporary paths and browser/GPU caches. Authentications, cookies, and local files are
-            completely untouched.</p>
-        </div>
-        <div class="card" style="margin-bottom: 0; padding: 1.8rem; text-align: center;">
-          <h4 style="margin: 0 0 10px; color: #fff; display: flex; align-items: center; justify-content: center; gap: 8px;"><i
-              class="fas fa-eye-slash" style="color: var(--primary-color);"></i> <span id="txt-at-feat-2-t">Silent
-              Execution</span></h4>
-          <p style="font-size: 0.95rem; color: var(--text-muted); margin: 0; line-height: 1.5;" id="txt-at-feat-2-d">
-            Designed with background detection. Automatically runs hidden with zero console popups, preventing desktop
-            interruptions.</p>
-        </div>
-        <div class="card" style="margin-bottom: 0; padding: 1.8rem; text-align: center;">
-          <h4 style="margin: 0 0 10px; color: #fff; display: flex; align-items: center; justify-content: center; gap: 8px;"><i
-              class="fas fa-microchip" style="color: var(--primary-color);"></i> <span
-              id="txt-at-feat-3-t">Process-Aware</span></h4>
-          <p style="font-size: 0.95rem; color: var(--text-muted); margin: 0; line-height: 1.5;" id="txt-at-feat-3-d">
-            Checks active applications before deletion. If a browser is active, it skips cache cleaning to protect open
-            database sessions.</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- JUNK CLEANER INTRO -->
-    <div class="project-content junkcleaner">
-      <div class="card" style="text-align: center; padding: 2.5rem; margin-bottom: 2.5rem;">
-        <h3 style="justify-content: center; margin-bottom: 15px;"><i class="fas fa-soap"
-            style="font-size: 1.5rem; color: #f43f5e;"></i> ncexs Junk Cleaner</h3>
-        <p style="max-width: 650px; margin: 0 auto; color: var(--text-muted); line-height: 1.6; font-size: 1.05rem;"
-          id="txt-jc-intro-desc">
-          A classic, lightweight, and super-fast Batch Script (`.bat`) for one-click Windows optimization. Designed as a
-          straightforward "run-and-done" utility, it safely empties temporary directories, Recycle Bins, recent logs,
-          and triggers a lightweight system RAM flush.
-        </p>
-
-
-
-        <div class="btn-group" style="justify-content: center; margin-top: 25px;">
-          <button
-            onclick="setProject('junkcleaner'); showTab('projects', document.querySelectorAll('.tab')[1]); showSubTab('guide');"
-            class="btn btn-primary"><i class="fas fa-download"></i> <span id="txt-jc-btn-guide">Get
-              Release</span></button>
-          <a href="https://github.com/ncexs/ncexs-junkcleaner" target="_blank" class="btn btn-secondary"><i
-              class="fab fa-github"></i> GitHub</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- SECURITY & TRUST -->
-    <hr
-      style="margin: 3rem 0; border: none; height: 1px; background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);">
 
     <div class="card" style="text-align: center;">
       <h3 style="justify-content: center;"><i class="fas fa-shield-alt" style="color: var(--secondary-color);"></i>
@@ -205,13 +149,19 @@
             class="fas fa-check-circle"></i> VirusTotal</a>
       </div>
     </div>
-
-    <div id="test-build-area"></div>
   </div>
 
-  <div id="projects" class="container hidden">
-    <!-- PROJECT SELECTOR CARD BUTTONS -->
-    <div class="project-selector-container" data-active="toolkit">
+  <!-- PROJECT DETAIL PAGE VIEW -->
+  <div id="project-detail-view" class="container hidden">
+
+    <div class="back-nav">
+      <button class="btn-back" onclick="goBackToHome()">
+        <i class="fas fa-arrow-left"></i> <span id="txt-back-home">Back to Home</span>
+      </button>
+    </div>
+
+    <!-- PROJECT SELECTOR CARD BUTTONS (DETAIL PAGE) -->
+    <div class="project-selector-container" data-active="toolkit" style="margin-bottom: 2.5rem;">
       <div class="project-selector">
         <button class="project-btn active" data-project="toolkit" onclick="setProject('toolkit')">
           <div class="project-btn-glow"></div>
@@ -221,6 +171,9 @@
           <div class="project-btn-meta">
             <span class="project-btn-title">ncexs Toolkit</span>
             <span class="project-btn-desc">All-in-One Console Suite</span>
+            <div class="project-btn-cta">
+              <span class="project-btn-cta-text" id="txt-cta-tk-detail">View Guide &rarr;</span>
+            </div>
           </div>
           <div class="project-btn-badge">Stable</div>
         </button>
@@ -232,6 +185,9 @@
           <div class="project-btn-meta">
             <span class="project-btn-title">ncexs AutoTask</span>
             <span class="project-btn-desc">Silent Background Cleanup</span>
+            <div class="project-btn-cta">
+              <span class="project-btn-cta-text" id="txt-cta-at-detail">View Guide &rarr;</span>
+            </div>
           </div>
           <div class="project-btn-badge">Active</div>
         </button>
@@ -243,6 +199,9 @@
           <div class="project-btn-meta">
             <span class="project-btn-title">Junk Cleaner</span>
             <span class="project-btn-desc">Classic One-Click Batch</span>
+            <div class="project-btn-cta">
+              <span class="project-btn-cta-text" id="txt-cta-jc-detail">View Guide &rarr;</span>
+            </div>
           </div>
           <div class="project-btn-badge">Legacy</div>
         </button>
@@ -342,6 +301,35 @@
         <!-- AUTOTASK GUIDE -->
         <div class="project-content autotask">
           <h3><i class="fas fa-book-reader"></i> <span id="txt-how-at-title">How to Use - ncexs AutoTask</span></h3>
+
+          <!-- Key Features Grid for AutoTask (Moved from Home Page) -->
+          <div class="grid"
+            style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; margin-top: 1.5rem; margin-bottom: 2.5rem;">
+            <div class="card" style="margin-bottom: 0; padding: 1.8rem; text-align: center;">
+              <h4 style="margin: 0 0 10px; color: #fff; display: flex; align-items: center; justify-content: center; gap: 8px;"><i
+                  class="fas fa-shield-alt" style="color: var(--primary-color);"></i> <span id="txt-at-feat-1-t">100% Safe
+                  Cleanup</span></h4>
+              <p style="font-size: 0.95rem; color: var(--text-muted); margin: 0; line-height: 1.5;" id="txt-at-feat-1-d">
+                Targeted strictly at temporary paths and browser/GPU caches. Authentications, cookies, and local files are
+                completely untouched.</p>
+            </div>
+            <div class="card" style="margin-bottom: 0; padding: 1.8rem; text-align: center;">
+              <h4 style="margin: 0 0 10px; color: #fff; display: flex; align-items: center; justify-content: center; gap: 8px;"><i
+                  class="fas fa-eye-slash" style="color: var(--primary-color);"></i> <span id="txt-at-feat-2-t">Silent
+                  Execution</span></h4>
+              <p style="font-size: 0.95rem; color: var(--text-muted); margin: 0; line-height: 1.5;" id="txt-at-feat-2-d">
+                Designed with background detection. Automatically runs hidden with zero console popups, preventing desktop
+                interruptions.</p>
+            </div>
+            <div class="card" style="margin-bottom: 0; padding: 1.8rem; text-align: center;">
+              <h4 style="margin: 0 0 10px; color: #fff; display: flex; align-items: center; justify-content: center; gap: 8px;"><i
+                  class="fas fa-microchip" style="color: var(--primary-color);"></i> <span
+                  id="txt-at-feat-3-t">Process-Aware</span></h4>
+              <p style="font-size: 0.95rem; color: var(--text-muted); margin: 0; line-height: 1.5;" id="txt-at-feat-3-d">
+                Checks active applications before deletion. If a browser is active, it skips cache cleaning to protect open
+                database sessions.</p>
+            </div>
+          </div>
 
           <div style="margin-bottom: 30px;">
             <h4 style="color: var(--primary-color); margin-bottom: 10px; font-weight: 600; font-size: 1.1rem;">
@@ -574,9 +562,8 @@
         </div>
       </div>
     </div>
-    <!-- End of #changelog -->
   </div>
-  <!-- End of #projects -->
+  <!-- End of #project-detail-view (Unified Detail Container) -->
 
   <footer>
     <p>&copy; 2025 - 2026 ncexs Projects &bull; Licensed under <a href="LICENSE" target="_blank">MIT License</a> &bull; Developed by <a href="https://github.com/ncexs" target="_blank">ncexs</a></p>
@@ -587,7 +574,7 @@
     <i class="fas fa-chevron-down"></i>
   </div>
 
-  <script src="js/main.js"></script>
+  <script src="js/main.js?v=1.6"></script>
 
 </body>
 

@@ -33,18 +33,29 @@ function showSubTab(subTabId) {
 }
 window.showSubTab = showSubTab;
 
-function showTab(id, el) {
-  document.querySelectorAll('.container').forEach(c => c.classList.add('hidden'));
-  document.getElementById(id).classList.remove('hidden');
-  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-  if (el) el.classList.add('active');
-  document.body.setAttribute('data-active-tab', id);
+function openProjectDetail(project) {
+  setProject(project);
   
-  if (id === 'projects') {
-    showSubTab(activeSubTab);
-  }
+  const homeView = document.getElementById('home-view');
+  const detailView = document.getElementById('project-detail-view');
+  if (homeView) homeView.classList.add('hidden');
+  if (detailView) detailView.classList.remove('hidden');
+  
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
-window.showTab = showTab;
+window.openProjectDetail = openProjectDetail;
+
+function goBackToHome() {
+  const homeView = document.getElementById('home-view');
+  const detailView = document.getElementById('project-detail-view');
+  if (homeView) homeView.classList.remove('hidden');
+  if (detailView) detailView.classList.add('hidden');
+  
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+window.goBackToHome = goBackToHome;
+
+
 
 function parseMarkdown(text) {
   if (!text) return "<em>No description available.</em>";
@@ -161,12 +172,23 @@ const translations = {
     "txt-sec-title": "Security & Trust",
     "txt-sec-desc": "These utilities are 100% transparent and open-source. They do not collect any personal data. You are free to audit the code at any time.",
     
+    // New UX navigation elements
+    "txt-select-project-title": "<i class=\"fas fa-compass\" style=\"color: var(--primary-color);\"></i> Explore Our Projects",
+    "txt-select-project-desc": "Click on one of the projects below to view its comprehensive guide, manual commands, and full version history.",
+    "txt-back-home": "Back to Home",
+    "txt-cta-tk-home": "View Guide &rarr;",
+    "txt-cta-at-home": "View Guide &rarr;",
+    "txt-cta-jc-home": "View Guide &rarr;",
+    "txt-cta-tk-detail": "View Guide &rarr;",
+    "txt-cta-at-detail": "View Guide &rarr;",
+    "txt-cta-jc-detail": "View Guide &rarr;",
+
     // Toolkit Intro
-    "txt-tk-intro-desc": "An open-source, interactive, all-in-one PowerShell console suite. Safely clean, optimize system speed, configure DNS, repair network stacks, and manage Windows updates—all from one lightweight interface with zero installations.",
+    "txt-tk-intro-desc": "An open-source, interactive, all-in-one PowerShell utility console. Safely clean, optimize system speed, configure DNS, repair network connections, and manage Windows Updates—all from one lightweight interface with zero installation.",
     "txt-tk-btn-guide": "Get Started",
     
     // AutoTask Intro
-    "txt-at-intro-desc": "A lightweight background automation script built for silent, scheduled Windows maintenance. It automatically runs in the background via Task Scheduler to clean system caches, browser shader files, and GPU runtimes without interrupting active browser sessions or active processes.",
+    "txt-at-intro-desc": "A lightweight background automation script built for silent, daily Windows maintenance. It runs automatically via Task Scheduler to clean system junk, browser shader caches, and GPUs without interrupting active browser sessions or processes.",
     "txt-at-btn-guide": "Setup Scheduler",
     "txt-at-feat-1-t": "100% Safe Cleanup",
     "txt-at-feat-1-d": "Targeted strictly at temporary paths and browser/GPU caches. Authentications, cookies, and local files are completely untouched.",
@@ -176,7 +198,7 @@ const translations = {
     "txt-at-feat-3-d": "Checks active applications before deletion. If a browser is active, it skips cache cleaning to protect open database sessions.",
     
     // Junk Cleaner Intro
-    "txt-jc-intro-desc": "A classic, lightweight, and super-fast Batch Script (`.bat`) for one-click Windows optimization. Designed as a straightforward \"run-and-done\" utility, it safely empties temporary directories, Recycle Bins, recent logs, and triggers a lightweight system RAM flush.",
+    "txt-jc-intro-desc": "A classic, lightweight, and super-fast Batch Script (.bat) for one-click Windows optimization. Designed to be simple and safe, it empties junk directories, Recycle Bins, recent logs, and triggers a system RAM flush.",
     "txt-jc-btn-guide": "Get Release",
 
     // Toolkit Guide
@@ -225,7 +247,7 @@ const translations = {
     "txt-f6-d": "The two most powerful \"self-repair\" tools in Windows. Use this if your system feels buggy or crashes often.",
     "txt-cl-title": "Version History / Changelog",
     "txt-cl-desc": "Recent updates and changes to the ncexs Utilities.",
-
+  
     // AutoTask Guide
     "txt-how-at-title": "How to Use - ncexs AutoTask",
     "txt-at-dl-title": "Download Script",
@@ -241,7 +263,7 @@ const translations = {
     "txt-at-step-4": "<b>Configure Action</b><p>Go to the <b>Actions</b> tab, click <b>New</b>, set Action to <b>\"Start a program\"</b>:</p><ul><li>Program/script: <code class='code-inline'>powershell.exe</code></li><li>Arguments: <code class='code-inline'>-ExecutionPolicy Bypass -File \"C:\\Path\\To\\ncexs-AutoTask.ps1\" -Silent</code></li><li><i>(Change folder path to where you saved the script. Omit -Silent for interactive debugging)</i></li></ul>",
     "txt-at-step-5": "<b>Configure Conditions</b><p>In the <b>Conditions</b> tab, uncheck: <b>\"Start the task only if the computer is on AC power\"</b> (this allows it to run on laptops on battery power).</p>",
     "txt-at-step-6": "<b>Configure Settings & Save</b><p>In the <b>Settings</b> tab, check <b>\"Run task as soon as possible after a scheduled start is missed\"</b>. Click <b>OK</b> and enter your password if prompted.</p>",
-
+  
     // Junk Cleaner Guide
     "txt-how-jc-title": "How to Use - ncexs Junk Cleaner",
     "txt-jc-run-title": "One-Click Run Instructions",
@@ -255,7 +277,7 @@ const translations = {
   id: {
     "txt-lang-label": "Pilih Bahasa:",
     "txt-hub-subtitle": "Maksimalkan Potensi Penuh PC Anda",
-    "txt-hub-desc": "Temukan serangkaian alat utilitas yang ringan, aman, dan kuat yang dirancang untuk mengoptimalkan, membersihkan, dan mengotomatiskan sistem Windows Anda—kinerja murni, tanpa bloatware.",
+    "txt-hub-desc": "Temukan serangkaian alat utilitas yang ringan, aman, dan kuat yang dirancang untuk mengoptimalkan, mengubah, dan mengotomatiskan sistem Windows Anda—kinerja murni, tanpa bloatware.",
     "txt-tab-intro": "Pengenalan",
     "txt-tab-projects": "Proyek",
     "txt-sub-tab-how": "Cara Penggunaan",
@@ -264,6 +286,17 @@ const translations = {
     "txt-bio-desc": "Saya adalah seorang developer yang sedang belajar membangun alat yang ringan & berguna untuk semua orang. Saya membuat utilitas ini untuk membantu diri saya sendiri dan orang lain mengelola sistem Windows secara efisien tanpa \"bloatware\".",
     "txt-sec-title": "Keamanan & Kepercayaan",
     "txt-sec-desc": "Alat utilitas ini 100% transparan dan open-source. Alat-alat ini tidak mengumpulkan data pribadi apa pun. Anda bebas memeriksa kodenya kapan saja.",
+  
+    // New UX navigation elements
+    "txt-select-project-title": "<i class=\"fas fa-compass\" style=\"color: var(--primary-color);\"></i> Jelajahi Proyek Kami",
+    "txt-select-project-desc": "Klik salah satu proyek di bawah untuk melihat panduan penggunaan, perintah manual, dan riwayat versi lengkap.",
+    "txt-back-home": "Kembali ke Beranda",
+    "txt-cta-tk-home": "Lihat Panduan &rarr;",
+    "txt-cta-at-home": "Lihat Panduan &rarr;",
+    "txt-cta-jc-home": "Lihat Panduan &rarr;",
+    "txt-cta-tk-detail": "Lihat Panduan &rarr;",
+    "txt-cta-at-detail": "Lihat Panduan &rarr;",
+    "txt-cta-jc-detail": "Lihat Panduan &rarr;",
 
     // Toolkit Intro
     "txt-tk-intro-desc": "Konsol utilitas PowerShell interaktif all-in-one yang open-source. Bersihkan dengan aman, optimalkan kecepatan sistem, konfigurasi DNS, perbaiki koneksi jaringan, dan kelola Windows Update—semua dari satu antarmuka ringan tanpa instalasi.",
@@ -282,7 +315,7 @@ const translations = {
     // Junk Cleaner Intro
     "txt-jc-intro-desc": "Script Batch (.bat) klasik, ringan, dan super cepat untuk optimasi Windows satu klik. Didesain praktis, aman membersihkan direktori sampah, Recycle Bin, log riwayat, dan memicu pelepasan RAM sistem yang tersumbat.",
     "txt-jc-btn-guide": "Unduh Rilis",
-
+  
     // Toolkit Guide
     "txt-how-title": "Cara Menggunakan - ncexs Toolkit",
     "txt-quick-title": "Perintah Cepat (Tanpa Perlu Download)",
@@ -324,12 +357,12 @@ const translations = {
     "txt-f4-t": "Network Repair (Menu 6):",
     "txt-f4-d": "Menjalankan reset jaringan 5 langkah: Release/Renew IP, Flush DNS, Reset Winsock, dan Reset stack TCP/IP. Berguna untuk memperbaiki koneksi yang sering putus.",
     "txt-f5-t": "Windows Update Fixer (Menu 11):",
-    "txt-f5-d": "Memperbaiki Windows Update yang macet atau gagal dengan mereset layanan update (wuauserv, bits, cryptSvc) dan mengganti nama folder cache download.",
+    "txt-f5-d": "Memperbaiki Windows Update yang macet atau gagal dengan mereset layanan update (wuauserv, bits, cryptSvc) and mengganti nama folder cache download.",
     "txt-f6-t": "SFC & DISM (Menu 10):",
     "txt-f6-d": "Dua alat \"perbaikan mandiri\" paling ampuh di Windows. Gunakan ini jika sistem terasa error atau sering crash.",
     "txt-cl-title": "Riwayat Versi / Changelog",
     "txt-cl-desc": "Pembaruan dan perubahan terbaru pada Utilitas ncexs.",
-
+  
     // AutoTask Guide
     "txt-how-at-title": "Cara Menggunakan - ncexs AutoTask",
     "txt-at-dl-title": "Unduh Script",
@@ -345,7 +378,7 @@ const translations = {
     "txt-at-step-4": "<b>Atur Action</b><p>Buka tab <b>Actions</b>, klik <b>New</b>, atur Action ke <b>'Start a program'</b>:</p><ul><li>Program/script: <code class='code-inline'>powershell.exe</code></li><li>Arguments: <code class='code-inline'>-ExecutionPolicy Bypass -File \"C:\\Path\\To\\ncexs-AutoTask.ps1\" -Silent</code></li><li><i>(Ganti path folder dengan lokasi tempat Anda menyimpan script Anda. Hapus -Silent untuk melihat tampilan debug)</i></li></ul>",
     "txt-at-step-5": "<b>Atur Conditions</b><p>Di tab <b>Conditions</b>, hilangkan centang: <b>'Start the task only if the computer is on AC power'</b> (agar tetap berjalan di laptop saat menggunakan baterai).</p>",
     "txt-at-step-6": "<b>Atur Settings & Simpan</b><p>Di tab <b>Settings</b>, centang <b>'Run task as soon as possible after a scheduled start is missed'</b>. Klik <b>OK</b> dan masukkan password Windows Anda jika diminta.</p>",
-
+  
     // Junk Cleaner Guide
     "txt-how-jc-title": "Cara Menggunakan - Cara Menggunakan - ncexs Junk Cleaner",
     "txt-jc-run-title": "Petunjuk Sekali Klik",
@@ -372,15 +405,24 @@ function setLanguage(lang) {
     const el = document.getElementById(key);
     if (el) el.innerHTML = t[key];
   }
+
+  // Update detail view CTA texts dynamically for the active project
+  const isId = lang === 'id';
+  document.querySelectorAll('#project-detail-view .project-btn').forEach(btn => {
+    const proj = btn.getAttribute('data-project');
+    const ctaTextEl = btn.querySelector('.project-btn-cta-text');
+    if (ctaTextEl) {
+      if (proj === activeProject) {
+        ctaTextEl.innerHTML = isId ? 'Sedang Dilihat' : 'Currently Viewing';
+      } else {
+        ctaTextEl.innerHTML = isId ? 'Lihat Panduan &rarr;' : 'View Guide &rarr;';
+      }
+    }
+  });
 }
 window.setLanguage = setLanguage;
 
-function toggleLanguage() {
-  const currentLang = document.getElementById('btn-id')?.classList.contains('active') ? 'id' : 'en';
-  const newLang = currentLang === 'en' ? 'id' : 'en';
-  setLanguage(newLang);
-}
-window.toggleLanguage = toggleLanguage;
+
 
 window.addEventListener('DOMContentLoaded', () => {
   // Initialize with toolkit project
