@@ -5,6 +5,9 @@ on:
     - cron: '0 0 * * *' # Run automatically every day at midnight UTC
   workflow_dispatch: # Allow manual trigger from the Actions tab
 
+permissions:
+  contents: write
+
 jobs:
   sync:
     runs-on: ubuntu-latest
