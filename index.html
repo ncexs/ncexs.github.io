@@ -15,9 +15,22 @@
 
 <body data-active-tab="home">
 
+  <!-- Holographic Scanning Line Overlay -->
+  <div class="hologram-scanline-overlay"></div>
+
   <header>
+    <!-- Rotating Holographic HUD background -->
+    <div class="hologram-hud-bg">
+      <div class="hud-ring ring-outer"></div>
+      <div class="hud-ring ring-middle"></div>
+      <div class="hud-ring ring-inner"></div>
+      <div class="hud-grid-dots"></div>
+    </div>
+
     <div class="top-time">
-      <i class="fa-regular fa-clock"></i> <span id="time">--:-- --</span>
+      <span id="time">--:-- --</span>
+      <span class="top-date-split" style="opacity: 0.35; font-weight: 300; margin: 0 2px;">|</span>
+      <span id="date" class="top-date-split">Checking...</span>
     </div>
     <div class="top-lang lang-switch">
       <span class="lang-label">
@@ -31,9 +44,6 @@
           <div class="ios-toggle-thumb"></div>
         </div>
       </div>
-    </div>
-    <div class="top-date">
-      <i class="fa-regular fa-calendar-alt"></i> <span id="date">Checking...</span>
     </div>
 
     <h1 onclick="goBackToHome()">
@@ -137,16 +147,45 @@
     </div>
 
 
-    <div class="card" style="text-align: center;">
-      <h3 style="justify-content: center;"><i class="fas fa-shield-alt" style="color: var(--secondary-color);"></i>
+    <div class="card" style="text-align: center; padding: 2.5rem; margin-bottom: 2.5rem;">
+      <h3 style="justify-content: center; margin-bottom: 15px;"><i class="fas fa-shield-alt" style="color: var(--secondary-color);"></i>
         <span id="txt-sec-title">Security & Trust</span>
       </h3>
-      <p style="max-width: 600px; margin: 0 auto 20px; color: var(--text-muted); line-height: 1.6;" id="txt-sec-desc">
+      <p style="max-width: 650px; margin: 0 auto 2rem; color: var(--text-muted); line-height: 1.6; font-size: 1.05rem;" id="txt-sec-desc">
         These utilities are 100% transparent and open-source. They do not collect any personal data. You are free to
         audit the code at any time.</p>
-      <div class="btn-group" style="justify-content: center;">
-        <a href="https://www.virustotal.com/" target="_blank" class="btn btn-secondary"><i
-            class="fas fa-check-circle"></i> VirusTotal</a>
+
+      <!-- Security Features Grid adapted for all three tools -->
+      <div class="grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; text-align: left;">
+        <div class="card" style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); margin-bottom: 0; padding: 1.5rem; border-radius: 12px; transition: transform 0.3s ease, border-color 0.3s ease;">
+          <h4 style="margin: 0 0 10px; color: #fff; display: flex; align-items: center; gap: 8px; font-size: 1.1rem;"><i
+              class="fas fa-shield-alt" style="color: #6366f1;"></i> <span id="txt-sec-feat-1-t">100% Safe Cleanup</span></h4>
+          <p style="font-size: 0.9rem; color: var(--text-muted); margin: 0; line-height: 1.5;" id="txt-sec-feat-1-d">
+            Targeted strictly at temporary paths and system/browser cache files. Your personal files, passwords, browser history, cookies, and authentications are completely untouched.</p>
+        </div>
+        <div class="card" style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); margin-bottom: 0; padding: 1.5rem; border-radius: 12px; transition: transform 0.3s ease, border-color 0.3s ease;">
+          <h4 style="margin: 0 0 10px; color: #fff; display: flex; align-items: center; gap: 8px; font-size: 1.1rem;"><i
+              class="fas fa-eye-slash" style="color: #10b981;"></i> <span id="txt-sec-feat-2-t">Non-Intrusive Design</span></h4>
+          <p style="font-size: 0.9rem; color: var(--text-muted); margin: 0; line-height: 1.5;" id="txt-sec-feat-2-d">
+            Designed to run smoothly. Use our interactive console menus, run a simple one-click script, or automate silent cleanup in the background without any intrusive popups.</p>
+        </div>
+        <div class="card" style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); margin-bottom: 0; padding: 1.5rem; border-radius: 12px; transition: transform 0.3s ease, border-color 0.3s ease;">
+          <h4 style="margin: 0 0 10px; color: #fff; display: flex; align-items: center; gap: 8px; font-size: 1.1rem;"><i
+              class="fas fa-microchip" style="color: #f43f5e;"></i> <span
+              id="txt-sec-feat-3-t">Smart Process Detection</span></h4>
+          <p style="font-size: 0.9rem; color: var(--text-muted); margin: 0; line-height: 1.5;" id="txt-sec-feat-3-d">
+            Our scripts intelligently check for active applications before cleaning. If a browser is active, they can skip its cache to protect your open database sessions and tabs.</p>
+        </div>        <div class="card" style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); margin-bottom: 0; padding: 1.5rem; border-radius: 12px; transition: transform 0.3s ease, border-color 0.3s ease; display: flex; flex-direction: column;">
+          <h4 style="margin: 0 0 10px; color: #fff; display: flex; align-items: center; gap: 8px; font-size: 1.1rem;"><i
+              class="fas fa-virus-slash" style="color: #8b5cf6;"></i> <span
+              id="txt-sec-feat-4-t">100% Virus-Free</span></h4>
+          <p style="font-size: 0.9rem; color: var(--text-muted); margin: 0; line-height: 1.5; flex-grow: 1;" id="txt-sec-feat-4-d">
+            Tested and verified 100% clean by VirusTotal. Our tools contain absolutely zero malware, spyware, or malicious code, ensuring your system remains completely safe.</p>
+          <div style="margin-top: 15px;">
+            <a href="https://www.virustotal.com/" target="_blank" class="btn btn-secondary" style="padding: 6px 12px; font-size: 0.85rem; border-radius: 6px; display: inline-flex;"><i
+                class="fas fa-check-circle"></i> VirusTotal</a>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -303,34 +342,7 @@
         <div class="project-content autotask">
           <h3><i class="fas fa-book-reader"></i> <span id="txt-how-at-title">How to Use - ncexs AutoTask</span></h3>
 
-          <!-- Key Features Grid for AutoTask (Moved from Home Page) -->
-          <div class="grid"
-            style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; margin-top: 1.5rem; margin-bottom: 2.5rem;">
-            <div class="card" style="margin-bottom: 0; padding: 1.8rem; text-align: center;">
-              <h4 style="margin: 0 0 10px; color: #fff; display: flex; align-items: center; justify-content: center; gap: 8px;"><i
-                  class="fas fa-shield-alt" style="color: var(--primary-color);"></i> <span id="txt-at-feat-1-t">100% Safe
-                  Cleanup</span></h4>
-              <p style="font-size: 0.95rem; color: var(--text-muted); margin: 0; line-height: 1.5;" id="txt-at-feat-1-d">
-                Targeted strictly at temporary paths and browser/GPU caches. Authentications, cookies, and local files are
-                completely untouched.</p>
-            </div>
-            <div class="card" style="margin-bottom: 0; padding: 1.8rem; text-align: center;">
-              <h4 style="margin: 0 0 10px; color: #fff; display: flex; align-items: center; justify-content: center; gap: 8px;"><i
-                  class="fas fa-eye-slash" style="color: var(--primary-color);"></i> <span id="txt-at-feat-2-t">Silent
-                  Execution</span></h4>
-              <p style="font-size: 0.95rem; color: var(--text-muted); margin: 0; line-height: 1.5;" id="txt-at-feat-2-d">
-                Designed with background detection. Automatically runs hidden with zero console popups, preventing desktop
-                interruptions.</p>
-            </div>
-            <div class="card" style="margin-bottom: 0; padding: 1.8rem; text-align: center;">
-              <h4 style="margin: 0 0 10px; color: #fff; display: flex; align-items: center; justify-content: center; gap: 8px;"><i
-                  class="fas fa-microchip" style="color: var(--primary-color);"></i> <span
-                  id="txt-at-feat-3-t">Process-Aware</span></h4>
-              <p style="font-size: 0.95rem; color: var(--text-muted); margin: 0; line-height: 1.5;" id="txt-at-feat-3-d">
-                Checks active applications before deletion. If a browser is active, it skips cache cleaning to protect open
-                database sessions.</p>
-            </div>
-          </div>
+
 
           <div style="margin-bottom: 30px;">
             <h4 style="color: var(--primary-color); margin-bottom: 10px; font-weight: 600; font-size: 1.1rem;">

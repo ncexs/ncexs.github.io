@@ -1,10 +1,15 @@
 function updateRealTimeClock() {
   const now = new Date();
+  
+  // Detect active language dynamically
+  const isId = document.getElementById('btn-id')?.classList.contains('active');
+  const locale = isId ? 'id-ID' : 'en-GB';
+
   const timeOptions = { hour: 'numeric', minute: '2-digit', hour12: true };
   document.getElementById('time').textContent = now.toLocaleTimeString('en-US', timeOptions);
 
   const dateOptions = { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' };
-  document.getElementById('date').textContent = now.toLocaleDateString('en-GB', dateOptions);
+  document.getElementById('date').textContent = now.toLocaleDateString(locale, dateOptions);
 }
 
 setInterval(updateRealTimeClock, 1000);
@@ -190,12 +195,16 @@ const translations = {
     // AutoTask Intro
     "txt-at-intro-desc": "A lightweight background automation script built for silent, daily Windows maintenance. It runs automatically via Task Scheduler to clean system junk, browser shader caches, and GPUs without interrupting active browser sessions or processes.",
     "txt-at-btn-guide": "Setup Scheduler",
-    "txt-at-feat-1-t": "100% Safe Cleanup",
-    "txt-at-feat-1-d": "Targeted strictly at temporary paths and browser/GPU caches. Authentications, cookies, and local files are completely untouched.",
-    "txt-at-feat-2-t": "Silent Execution",
-    "txt-at-feat-2-d": "Designed with background detection. Automatically runs hidden with zero console popups, preventing desktop interruptions.",
-    "txt-at-feat-3-t": "Process-Aware",
-    "txt-at-feat-3-d": "Checks active applications before deletion. If a browser is active, it skips cache cleaning to protect open database sessions.",
+    
+    // Security Features Intro
+    "txt-sec-feat-1-t": "100% Safe Cleanup",
+    "txt-sec-feat-1-d": "Targeted strictly at temporary paths and system/browser cache files. Your personal files, passwords, browser history, cookies, and authentications are completely untouched.",
+    "txt-sec-feat-2-t": "Non-Intrusive Design",
+    "txt-sec-feat-2-d": "Designed to run smoothly. Use our interactive console menus, run a simple one-click script, or automate silent cleanup in the background without any intrusive popups.",
+    "txt-sec-feat-3-t": "Smart Process Detection",
+    "txt-sec-feat-3-d": "Our scripts intelligently check for active applications before cleaning. If a browser is active, they can skip its cache to protect your open database sessions and tabs.",
+    "txt-sec-feat-4-t": "100% Virus-Free",
+    "txt-sec-feat-4-d": "Tested and verified 100% clean by VirusTotal. Our tools contain absolutely zero malware, spyware, or malicious code, ensuring your system remains completely safe.",
     
     // Junk Cleaner Intro
     "txt-jc-intro-desc": "A classic, lightweight, and super-fast Batch Script (.bat) for one-click Windows optimization. Designed to be simple and safe, it empties junk directories, Recycle Bins, recent logs, and triggers a system RAM flush.",
@@ -306,12 +315,16 @@ const translations = {
     // AutoTask Intro
     "txt-at-intro-desc": "Script otomatisasi latar belakang ringan untuk pemeliharaan Windows harian yang sunyi. Berjalan otomatis via Task Scheduler untuk membersihkan sampah sistem, cache shader browser, dan GPU tanpa mengganggu sesi browser aktif atau proses aplikasi.",
     "txt-at-btn-guide": "Atur Penjadwal",
-    "txt-at-feat-1-t": "Pembersihan 100% Aman",
-    "txt-at-feat-1-d": "Ditargetkan ketat hanya ke folder temporary dan cache browser/GPU. Data autentikasi, cookies, dan file pribadi Anda aman sepenuhnya.",
-    "txt-at-feat-2-t": "Eksekusi Latar Belakang",
-    "txt-at-feat-2-d": "Dilengkapi dengan deteksi non-interaktif. Berjalan tersembunyi tanpa memunculkan jendela konsol, menjaga fokus aktivitas Anda.",
-    "txt-at-feat-3-t": "Sensitif Proses Aktif",
-    "txt-at-feat-3-d": "Mengecek aplikasi aktif sebelum menghapus. Jika browser sedang dibuka, cache browser tersebut akan dilewati demi mencegah kerusakan sesi.",
+    
+    // Security Features Intro
+    "txt-sec-feat-1-t": "Pembersihan 100% Aman",
+    "txt-sec-feat-1-d": "Ditargetkan ketat hanya ke folder temporary dan file cache sistem/browser. File pribadi, password, riwayat browser, cookie, dan data autentikasi Anda sepenuhnya aman.",
+    "txt-sec-feat-2-t": "Desain Non-Intrusif",
+    "txt-sec-feat-2-d": "Didesain untuk berjalan mulus. Gunakan menu konsol interaktif kami, jalankan script sekali klik yang praktis, atau otomatiskan pembersihan senyap di latar belakang tanpa popup yang mengganggu.",
+    "txt-sec-feat-3-t": "Deteksi Proses Pintar",
+    "txt-sec-feat-3-d": "Script kami secara cerdas memeriksa aplikasi aktif sebelum melakukan pembersihan. Jika browser sedang digunakan, cache akan dilewati demi menjaga sesi database dan tab Anda tetap aman.",
+    "txt-sec-feat-4-t": "100% Bebas Virus",
+    "txt-sec-feat-4-d": "Diuji dan terverifikasi 100% bersih oleh VirusTotal. Alat kami sama sekali tidak mengandung malware, spyware, atau kode berbahaya, menjamin sistem Anda tetap sepenuhnya aman.",
     
     // Junk Cleaner Intro
     "txt-jc-intro-desc": "Script Batch (.bat) klasik, ringan, dan super cepat untuk optimasi Windows satu klik. Didesain praktis, aman membersihkan direktori sampah, Recycle Bin, log riwayat, dan memicu pelepasan RAM sistem yang tersumbat.",
@@ -421,6 +434,11 @@ function setLanguage(lang) {
       }
     }
   });
+
+  // Instant clock language switch update
+  if (typeof updateRealTimeClock === 'function') {
+    updateRealTimeClock();
+  }
 }
 window.setLanguage = setLanguage;
 
