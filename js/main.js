@@ -233,6 +233,7 @@ const fallbackTranslations = {
     "txt-quick-4-2": "To return and use the toolkit again, simply copy and paste the command below:",
     "txt-menu-title": "Interactive Menu Options",
     /* MENU_TRANS_EN_START */
+        "txt-opt-q": "<b>Q → Quick Fix (Recommended)</b>",
         "txt-opt-0": "<b>0 → Compact OS (Save 2-5GB Space)</b>",
         "txt-opt-1": "1 → System Information",
         "txt-opt-2": "2 → Enhanced Junk Cleaner",
@@ -376,6 +377,7 @@ const fallbackTranslations = {
     "txt-quick-4-2": "Untuk kembali menggunakan toolkit, cukup salin dan tempel (copas) kembali perintah di bawah ini:",
     "txt-menu-title": "Pilihan Menu Interaktif",
     /* MENU_TRANS_ID_START */
+        "txt-opt-q": "<b>Q → Perbaikan Cepat (Disarankan)</b>",
         "txt-opt-0": "<b>0 → Compact OS (Hemat 2-5GB Space)</b>",
         "txt-opt-1": "1 → Informasi Sistem",
         "txt-opt-2": "2 → Pembersih Sampah (Enhanced)",
