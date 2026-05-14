@@ -1608,6 +1608,11 @@ async function setLanguage(lang) {
   if (typeof updateRealTimeClock === 'function') {
     updateRealTimeClock();
   }
+
+  // Reload changelog to reflect active language
+  if (typeof loadChangelogForProject === 'function') {
+    loadChangelogForProject(activeProject);
+  }
 }
 window.setLanguage = setLanguage;
 
@@ -1642,8 +1647,17 @@ async function loadChangelogForProject(project) {
     let rawVersions = [];
     let markdownText = '';
     
+    const langSelect = document.getElementById('lang-select');
+    const currentLang = langSelect ? langSelect.value : 'en';
+    const filePath = (currentLang === 'en') ? 'CHANGELOG.md' : `docs/CHANGELOG.${currentLang}.md`;
+
     if (project === 'toolkit') {
-      const response = await fetch('https://raw.githubusercontent.com/ncexs/ncexs-toolkit/main/CHANGELOG.md', { cache: "no-store" });
+      let url = `https://raw.githubusercontent.com/ncexs/ncexs-toolkit/main/${filePath}`;
+      let response = await fetch(url, { cache: "no-store" });
+      if (!response.ok && currentLang !== 'en') {
+        url = `https://raw.githubusercontent.com/ncexs/ncexs-toolkit/main/CHANGELOG.md`;
+        response = await fetch(url, { cache: "no-store" });
+      }
       if (!response.ok) {
         throw new Error("CHANGELOG.md not found in ncexs-toolkit repository.");
       }
@@ -1652,7 +1666,12 @@ async function loadChangelogForProject(project) {
       rawVersions = splitVersions.filter(v => v.trim() !== '');
     } 
     else if (project === 'autotask') {
-      const response = await fetch('https://raw.githubusercontent.com/ncexs/ncexs-AutoTask/main/CHANGELOG.md', { cache: "no-store" });
+      let url = `https://raw.githubusercontent.com/ncexs/ncexs-AutoTask/main/${filePath}`;
+      let response = await fetch(url, { cache: "no-store" });
+      if (!response.ok && currentLang !== 'en') {
+        url = `https://raw.githubusercontent.com/ncexs/ncexs-AutoTask/main/CHANGELOG.md`;
+        response = await fetch(url, { cache: "no-store" });
+      }
       if (!response.ok) {
         throw new Error("CHANGELOG.md not found in ncexs-AutoTask repository.");
       }
@@ -1666,20 +1685,22 @@ async function loadChangelogForProject(project) {
       });
     } 
     else if (project === 'junkcleaner') {
-      try {
-        const jcReleases = await fetchWithCache('https://api.github.com/repos/ncexs/ncexs-junkcleaner/releases', 'jc_releases_cache');
-        if (jcReleases && Array.isArray(jcReleases)) {
-          jcReleases.forEach(release => {
-            const versionText = `# 🚀 ncexs Junk Cleaner ${release.tag_name}\n\n${release.body}`;
-            rawVersions.push(versionText);
-          });
-        } else {
-          throw new Error("No releases returned from GitHub API.");
-        }
-      } catch (e) {
-        console.error("Failed to load junk cleaner releases", e);
-        throw new Error("Could not load releases from GitHub API.");
+      let url = `https://raw.githubusercontent.com/ncexs/ncexs-junkcleaner/main/${filePath}`;
+      let response = await fetch(url, { cache: "no-store" });
+      if (!response.ok && currentLang !== 'en') {
+        url = `https://raw.githubusercontent.com/ncexs/ncexs-junkcleaner/main/CHANGELOG.md`;
+        response = await fetch(url, { cache: "no-store" });
       }
+      if (!response.ok) {
+        throw new Error("CHANGELOG.md not found in ncexs-junkcleaner repository.");
+      }
+      markdownText = await response.text();
+      
+      const splitVersions = markdownText.split(/(?=^##\s*\[v)/m);
+      rawVersions = splitVersions.filter(v => {
+        const trimmed = v.trim();
+        return trimmed !== '' && trimmed.startsWith('## [v');
+      });
     }
 
     allChangelogVersions = rawVersions;
