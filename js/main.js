@@ -1749,7 +1749,13 @@ function displayChangelogPageForProject(project) {
                        .trim();
       }
       
-      let htmlBody = parseMarkdown(lines.join('\n'));
+      const cleanLines = lines.filter(l => {
+        const text = l.trim();
+        if (text.includes('Bahasa Indonesia') && (text.includes('English') || text.includes('Basa Jawa'))) return false;
+        if (text.startsWith('🌐')) return false;
+        return true;
+      });
+      let htmlBody = parseMarkdown(cleanLines.join('\n'));
       let buttonsHtml = "";
       
       // Determine if this specific entry should show download/GitHub buttons
