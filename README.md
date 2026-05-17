@@ -13,6 +13,7 @@ This repository hosts the static landing page for my software projects. It is de
 * **🔄 Auto-Update Menu:** Uses GitHub Actions to automatically sync the interactive menu translations directly from the PowerShell source code.
 * **📜 Changelog Sync:** Fetches the `CHANGELOG.md` file dynamically to display the version history.
 * **📱 Responsive Design:** Optimized for Desktop and Mobile with a modern glassmorphism interface.
+* **🛣️ Smart SPA Routing:** Implements History API for clean, shareable URLs without needing a backend server.
 * **⚡ Pure Performance:** Built with Vanilla HTML, CSS, and JavaScript. No heavy frameworks.
 
 ### 🛠️ How It Works
