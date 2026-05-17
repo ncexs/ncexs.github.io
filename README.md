@@ -18,8 +18,8 @@ This repository hosts the static landing page for my software projects. It is de
 
 ### 🛠️ How It Works
 1.  **Visitor opens the site.**
-2.  **JavaScript triggers:** The script calls the GitHub API to fetch the raw `CHANGELOG.md` file from the `ncexs-toolkit` repository.
-3.  **Rendering:** The markdown content is dynamically parsed and injected into the HTML interface.
+2.  **JavaScript triggers:** The script calls the GitHub API to fetch the raw `CHANGELOG.md` file dynamically from the respective repositories (`ncexs-toolkit`, `ncexs-AutoTask`, and `ncexs-junkcleaner`).
+3.  **Rendering:** The markdown content is dynamically parsed and injected into the HTML interface depending on which project the user selects.
 
 ### 📦 Projects Included
 *   [ncexs-toolkit](https://github.com/ncexs/ncexs-toolkit) — All-in-One PowerShell console suite.
