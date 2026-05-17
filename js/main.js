@@ -249,8 +249,9 @@ const fallbackTranslations = {
         "txt-opt-12": "12 → DNS Changer",
         "txt-opt-13": "13 → Wi-Fi Password Recovery",
         "txt-opt-14": "14 → Visual FX Booster",
-        "txt-opt-15": "15 → Optimize WhatsApp",
-        "txt-opt-16": "16 → Exit Toolkit",
+        "txt-opt-15": "15 → Clear App Caches",
+        "txt-opt-16": "16 → Clear Event Logs",
+        "txt-opt-17": "17 → Exit Toolkit",
         "txt-opt-l": "L → Change Language",
         /* MENU_TRANS_EN_END */
     "txt-tip-title": "Tip:",
@@ -393,8 +394,9 @@ const fallbackTranslations = {
         "txt-opt-12": "12 → Pengubah DNS",
         "txt-opt-13": "13 → Wi-Fi Password Recovery",
         "txt-opt-14": "14 → Visual FX Booster",
-        "txt-opt-15": "15 → Optimasi WhatsApp",
-        "txt-opt-16": "16 → Keluar Aplikasi",
+        "txt-opt-15": "15 → Pembersih Cache Aplikasi",
+        "txt-opt-16": "16 → Hapus Event Logs",
+        "txt-opt-17": "17 → Keluar Aplikasi",
         "txt-opt-l": "L → Ubah Bahasa",
         /* MENU_TRANS_ID_END */
     "txt-tip-title": "Tips:",
