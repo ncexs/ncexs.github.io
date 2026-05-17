@@ -1847,12 +1847,119 @@ window.changeChangelogPageForProject = function(direction, project) {
 }
 
 window.addEventListener('scroll', () => {
-  const btn = document.getElementById('scroll-bottom-btn');
-  if (!btn) return;
-  const isAtBottom = (window.innerHeight + window.scrollY) >= document.body.scrollHeight - 50;
-  if (isAtBottom) {
-    btn.classList.remove('show');
-  } else {
-    btn.classList.add('show');
+  const btnBottom = document.getElementById('scroll-bottom-btn');
+  const btnTop = document.getElementById('scroll-top-btn');
+  
+  if (btnBottom) {
+    const isAtBottom = (window.innerHeight + window.scrollY) >= document.body.scrollHeight - 50;
+    if (isAtBottom) {
+      btnBottom.classList.remove('show');
+    } else {
+      btnBottom.classList.add('show');
+    }
   }
+  
+  if (btnTop) {
+    if (window.scrollY > 300) {
+      btnTop.classList.add('show');
+    } else {
+      btnTop.classList.remove('show');
+    }
+  }
+});
+
+// ==========================================
+// BEAUTIFICATION SCRIPTS
+// ==========================================
+
+// 1. Particles Generation
+function initParticles() {
+  const container = document.getElementById('particles-container');
+  if (!container) return;
+  container.innerHTML = '';
+  const particleCount = 150;
+  for (let i = 0; i < particleCount; i++) {
+    let particle = document.createElement('div');
+    particle.className = 'particle';
+    particle.style.left = Math.random() * 100 + 'vw';
+    particle.style.top = Math.random() * 100 + 'vh';
+    
+    const size = Math.random() * 2 + 0.5;
+    particle.style.width = size + 'px';
+    particle.style.height = size + 'px';
+    
+    particle.style.animationDuration = (Math.random() * 4 + 2) + 's';
+    particle.style.animationDelay = (Math.random() * 5) + 's';
+    
+    container.appendChild(particle);
+  }
+}
+
+// 2. Scroll Reveal Animation
+function initScrollReveal() {
+  const observerOptions = {
+    root: null,
+    rootMargin: '0px',
+    threshold: 0.1
+  };
+  const observer = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('active');
+      }
+    });
+  }, observerOptions);
+
+  document.querySelectorAll('.card, .section-title-container, .project-selector-container, .grid .card').forEach(el => {
+    el.classList.add('reveal');
+    observer.observe(el);
+  });
+}
+
+// 3. Vanilla Tilt Initialization
+function initTilt() {
+  if (typeof VanillaTilt !== 'undefined') {
+    VanillaTilt.init(document.querySelectorAll(".project-btn"), {
+      max: 12,
+      speed: 400,
+      glare: true,
+      "max-glare": 0.2,
+      perspective: 1000,
+      scale: 1.05
+    });
+  }
+}
+
+// 4. Planets Generation
+function initPlanets() {
+  const container = document.getElementById('particles-container');
+  if (!container) return;
+  
+  const planetsData = [
+    { name: 'mercury', top: 15, left: 10, animDur: 40 },
+    { name: 'venus', top: 45, left: 85, animDur: 45 },
+    { name: 'earth', top: 75, left: 20, animDur: 50 },
+    { name: 'mars', top: 25, left: 70, animDur: 55 },
+    { name: 'jupiter', top: 80, left: 80, animDur: 70 },
+    { name: 'saturn', top: 10, left: 40, animDur: 75 },
+    { name: 'uranus', top: 55, left: 15, animDur: 60 },
+    { name: 'neptune', top: 35, left: 90, animDur: 65 }
+  ];
+
+  planetsData.forEach(p => {
+    let el = document.createElement('div');
+    el.className = `planet planet-${p.name}`;
+    el.style.top = p.top + '%';
+    el.style.left = p.left + '%';
+    el.style.animation = `float-planet ${p.animDur}s ease-in-out infinite alternate`;
+    container.appendChild(el);
+  });
+}
+
+// Initialize when DOM is ready
+document.addEventListener('DOMContentLoaded', () => {
+  initParticles();
+  initPlanets();
+  initScrollReveal();
+  initTilt();
 });

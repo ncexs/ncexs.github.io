@@ -18,6 +18,9 @@
 
   <!-- Holographic Scanning Line Overlay -->
   <div class="hologram-scanline-overlay"></div>
+  
+  <!-- Particles Background -->
+  <div class="particles-container" id="particles-container"></div>
 
   <header>
     <!-- Rotating Holographic HUD background -->
@@ -650,11 +653,16 @@
       Developed by <a href="https://github.com/ncexs" target="_blank">ncexs</a></p>
   </footer>
 
+  <div id="scroll-top-btn" title="Scroll to Top"
+    onclick="window.scrollTo({ top: 0, behavior: 'smooth' })">
+    <i class="fas fa-chevron-up"></i>
+  </div>
   <div id="scroll-bottom-btn" class="show" title="Scroll to Bottom"
     onclick="window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })">
     <i class="fas fa-chevron-down"></i>
   </div>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
   <script src="js/main.js?v=1.6"></script>
 
 </body>

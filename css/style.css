@@ -21,13 +21,12 @@
       margin: 0;
       padding: 0;
       color: var(--text-color);
-      background: var(--bg-color);
-      background-image:
-        linear-gradient(rgba(0, 240, 255, 0.015) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0, 240, 255, 0.015) 1px, transparent 1px),
-        radial-gradient(circle at 15% 50%, rgba(var(--primary-rgb), 0.1), transparent 30%),
-        radial-gradient(circle at 85% 30%, rgba(14, 165, 233, 0.1), transparent 30%);
-      background-size: 35px 35px, 35px 35px, auto, auto;
+      background-color: #03030a;
+      background-image: 
+        radial-gradient(ellipse at top right, rgba(99, 102, 241, 0.15), transparent 40%),
+        radial-gradient(ellipse at bottom left, rgba(14, 165, 233, 0.15), transparent 40%),
+        radial-gradient(circle at 50% 50%, #03030a 0%, #000000 100%);
+      background-attachment: fixed;
       line-height: 1.6;
       overflow-x: hidden;
       position: relative;
@@ -38,7 +37,7 @@
       padding: 4rem 1rem 2rem;
       text-align: center;
       position: relative;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      border-bottom: none;
       margin-bottom: 1.5rem;
     }
 
@@ -1210,9 +1209,8 @@
       padding: 0 30px 30px 30px;
     }
 
-    #scroll-bottom-btn {
+    #scroll-bottom-btn, #scroll-top-btn {
       position: fixed;
-      bottom: 30px;
       right: 30px;
       width: 45px;
       height: 45px;
@@ -1233,7 +1231,10 @@
       transform: translateY(10px);
     }
 
-    #scroll-bottom-btn.show {
+    #scroll-bottom-btn { bottom: 30px; }
+    #scroll-top-btn { bottom: 85px; }
+
+    #scroll-bottom-btn.show, #scroll-top-btn.show {
       opacity: 0.8;
       visibility: visible;
       transform: translateY(0);
@@ -1243,6 +1244,12 @@
       background: rgba(255, 255, 255, 0.15);
       opacity: 1;
       transform: translateY(2px);
+    }
+    
+    #scroll-top-btn.show:hover {
+      background: rgba(255, 255, 255, 0.15);
+      opacity: 1;
+      transform: translateY(-2px);
     }
 
     /* ==========================================================================
@@ -2000,6 +2007,106 @@
     }
     [dir="rtl"] header h1 {
       direction: ltr;
+    }
+
+    /* CUSTOM SCROLLBAR */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--bg-color);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(99, 102, 241, 0.4);
+      border-radius: 10px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(99, 102, 241, 0.8);
+    }
+
+    /* BUTTON SHINE EFFECT */
+    .btn {
+      position: relative;
+      overflow: hidden;
+    }
+    .btn::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 50%;
+      height: 100%;
+      background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0) 100%);
+      transform: skewX(-25deg);
+      transition: left 0.6s ease;
+    }
+    .btn:hover::after {
+      left: 150%;
+      transition: left 0.6s ease;
+    }
+
+    /* BACKGROUND PARTICLES */
+    .particles-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+      overflow: hidden;
+    }
+    .particle {
+      position: absolute;
+      background: #ffffff;
+      border-radius: 50%;
+      box-shadow: 0 0 4px rgba(255, 255, 255, 0.8), 0 0 10px rgba(14, 165, 233, 0.4);
+      animation: twinkle linear infinite;
+    }
+    @keyframes twinkle {
+      0% { opacity: 0.2; transform: scale(0.8); }
+      50% { opacity: 1; transform: scale(1.2); }
+      100% { opacity: 0.2; transform: scale(0.8); }
+    }
+
+    /* SCROLL ANIMATION (AOS) */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* PLANETS IN SOLAR SYSTEM */
+    .planet {
+      position: absolute;
+      border-radius: 50%;
+      box-shadow: inset -5px -5px 15px rgba(0,0,0,0.8), 0 0 15px rgba(255,255,255,0.05);
+      opacity: 0.35;
+      z-index: -1;
+    }
+    .planet-mercury { width: 8px; height: 8px; background: radial-gradient(circle at 30% 30%, #a8a8a8, #4a4a4a); }
+    .planet-venus { width: 14px; height: 14px; background: radial-gradient(circle at 30% 30%, #e3bb76, #9c7128); }
+    .planet-earth { width: 18px; height: 18px; background: radial-gradient(circle at 30% 30%, #4b90ff, #11438a); }
+    .planet-mars { width: 12px; height: 12px; background: radial-gradient(circle at 30% 30%, #c1440e, #5c2005); }
+    .planet-jupiter { width: 50px; height: 50px; background: radial-gradient(circle at 30% 30%, #d39c7e, #73452f); }
+    .planet-saturn { width: 40px; height: 40px; background: radial-gradient(circle at 30% 30%, #ead6b8, #8c7657); }
+    .planet-saturn::before {
+      content: ''; position: absolute; top: 50%; left: 50%;
+      width: 170%; height: 35%;
+      border: 4px solid rgba(234, 214, 184, 0.4);
+      border-radius: 50%;
+      transform: translate(-50%, -50%) rotate(-20deg);
+    }
+    .planet-uranus { width: 25px; height: 25px; background: radial-gradient(circle at 30% 30%, #4b70dd, #1a2f6b); }
+    .planet-neptune { width: 24px; height: 24px; background: radial-gradient(circle at 30% 30%, #274687, #0a1738); }
+
+    @keyframes float-planet {
+      0% { transform: translateY(0) rotate(0deg); }
+      100% { transform: translateY(-30px) rotate(15deg); }
     }
 
 
