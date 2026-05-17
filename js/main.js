@@ -1956,6 +1956,35 @@ function initPlanets() {
   });
 }
 
+// 5. Custom Language Dropdown Logic
+function toggleLangDropdown(event) {
+  if (event) event.stopPropagation();
+  const wrapper = document.getElementById('lang-custom-dropdown');
+  if (wrapper) wrapper.classList.toggle('active');
+}
+
+function selectLangOption(langCode, flagCode, langName) {
+  const selectedFlag = document.getElementById('selected-flag');
+  const selectedText = document.getElementById('selected-lang-text');
+  if (selectedFlag) {
+    selectedFlag.src = `https://flagcdn.com/w20/${flagCode}.png`;
+    selectedFlag.alt = langCode;
+  }
+  if (selectedText) selectedText.textContent = langName;
+  
+  const wrapper = document.getElementById('lang-custom-dropdown');
+  if (wrapper) wrapper.classList.remove('active');
+  
+  setLanguage(langCode);
+}
+
+document.addEventListener('click', function(event) {
+  const wrapper = document.getElementById('lang-custom-dropdown');
+  if (wrapper && !wrapper.contains(event.target)) {
+    wrapper.classList.remove('active');
+  }
+});
+
 // Initialize when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
   initParticles();

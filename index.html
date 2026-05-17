@@ -37,19 +37,36 @@
       <span id="date" class="top-date-split">Checking...</span>
     </div>
     <div class="top-lang lang-switch">
-      <div class="lang-dropdown-wrapper">
+      <div class="custom-dropdown-wrapper" id="lang-custom-dropdown">
         <i class="fas fa-globe lang-globe-icon"></i>
-        <select id="lang-select" class="lang-dropdown" onchange="setLanguage(this.value)">
-          <option value="en" selected>🇬🇧 English</option>
-          <option value="id">🇮🇩 Indonesia</option>
-          <option value="jv">🇮🇩 Basa Jawa</option>
-          <option value="su">🇮🇩 Basa Sunda</option>
-          <option value="hi">🇮🇳 हिन्दी</option>
-          <option value="ru">🇷🇺 Русский</option>
-          <option value="ja">🇯🇵 日本語</option>
-          <option value="ko">🇰🇷 한국어</option>
-          <option value="zh">🇨🇳 中文</option>
-          <option value="ar">🇸🇦 العربية</option>
+        <div class="custom-dropdown-selected" onclick="toggleLangDropdown(event)">
+          <img src="https://flagcdn.com/w20/gb.png" id="selected-flag" alt="en"> 
+          <span id="selected-lang-text">English</span>
+          <i class="fas fa-chevron-down dropdown-arrow"></i>
+        </div>
+        <ul class="custom-dropdown-options" id="lang-options-list">
+          <li onclick="selectLangOption('en', 'gb', 'English')"><img src="https://flagcdn.com/w20/gb.png" alt="en"> English</li>
+          <li onclick="selectLangOption('id', 'id', 'Indonesia')"><img src="https://flagcdn.com/w20/id.png" alt="id"> Indonesia</li>
+          <li onclick="selectLangOption('jv', 'id', 'Basa Jawa')"><img src="https://flagcdn.com/w20/id.png" alt="jv"> Basa Jawa</li>
+          <li onclick="selectLangOption('su', 'id', 'Basa Sunda')"><img src="https://flagcdn.com/w20/id.png" alt="su"> Basa Sunda</li>
+          <li onclick="selectLangOption('hi', 'in', 'हिन्दी')"><img src="https://flagcdn.com/w20/in.png" alt="hi"> हिन्दी</li>
+          <li onclick="selectLangOption('ru', 'ru', 'Русский')"><img src="https://flagcdn.com/w20/ru.png" alt="ru"> Русский</li>
+          <li onclick="selectLangOption('ja', 'jp', '日本語')"><img src="https://flagcdn.com/w20/jp.png" alt="ja"> 日本語</li>
+          <li onclick="selectLangOption('ko', 'kr', '한국어')"><img src="https://flagcdn.com/w20/kr.png" alt="ko"> 한국어</li>
+          <li onclick="selectLangOption('zh', 'cn', '中文')"><img src="https://flagcdn.com/w20/cn.png" alt="zh"> 中文</li>
+          <li onclick="selectLangOption('ar', 'sa', 'العربية')"><img src="https://flagcdn.com/w20/sa.png" alt="ar"> العربية</li>
+        </ul>
+        <select id="lang-select" style="display: none;">
+          <option value="en" selected>English</option>
+          <option value="id">Indonesia</option>
+          <option value="jv">Basa Jawa</option>
+          <option value="su">Basa Sunda</option>
+          <option value="hi">हिन्दी</option>
+          <option value="ru">Русский</option>
+          <option value="ja">日本語</option>
+          <option value="ko">한국어</option>
+          <option value="zh">中文</option>
+          <option value="ar">العربية</option>
         </select>
       </div>
     </div>
