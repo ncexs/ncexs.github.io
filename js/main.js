@@ -30,47 +30,118 @@ updateRealTimeClock();
 
 let activeSubTab = 'guide';
 
-function showSubTab(subTabId) {
-  activeSubTab = subTabId;
-  
-  document.querySelectorAll('.sub-tab').forEach(btn => {
-    btn.classList.toggle('active', btn.id === `sub-tab-${subTabId}`);
-  });
-  
-  const guideContainer = document.getElementById('guide');
-  const changelogContainer = document.getElementById('changelog');
-  
-  if (subTabId === 'guide') {
-    if (guideContainer) guideContainer.classList.remove('hidden');
-    if (changelogContainer) changelogContainer.classList.add('hidden');
+const isFileProtocol = window.location.protocol === 'file:';
+
+function getRoutePath() {
+  if (isFileProtocol) {
+    return window.location.hash.replace('#', '') || '/';
   } else {
-    if (guideContainer) guideContainer.classList.add('hidden');
-    if (changelogContainer) changelogContainer.classList.remove('hidden');
+    let path = window.location.pathname;
+    // If on github pages, repository name might be in path, but this is a user page (ncexs.github.io) so root is '/'
+    return path;
   }
+}
+
+function updateRoutePath(path) {
+  if (isFileProtocol) {
+    window.location.hash = '#' + path;
+  } else {
+    window.history.pushState(null, '', path);
+    handleRoute();
+  }
+}
+
+function handleRoute() {
+  let path = getRoutePath();
+  
+  // Migrate hash to clean URL in production
+  if (!isFileProtocol && window.location.hash && window.location.hash.startsWith('#/')) {
+    path = window.location.hash.replace('#', '');
+    window.history.replaceState(null, '', path);
+  }
+
+  if (!path || path === '/' || path.endsWith('index.html')) {
+    const homeView = document.getElementById('home-view');
+    const detailView = document.getElementById('project-detail-view');
+    if (homeView && homeView.classList.contains('hidden')) {
+      homeView.classList.remove('hidden');
+      if (detailView) detailView.classList.add('hidden');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      if (homeView) homeView.classList.remove('hidden');
+      if (detailView) detailView.classList.add('hidden');
+    }
+  } else {
+    const parts = path.split('/').filter(Boolean);
+    let project = parts[0] || 'toolkit';
+    const tab = parts[1] || 'guide';
+    
+    const validProjects = ['toolkit', 'autotask', 'junkcleaner'];
+    if (!validProjects.includes(project)) {
+       project = 'toolkit'; // Fallback for safety
+    }
+    
+    if (typeof activeProject === 'undefined' || activeProject !== project) {
+      if (typeof setProject === 'function') setProject(project);
+    }
+    activeSubTab = tab;
+    
+    document.querySelectorAll('.sub-tab').forEach(btn => {
+      btn.classList.toggle('active', btn.id === `sub-tab-${tab}`);
+    });
+    
+    const guideContainer = document.getElementById('guide');
+    const changelogContainer = document.getElementById('changelog');
+    if (tab === 'guide') {
+      if (guideContainer) guideContainer.classList.remove('hidden');
+      if (changelogContainer) changelogContainer.classList.add('hidden');
+    } else {
+      if (guideContainer) guideContainer.classList.add('hidden');
+      if (changelogContainer) changelogContainer.classList.remove('hidden');
+    }
+    
+    const homeView = document.getElementById('home-view');
+    const detailView = document.getElementById('project-detail-view');
+    
+    let shouldScroll = false;
+    if (homeView && !homeView.classList.contains('hidden')) {
+      homeView.classList.add('hidden');
+      shouldScroll = true;
+    }
+    
+    if (detailView && detailView.classList.contains('hidden')) {
+      detailView.classList.remove('hidden');
+    }
+    
+    if (shouldScroll) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }
+}
+
+window.addEventListener('popstate', () => {
+  if (!isFileProtocol) handleRoute();
+});
+window.addEventListener('hashchange', () => {
+  if (isFileProtocol) handleRoute();
+});
+
+function showSubTab(subTabId) {
+  const proj = (typeof activeProject !== 'undefined') ? activeProject : 'toolkit';
+  updateRoutePath(`/${proj}/${subTabId}`);
 }
 window.showSubTab = showSubTab;
 
 function openProjectDetail(project) {
-  setProject(project);
-  
-  const homeView = document.getElementById('home-view');
-  const detailView = document.getElementById('project-detail-view');
-  if (homeView) homeView.classList.add('hidden');
-  if (detailView) detailView.classList.remove('hidden');
-  
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  updateRoutePath(`/${project}/guide`);
 }
 window.openProjectDetail = openProjectDetail;
 
 function goBackToHome() {
-  const homeView = document.getElementById('home-view');
-  const detailView = document.getElementById('project-detail-view');
-  if (homeView) homeView.classList.remove('hidden');
-  if (detailView) detailView.classList.add('hidden');
-  
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  updateRoutePath(`/`);
 }
 window.goBackToHome = goBackToHome;
+
 
 
 
@@ -523,6 +594,7 @@ const fallbackTranslations = {
     "txt-quick-4-2": "再びツールキットに戻って使用するには、以下のコマンドをコピーしてもう一度貼り付けるだけでOKです:",
     "txt-menu-title": "インタラクティブメニューのオプション",
     /* MENU_TRANS_JA_START */
+        "txt-opt-q": "<b>Q → クイック修正 (推奨)</b>",
         "txt-opt-0": "<b>0 → Compact OS (2-5GB容量を圧縮解放)</b>",
         "txt-opt-1": "1 → システム情報の表示",
         "txt-opt-2": "2 → 拡張ジャンククリーナー",
@@ -539,7 +611,8 @@ const fallbackTranslations = {
         "txt-opt-13": "13 → Wi-Fiパスワード復元表示",
         "txt-opt-14": "14 → 視覚効果ブースター",
         "txt-opt-15": "15 → WhatsAppの最適化",
-        "txt-opt-16": "16 → ツールキットの終了",
+        "txt-opt-16": "16 → イベントログのクリア",
+        "txt-opt-17": "17 → ツールキットの終了",
         "txt-opt-l": "L → 表示言語の変更",
         /* MENU_TRANS_JA_END */
     "txt-tip-title": "ヒント:",
@@ -666,6 +739,7 @@ const fallbackTranslations = {
     "txt-quick-4-2": "언제든 툴킷으로 복귀하여 다시 사용하려면, 아래의 구동 명령줄을 복사해 한 번 더 입력해주시면 복구됩니다:",
     "txt-menu-title": "대화형 제어 인터페이스 옵션",
     /* MENU_TRANS_KO_START */
+        "txt-opt-q": "<b>Q → 빠른 수정 (권장)</b>",
         "txt-opt-0": "<b>0 → Compact OS (2-5GB 압축 용량 확보)</b>",
         "txt-opt-1": "1 → 시스템 사양 정보 분석",
         "txt-opt-2": "2 → 확장 정크 및 캐시 정리",
@@ -682,7 +756,8 @@ const fallbackTranslations = {
         "txt-opt-13": "13 → 저장된 Wi-Fi 패스워드 추출",
         "txt-opt-14": "14 → 성능 지향 비주얼 옵션 보완",
         "txt-opt-15": "15 → WhatsApp 메신저 최적화",
-        "txt-opt-16": "16 → 대화형 툴킷 프로그램 종료",
+        "txt-opt-16": "16 → 시스템 이벤트 로그 삭제",
+        "txt-opt-17": "17 → 대화형 툴킷 프로그램 종료",
         "txt-opt-l": "L → 인터페이스 표시 언어 변경",
         /* MENU_TRANS_KO_END */
     "txt-tip-title": "유용한 팁:",
@@ -809,6 +884,7 @@ const fallbackTranslations = {
     "txt-quick-4-2": "若要返回并再次使用工具箱，只需重新复制并粘贴下方命令：",
     "txt-menu-title": "交互式菜单选项",
     /* MENU_TRANS_ZH_START */
+        "txt-opt-q": "<b>Q → 快速修复 (推荐)</b>",
         "txt-opt-0": "<b>0 → 紧凑型系统 Compact OS（节省 2-5GB 空间）</b>",
         "txt-opt-1": "1 → 查看系统信息",
         "txt-opt-2": "2 → 增强版垃圾与缓存清理",
@@ -825,7 +901,8 @@ const fallbackTranslations = {
         "txt-opt-13": "13 → 查看已保存 Wi-Fi 密码",
         "txt-opt-14": "14 → 视觉效果与性能加速",
         "txt-opt-15": "15 → 优化 WhatsApp 存储",
-        "txt-opt-16": "16 → 退出工具箱",
+        "txt-opt-16": "16 → 清除事件日志",
+        "txt-opt-17": "17 → 退出工具箱",
         "txt-opt-l": "L → 切换界面语言",
         /* MENU_TRANS_ZH_END */
     "txt-tip-title": "提示：",
@@ -952,6 +1029,7 @@ const fallbackTranslations = {
     "txt-quick-4-2": "للعودة واستخدام مجموعة الأدوات مرة أخرى، ما عليك سوى نسخ ولصق الأمر أدناه مجدداً:",
     "txt-menu-title": "خيارات القائمة التفاعلية",
     /* MENU_TRANS_AR_START */
+        "txt-opt-q": "<b>Q → إصلاح سريع (موصى به)</b>",
         "txt-opt-0": "<b>0 → ضغط النظام Compact OS (توفير 2-5 جيجابايت)</b>",
         "txt-opt-1": "1 → معلومات ومواصفات النظام",
         "txt-opt-2": "2 → منظف المخلفات المطور",
@@ -1082,6 +1160,7 @@ const fallbackTranslations = {
     "txt-quick-4-1": "Kagem mbatalaken utawi mungkasi proses ingkang mlampah, pencet <b>Ctrl + C</b>.",
     "txt-quick-4-2": "Kagem migunakaken toolkit malih, cobi salin saha tempel malih perintah ing ngandhap menika:",
     "txt-menu-title": "Pilihan Menu Interaktif",
+    "txt-opt-q": "<b>Q → Dandani Cepet (Disaranake)</b>",
     "txt-opt-0": "<b>0 → Compact OS (Hemat 2-5GB Ruang)</b>",
     "txt-opt-1": "1 → Informasi Sistem",
     "txt-opt-2": "2 → Pangresik Runtah (Enhanced)",
@@ -1207,6 +1286,7 @@ const fallbackTranslations = {
     "txt-quick-4-1": "Piken ngabatalkeun atanapi ngeureunkeun prosés nu lumangsung, pencét <b>Ctrl + C</b>.",
     "txt-quick-4-2": "Piken nganggo toolkit deui, cobi salin sareng tempel deui perintah di handap ieu:",
     "txt-menu-title": "Pilihan Menu Interaktif",
+    "txt-opt-q": "<b>Q → Perbaikan Gancang (Disarankeun)</b>",
     "txt-opt-0": "<b>0 → Compact OS (Hemat 2-5GB Ruang)</b>",
     "txt-opt-1": "1 → Informasi Sistem",
     "txt-opt-2": "2 → Pangbersih Runtah (Enhanced)",
@@ -1332,6 +1412,7 @@ const fallbackTranslations = {
     "txt-quick-4-1": "चल रही प्रक्रिया को रद्द करने या रोकने के लिए, <b>Ctrl + C</b> दबाएं।",
     "txt-quick-4-2": "वापस लौटने और टूलकिट का फिर से उपयोग करने के लिए, बस नीचे दिए गए कमांड को कॉपी और पेस्ट करें:",
     "txt-menu-title": "इंटरएक्टिव मेनू विकल्प",
+    "txt-opt-q": "<b>Q → त्वरित सुधार (अनुशंसित)</b>",
     "txt-opt-0": "<b>0 → Compact OS (2-5GB स्थान बचाएं)</b>",
     "txt-opt-1": "1 → सिस्टम जानकारी देखें",
     "txt-opt-2": "2 → उन्नत जंक और कैश क्लीनर",
@@ -1457,6 +1538,7 @@ const fallbackTranslations = {
     "txt-quick-4-1": "Чтобы отменить или остановить текущий процесс, нажмите <b>Ctrl + C</b>.",
     "txt-quick-4-2": "Чтобы вернуться и использовать набор инструментов снова, просто скопируйте и вставьте команду ниже еще раз:",
     "txt-menu-title": "Опции интерактивного меню",
+    "txt-opt-q": "<b>Q → Быстрое исправление (Рекомендуется)</b>",
     "txt-opt-0": "<b>0 → Compact OS (экономия 2-5 ГБ места)</b>",
     "txt-opt-1": "1 → Информация о системе",
     "txt-opt-2": "2 → Расширенная очистка мусора и кэша",
@@ -1993,4 +2075,5 @@ document.addEventListener('DOMContentLoaded', () => {
   initPlanets();
   initScrollReveal();
   initTilt();
+  handleRoute();
 });
