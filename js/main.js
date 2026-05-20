@@ -33,32 +33,15 @@ let activeSubTab = 'guide';
 const isFileProtocol = window.location.protocol === 'file:';
 
 function getRoutePath() {
-  if (isFileProtocol) {
-    return window.location.hash.replace('#', '') || '/';
-  } else {
-    let path = window.location.pathname;
-    // If on github pages, repository name might be in path, but this is a user page (ncexs.github.io) so root is '/'
-    return path;
-  }
+  return window.location.hash.replace('#', '') || '/';
 }
 
 function updateRoutePath(path) {
-  if (isFileProtocol) {
-    window.location.hash = '#' + path;
-  } else {
-    window.history.pushState(null, '', path);
-    handleRoute();
-  }
+  window.location.hash = '#' + path;
 }
 
 function handleRoute() {
   let path = getRoutePath();
-  
-  // Migrate hash to clean URL in production
-  if (!isFileProtocol && window.location.hash && window.location.hash.startsWith('#/')) {
-    path = window.location.hash.replace('#', '');
-    window.history.replaceState(null, '', path);
-  }
 
   if (!path || path === '/' || path.endsWith('index.html')) {
     const homeView = document.getElementById('home-view');
@@ -119,12 +102,7 @@ function handleRoute() {
   }
 }
 
-window.addEventListener('popstate', () => {
-  if (!isFileProtocol) handleRoute();
-});
-window.addEventListener('hashchange', () => {
-  if (isFileProtocol) handleRoute();
-});
+window.addEventListener('hashchange', handleRoute);
 
 function showSubTab(subTabId) {
   const proj = (typeof activeProject !== 'undefined') ? activeProject : 'toolkit';
@@ -361,10 +339,14 @@ const fallbackTranslations = {
     "txt-f13-d": "Quickly retrieves and displays saved Wi-Fi profiles and passwords on your current machine.",
     "txt-f14-t": "Visual FX Booster (Menu 14):",
     "txt-f14-d": "Optimizes system visual effects and animations to boost speed and performance, especially on older hardware.",
-    "txt-f15-t": "Optimize WhatsApp (Menu 15):",
-    "txt-f15-d": "Cleans cached files, logs, and unnecessary media sent/received via WhatsApp Desktop to free up gigabytes of wasted storage.",
-    "txt-f16-t": "Exit Toolkit (Menu 16):",
-    "txt-f16-d": "Safely closes the console window and restores your original PowerShell execution policies.",
+    "txt-f15-t": "Clear App Caches (Menu 15):",
+    "txt-f15-d": "Cleans temporary files and caches for popular apps like Discord, WhatsApp, Spotify, and Steam to recover wasted disk space.",
+    "txt-f16-t": "Clear Event Logs (Menu 16):",
+    "txt-f16-d": "Cleans all Windows Event Viewer logs (Application, Security, System, etc.) to free up space and protect privacy.",
+    "txt-f17-t": "PC Maintenance Suite (Menu 17):",
+    "txt-f17-d": "Provides a guided, comprehensive multi-step maintenance routine including registry optimization, cache rebuilds, and disk checks.",
+    "txt-f18-t": "Exit Toolkit (Menu 18):",
+    "txt-f18-d": "Safely closes the console window and restores your original PowerShell execution policies.",
     "txt-cl-title": "Version History / Changelog",
     "txt-cl-desc": "Recent updates and changes to the ncexs Utilities.",
   
@@ -507,10 +489,14 @@ const fallbackTranslations = {
     "txt-f13-d": "Melihat kembali profil dan kata sandi Wi-Fi yang tersimpan di komputer Anda dengan cepat.",
     "txt-f14-t": "Visual FX Booster (Menu 14):",
     "txt-f14-d": "Mengoptimalkan efek visual dan animasi Windows untuk meningkatkan kecepatan dan performa sistem, sangat berguna pada PC spesifikasi rendah.",
-    "txt-f15-t": "Optimasi WhatsApp (Menu 15):",
-    "txt-f15-d": "Membersihkan file cache, file log, dan file media tidak penting dari WhatsApp Desktop untuk membebaskan ruang penyimpanan berukuran gigabyte.",
-    "txt-f16-t": "Keluar Aplikasi (Menu 16):",
-    "txt-f16-d": "Keluar dari jendela konsol toolkit dengan aman dan mengembalikan kebijakan eksekusi (execution policy) PowerShell Anda ke semula.",
+    "txt-f15-t": "Pembersih Cache Aplikasi (Menu 15):",
+    "txt-f15-d": "Membersihkan file sementara dan cache untuk aplikasi populer seperti Discord, WhatsApp, Spotify, dan Steam guna memulihkan ruang penyimpanan.",
+    "txt-f16-t": "Hapus Event Logs (Menu 16):",
+    "txt-f16-d": "Membersihkan semua log Windows Event Viewer (Application, Security, System, dll.) untuk melegakan ruang dan menjaga privasi.",
+    "txt-f17-t": "Pusat Pemeliharaan Sistem (Menu 17):",
+    "txt-f17-d": "Menyediakan rutinitas pemeliharaan multi-langkah yang dipandu, termasuk optimasi registry, pembangunan ulang cache, dan pemeriksaan disk secara menyeluruh.",
+    "txt-f18-t": "Keluar Aplikasi (Menu 18):",
+    "txt-f18-d": "Keluar dari jendela konsol toolkit dengan aman dan mengembalikan kebijakan eksekusi (execution policy) PowerShell Anda ke semula.",
     "txt-cl-title": "Riwayat Versi / Changelog",
     "txt-cl-desc": "Pembaruan dan perubahan terbaru pada Utilitas ncexs.",
   
@@ -612,9 +598,10 @@ const fallbackTranslations = {
         "txt-opt-12": "12 → 超高速DNSの適用設定",
         "txt-opt-13": "13 → Wi-Fiパスワード復元表示",
         "txt-opt-14": "14 → 視覚効果ブースター",
-        "txt-opt-15": "15 → WhatsAppの最適化",
+        "txt-opt-15": "15 → アプリキャッシュのクリーンアップ",
         "txt-opt-16": "16 → イベントログのクリア",
-        "txt-opt-17": "17 → ツールキットの終了",
+        "txt-opt-17": "17 → PCメンテナンススイート",
+        "txt-opt-18": "18 → ツールキットの終了",
         "txt-opt-l": "L → 表示言語の変更",
         /* MENU_TRANS_JA_END */
     "txt-tip-title": "ヒント:",
@@ -652,10 +639,14 @@ const fallbackTranslations = {
     "txt-f13-d": "現在お使いのPC内に過去に保存されたすべてのWi-Fiプロファイル名と接続パスワードを瞬時に検出し、一覧表示します。",
     "txt-f14-t": "Visual FXブースター (メニュー 14):",
     "txt-f14-d": "余計なアニメーションや視覚効果を最適化し、低スペックPCや古いハードウェアでのレスポンスと快適性を高めます。",
-    "txt-f15-t": "WhatsAppの最適化 (メニュー 15):",
-    "txt-f15-d": "WhatsApp Desktop経由で送受信され、内部に溜まった一時ファイルをクリアし、ギガバイト単位の不要なストレージ浪費を解消します。",
-    "txt-f16-t": "ツールキットの終了 (メニュー 16):",
-    "txt-f16-d": "コンソールウィンドウを安全に閉じ、一時的に適用していたPowerShell実行ポリシーを元の安全な既定状態に自動復元します。",
+    "txt-f15-t": "アプリキャッシュのクリーンアップ (メニュー 15):",
+    "txt-f15-d": "Discord、WhatsApp、Spotify、Steamなどの一般的なアプリの一時ファイルやキャッシュをクリーンアップし、空き容量を回復します。",
+    "txt-f16-t": "イベントログのクリア (メニュー 16):",
+    "txt-f16-d": "Windowsイベントビューアーのすべてのログ（アプリケーション、セキュリティ、システムなど）を安全に消去し、容量解放とプライバシー保護を行います。",
+    "txt-f17-t": "PCメンテナンススイート (メニュー 17):",
+    "txt-f17-d": "レジストリ最適化、各種キャッシュの再構築、ディスクエラーチェックなどを含む、ガイド付きの包括的な複数ステップのメンテナンスを実行します。",
+    "txt-f18-t": "ツールキットの終了 (メニュー 18):",
+    "txt-f18-d": "コンソールウィンドウを安全に閉じ、一時的に適用していたPowerShell実行ポリシーを元の安全な既定状態に自動復元します。",
     "txt-cl-title": "バージョン履歴 / 変更ログ",
     "txt-cl-desc": "ncexs Toolkitの最新の更新内容および機能追加の一覧。",
 
@@ -757,9 +748,10 @@ const fallbackTranslations = {
         "txt-opt-12": "12 → 안전 고성능 DNS 서버 변환",
         "txt-opt-13": "13 → 저장된 Wi-Fi 패스워드 추출",
         "txt-opt-14": "14 → 성능 지향 비주얼 옵션 보완",
-        "txt-opt-15": "15 → WhatsApp 메신저 최적화",
-        "txt-opt-16": "16 → 시스템 이벤트 로그 삭제",
-        "txt-opt-17": "17 → 대화형 툴킷 프로그램 종료",
+        "txt-opt-15": "15 → 앱 캐시 정리",
+        "txt-opt-16": "16 → 이벤트 로그 정리",
+        "txt-opt-17": "17 → PC 종합 유지보수 센터",
+        "txt-opt-18": "18 → 대화형 툴킷 프로그램 종료",
         "txt-opt-l": "L → 인터페이스 표시 언어 변경",
         /* MENU_TRANS_KO_END */
     "txt-tip-title": "유용한 팁:",
@@ -797,10 +789,14 @@ const fallbackTranslations = {
     "txt-f13-d": "현재 연결된 디바이스에 축적된 와이파이 네트워크 SSID 기록과 기억나지 않는 이전 키를 찾아 터미널에 보여줍니다.",
     "txt-f14-t": "성능 중점 Visual FX 조율 (메뉴 14):",
     "txt-f14-d": "윈도우 내 과도하게 펼쳐진 시각 전용 트랜지션 연출들을 경량화 조율하여 구형 장비나 노트북에서 한층 기민한 조작 반응을 확보합니다.",
-    "txt-f15-t": "WhatsApp 메신저 청소 (메뉴 15):",
-    "txt-f15-d": "WhatsApp Desktop 사용으로 장치 내부에 누적된 미디어 프리뷰 조각, 캐시 로그 쓰레기들을 추적 및 세척해 불필요한 낭비를 예방합니다.",
-    "txt-f16-t": "툴킷 안전 종료 (메뉴 16):",
-    "txt-f16-d": "터미널의 환경을 안전하게 퇴장하며 임시 적용되었던 파워쉘의 구동 허가 범위를 디폴트 보안 수치로 원복 복구해줍니다.",
+    "txt-f15-t": "앱 캐시 정리 (메뉴 15):",
+    "txt-f15-d": "Discord, WhatsApp, Spotify, Steam 등 자주 사용하는 주요 애플리케이션의 임시 파일 및 캐시를 말끔히 정리하여 하드 디스크 여유 공간을 복구합니다.",
+    "txt-f16-t": "이벤트 로그 정리 (메뉴 16):",
+    "txt-f16-d": "Windows 이벤트 뷰어의 모든 로그(애플리케이션, 보안, 시스템 등)를 삭제하여 시스템 저장 공간을 늘리고 개인 정보 노출을 방지합니다.",
+    "txt-f17-t": "PC 종합 유지보수 센터 (메뉴 17):",
+    "txt-f17-d": "레지스트리 최적화, 각종 캐시 파일 재구축, 디스크 무결성 검사 등 단계별 가이드가 포함된 종합 시스템 유지보수 과정을 안전하게 수행합니다.",
+    "txt-f18-t": "대화형 툴킷 프로그램 종료 (메뉴 18):",
+    "txt-f18-d": "콘솔 창을 안전하게 닫고 변경되었던 PowerShell 실행 정책을 원래의 기본 권한 상태로 자동 복원합니다.",
     "txt-cl-title": "버전 히스토리 / 업데이트 노트",
     "txt-cl-desc": "ncexs Toolkit의 누적 릴리즈 이력과 새로운 업데이트 내용 안내.",
 
@@ -902,9 +898,10 @@ const fallbackTranslations = {
         "txt-opt-12": "12 → 快速修改安全 DNS",
         "txt-opt-13": "13 → 查看已保存 Wi-Fi 密码",
         "txt-opt-14": "14 → 视觉效果与性能加速",
-        "txt-opt-15": "15 → 优化 WhatsApp 存储",
+        "txt-opt-15": "15 → 清除应用缓存",
         "txt-opt-16": "16 → 清除事件日志",
-        "txt-opt-17": "17 → 退出工具箱",
+        "txt-opt-17": "17 → PC 综合维护套件",
+        "txt-opt-18": "18 → 退出工具箱",
         "txt-opt-l": "L → 切换界面语言",
         /* MENU_TRANS_ZH_END */
     "txt-tip-title": "提示：",
@@ -942,10 +939,14 @@ const fallbackTranslations = {
     "txt-f13-d": "快速检索并显示当前电脑中保存的所有 Wi-Fi 网络名称及密码。",
     "txt-f14-t": "视觉效果加速器 (菜单 14)：",
     "txt-f14-d": "优化系统动画与视觉效果，显著提升系统运行速度和流畅度，老旧电脑必备。",
-    "txt-f15-t": "优化 WhatsApp (菜单 15)：",
-    "txt-f15-d": "清理 WhatsApp 桌面版产生的无用缓存、日志和过期媒体文件，释放数 GB 浪费的存储空间。",
-    "txt-f16-t": "退出工具箱 (菜单 16)：",
-    "txt-f16-d": "安全关闭控制台窗口，并自动恢复原有的 PowerShell 执行策略。",
+    "txt-f15-t": "清除应用缓存 (菜单 15):",
+    "txt-f15-d": "清理 Discord、WhatsApp、Spotify 和 Steam 等常用软件的临时文件与缓存，以恢复流失的磁盘空间。",
+    "txt-f16-t": "清除事件日志 (菜单 16):",
+    "txt-f16-d": "清除 Windows 事件查看器中的所有日志（应用程序、安全、系统等），释放空间并保护系统隐私。",
+    "txt-f17-t": "PC 综合维护套件 (菜单 17):",
+    "txt-f17-d": "提供引导式的多步骤综合日常维护，包括注册表优化、缓存重建和磁盘错误检查。",
+    "txt-f18-t": "退出工具箱 (菜单 18):",
+    "txt-f18-d": "安全关闭控制台窗口，并将您的系统 PowerShell 执行策略恢复至默认设置。",
     "txt-cl-title": "版本历史 / 更新日志",
     "txt-cl-desc": "ncexs 实用工具的最新更新和改进记录。",
   
@@ -1047,8 +1048,10 @@ const fallbackTranslations = {
         "txt-opt-12": "12 → مغير خوادم DNS السريع",
         "txt-opt-13": "13 → استرجاع كلمات مرور Wi-Fi المحفوظة",
         "txt-opt-14": "14 → تحسين التأثيرات المرئية للأداء",
-        "txt-opt-15": "15 → تنظيف وتحسين تخزين WhatsApp",
-        "txt-opt-16": "16 → الخروج من الأداة",
+        "txt-opt-15": "15 → مسح ذاكرة التخزين المؤقت للتطبيقات",
+        "txt-opt-16": "16 → مسح سجلات الأحداث",
+        "txt-opt-17": "17 → حزمة صيانة الكمبيوتر المتكاملة",
+        "txt-opt-18": "18 → الخروج من الأداة",
         "txt-opt-l": "L → تغيير لغة العرض",
         /* MENU_TRANS_AR_END */
     "txt-tip-title": "نصيحة:",
@@ -1074,22 +1077,26 @@ const fallbackTranslations = {
     "txt-f7-d": "ينشئ تقريراً مفصلاً عن حالة البطارية بصيغة HTML، ويضبط خطط الطاقة عالية الأداء، ويدير وضع السكون.",
     "txt-f8-t": "محسن الذاكرة (القائمة 8):",
     "txt-f8-d": "يمسح الذاكرة الاحتياطية ويحرر الذاكرة العشوائية غير المستخدمة على الفور، مما يساعد على تسريع استجابة النظام والألعاب.",
-    "txt-f9-t": "إلغاء التجزئة وتحسين الأقراص (القائمة 9):",
+    "txt-f9-t": "إلغاء تجزئة الأقراص وتحسينها (القائمة 9):",
     "txt-f9-d": "يحلل ويشغل أمر TRIM لأقراص SSD أو يلغي تجزئة أقراص HDD للحفاظ على سرعات قراءة وكتابة عالية.",
     "txt-f10-t": "فحص صحة النظام (القائمة 10):",
     "txt-f10-d": "يشغل أدوات الفحص والإصلاح (SFC و DISM) للعثور على ملفات نظام Windows التالفة وإصلاحها تلقائياً.",
     "txt-f11-t": "مركز التحديثات والتعريفات (القائمة 11):",
     "txt-f11-d": "يصلح تحديثات Windows العالقة أو الفاشلة عن طريق إعادة تشغيل خدمات التحديث (wuauserv, bits, cryptSvc) وإعادة تسمية مجلد التنزيل المؤقت.",
-    "txt-f12-t": "مغير DNS (القائمة 12):",
+    "txt-f12-t": "مغير خوادم DNS (القائمة 12):",
     "txt-f12-d": "يتيح لك تغيير إعدادات خادم DNS بسرعة إلى خيارات آمنة وسريعة مثل Google Public DNS أو Cloudflare لتصفح أكثر سرعة وأماناً.",
     "txt-f13-t": "استعادة كلمات مرور Wi-Fi (القائمة 13):",
     "txt-f13-d": "يستخرج ويعرض جميع أسماء شبكات Wi-Fi المحفوظة وكلمات المرور الخاصة بها على جهازك فوراً.",
     "txt-f14-t": "معزز التأثيرات المرئية (القائمة 14):",
     "txt-f14-d": "يحسن التأثيرات المرئية والرسوم المتحركة للنظام لزيادة السرعة والأداء، خاصة على الأجهزة القديمة.",
-    "txt-f15-t": "تحسين WhatsApp (القائمة 15):",
-    "txt-f15-d": "ينظف الملفات المؤقتة والسجلات والوسائط غير الضرورية لتطبيق WhatsApp Desktop لتحرير جيجابايتات من مساحة التخزين الضائعة.",
-    "txt-f16-t": "الخروج من الأداة (القائمة 16):",
-    "txt-f16-d": "يغلق نافذة أداة التحكم بأمان ويعيد سياسات تشغيل PowerShell إلى وضعها الأصلي.",
+    "txt-f15-t": "مسح ذاكرة التخزين المؤقت للتطبيقات (القائمة 15):",
+    "txt-f15-d": "ينظف الملفات المؤقتة وذاكرة التخزين المؤقت للتطبيقات الشائعة مثل Discord و WhatsApp و Spotify و Steam لاستعادة مساحة القرص الضائعة.",
+    "txt-f16-t": "مسح سجلات الأحداث (القائمة 16):",
+    "txt-f16-d": "ينظف جميع سجلات عارض الأحداث في Windows (التطبيق، الأمان، النظام، إلخ) لتحرير مساحة التخزين وحماية الخصوصية.",
+    "txt-f17-t": "حزمة صيانة الكمبيوتر المتكاملة (القائمة 17):",
+    "txt-f17-d": "يوفر روتين صيانة شاملاً وموجهاً متعدد الخطوات يتضمن تحسين الريجستري وإعادة بناء ذاكرة التخزين المؤقت وفحص القرص.",
+    "txt-f18-t": "الخروج من الأداة (القائمة 18):",
+    "txt-f18-d": "يغلق نافذة أداة التحكم بأمان ويعيد سياسات تشغيل PowerShell إلى وضعها الأصلي.",
     "txt-cl-title": "سجل الإصدارات / التحديثات",
     "txt-cl-desc": "التحديثات والتغييرات الأخيرة على أدوات ncexs.",
   
@@ -1178,8 +1185,10 @@ const fallbackTranslations = {
     "txt-opt-12": "12 → Pangowah DNS",
     "txt-opt-13": "13 → Wi-Fi Password Recovery",
     "txt-opt-14": "14 → Visual FX Booster",
-    "txt-opt-15": "15 → Optimasi WhatsApp",
-    "txt-opt-16": "16 → Medal Saking Aplikasi",
+    "txt-opt-15": "15 → Pangresik Cache Aplikasi",
+    "txt-opt-16": "16 → Hapus Event Logs",
+    "txt-opt-17": "17 → Pusat Pemeliharaan Sistem",
+    "txt-opt-18": "18 → Medal Saking Aplikasi",
     "txt-opt-l": "L → Gantos Basa",
     "txt-tip-title": "Tips:",
     "txt-tip-desc": "Gunakaken <b>Menu [0] Compact OS</b> menawi drive C: kebak. Tansah damel cadangan (backup) data wigati saderengipun nglampahi perawatan sistem mendalam.",
@@ -1216,10 +1225,14 @@ const fallbackTranslations = {
     "txt-f13-d": "Ningali malih profil saha sandhi Wi-Fi ingkang kasimpen ing komputer panjenengan kanthi cepet.",
     "txt-f14-t": "Visual FX Booster (Menu 14):",
     "txt-f14-d": "Ngoptimalaken efek visual saha animasi Windows kagem nambah kacepetan saha performa sistem, migunani sanget ing PC spesifikasi andhap.",
-    "txt-f15-t": "Optimasi WhatsApp (Menu 15):",
-    "txt-f15-d": "Ngresiki file cache, log, saha file media mboten wigati saking WhatsApp Desktop kagem mbebasaken ruang panyimpenan gigabyte.",
-    "txt-f16-t": "Medal Saking Aplikasi (Menu 16):",
-    "txt-f16-d": "Medal saking konsol toolkit kanthi aman saha ngwangsulaken kebijakan eksekusi PowerShell panjenengan kados wau.",
+    "txt-f15-t": "Pangresik Cache Aplikasi (Menu 15):",
+    "txt-f15-d": "Ngresiki file sauntara saha cache kagem aplikasi populer kados Discord, WhatsApp, Spotify, saha Steam kagem mulihaken ruang panyimpenan.",
+    "txt-f16-t": "Hapus Event Logs (Menu 16):",
+    "txt-f16-d": "Ngresiki sedaya log Windows Event Viewer (Application, Security, System, saha sakpanunggalane) kagem nglegakaken ruang saha njaga privasi.",
+    "txt-f17-t": "Pusat Pemeliharaan Sistem (Menu 17):",
+    "txt-f17-d": "Nyawisaken rutinitas pemeliharaan multi-langkah ingkang dipuntuntun, kalebet optimasi registry, mbangun malih cache, saha pamariksan disk kanthi jangkep.",
+    "txt-f18-t": "Medal Saking Aplikasi (Menu 18):",
+    "txt-f18-d": "Medal saking konsol toolkit kanthi aman saha ngwangsulaken kebijakan eksekusi (execution policy) PowerShell panjenengan kados wau.",
     "txt-cl-title": "Riwayat Versi / Changelog",
     "txt-cl-desc": "Pambangunan saha ewah-ewahan enggal ing Utilitas ncexs.",
     "txt-how-at-title": "Cara Migunakaken - ncexs AutoTask",
@@ -1304,8 +1317,10 @@ const fallbackTranslations = {
     "txt-opt-12": "12 → Pangobah DNS",
     "txt-opt-13": "13 → Wi-Fi Password Recovery",
     "txt-opt-14": "14 → Visual FX Booster",
-    "txt-opt-15": "15 → Optimasi WhatsApp",
-    "txt-opt-16": "16 → Kaluar Ti Aplikasi",
+    "txt-opt-15": "15 → Pangbersih Cache Aplikasi",
+    "txt-opt-16": "16 → Hapus Event Logs",
+    "txt-opt-17": "17 → Pusat Pemeliharaan Sistem",
+    "txt-opt-18": "18 → Kaluar Ti Aplikasi",
     "txt-opt-l": "L → Gantos Basa",
     "txt-tip-title": "Tips:",
     "txt-tip-desc": "Nganggo <b>Menu [0] Compact OS</b> upami drive C: pinuh. Salawasna ngadamel cadangan (backup) data penting sateuacan pangropéa sistem mendalam.",
@@ -1342,10 +1357,14 @@ const fallbackTranslations = {
     "txt-f13-d": "Ningali deui profil sareng sandi Wi-Fi nu kasimpen dina komputer anjeun kalayan gancang.",
     "txt-f14-t": "Visual FX Booster (Menu 14):",
     "txt-f14-d": "Ngoptimalkeun éfék visual sareng animasi Windows piken nambah kagancangan sareng performa sistem, mangpaat pisan dina PC spesifikasi handap.",
-    "txt-f15-t": "Optimasi WhatsApp (Menu 15):",
-    "txt-f15-d": "Ngabersihan file cache, log, sareng file media henteu penting ti WhatsApp Desktop piken ngabébaskeun ruang panyimpenan gigabyte.",
-    "txt-f16-t": "Kaluar Ti Aplikasi (Menu 16):",
-    "txt-f16-d": "Kaluar ti konsol toolkit kalayan aman sareng ngawangsulkeun kebijakan eksekusi PowerShell anjeun sapertos sateuacanna.",
+    "txt-f15-t": "Pangbersih Cache Aplikasi (Menu 15):",
+    "txt-f15-d": "Ngabersihan file samentawis sareng cache kanggo aplikasi populér sapertos Discord, WhatsApp, Spotify, sareng Steam piken mulangkeun ruang panyimpenan.",
+    "txt-f16-t": "Hapus Event Logs (Menu 16):",
+    "txt-f16-d": "Ngabersihan sadaya log Windows Event Viewer (Application, Security, System, sareng sajabana) piken ngalegakeun ruang sareng ngajaga privasi.",
+    "txt-f17-t": "Pusat Pemeliharaan Sistem (Menu 17):",
+    "txt-f17-d": "Nyiapkeun rutinitas pangropéa multi-langkah nu dipandu, kalebet optimasi registry, ngawangun deui cache, sareng pamariosan disk kalayan jangkep.",
+    "txt-f18-t": "Kaluar Ti Aplikasi (Menu 18):",
+    "txt-f18-d": "Kaluar ti konsol toolkit kalayan aman sareng ngawangsulkeun kawijakan éksekusi PowerShell anjeun sapertos sateuacanna.",
     "txt-cl-title": "Riwayat Vérsi / Changelog",
     "txt-cl-desc": "Pangwangunan sareng parobihan anyar dina Utilitas ncexs.",
     "txt-how-at-title": "Tata Cara Nganggo - ncexs AutoTask",
@@ -1430,8 +1449,10 @@ const fallbackTranslations = {
     "txt-opt-12": "12 → तेज़ DNS परिवर्तक",
     "txt-opt-13": "13 → वाई-फ़ाई पासवर्ड पुनर्प्राप्ति",
     "txt-opt-14": "14 → विज़ुअल इफ़ेक्ट बूस्टर",
-    "txt-opt-15": "15 → WhatsApp संग्रहण अनुकूलन",
-    "txt-opt-16": "16 → टूलकिट से बाहर निकलें",
+    "txt-opt-15": "15 → ऐप कैश साफ़ करें",
+    "txt-opt-16": "16 → इवेंट लॉग साफ़ करें",
+    "txt-opt-17": "17 → पीसी रखरखाव सुइट",
+    "txt-opt-18": "18 → टूलकिट से बाहर निकलें",
     "txt-opt-l": "L → इंटरफ़ेस भाषा बदलें",
     "txt-tip-title": "सुझाव:",
     "txt-tip-desc": "यदि C: ड्राइव भर गई है तो <b>मेनू [0] Compact OS</b> का उपयोग करें। गहन सिस्टम रखरखाव से पहले हमेशा महत्वपूर्ण डेटा का बैकअप लें।",
@@ -1468,10 +1489,14 @@ const fallbackTranslations = {
     "txt-f13-d": "आपके कंप्यूटर पर सहेजे गए वाई-फ़ाई नेटवर्क नाम और पासवर्ड को तुरंत पुनर्प्राप्त और प्रदर्शित करता है।",
     "txt-f14-t": "विज़ुअल इफ़ेक्ट बूस्टर (मेनू 14):",
     "txt-f14-d": "सिस्टम गति और प्रदर्शन को बढ़ाने के लिए विंडोज एनिमेशन और विज़ुअल इफ़ेक्ट्स को अनुकूलित करता है, जो पुराने पीसी पर बहुत उपयोगी है।",
-    "txt-f15-t": "WhatsApp अनुकूलन (मेनू 15):",
-    "txt-f15-d": "गीगाबाइट स्थान खाली करने के लिए WhatsApp Desktop से अनावश्यक कैश, लॉग और मीडिया फ़ाइलों को साफ़ करता है।",
-    "txt-f16-t": "बाहर निकलें (मेनू 16):",
-    "txt-f16-d": "टूलकिट कंसोल से सुरक्षित रूप से बाहर निकलें और अपनी पावरशेल निष्पादन नीति को उसकी डिफ़ॉल्ट स्थिति में पुनर्स्थापित करें।",
+    "txt-f15-t": "ऐप कैश साफ़ करें (मेनू 15):",
+    "txt-f15-d": "Discord, WhatsApp, Spotify और Steam जैसे लोकप्रिय ऐप्स के लिए अस्थायी फ़ाइलों और कैश को साफ़ करके डिस्क स्थान पुनर्प्राप्त करता है।",
+    "txt-f16-t": "इवेंट लॉग साफ़ करें (मेनू 16):",
+    "txt-f16-d": "स्थान खाली करने और गोपनीयता की रक्षा करने के लिए सभी विंडोज़ इवेंट व्यूअर लॉग (एप्लिकेशन, सुरक्षा, सिस्टम आदि) को साफ़ करता है।",
+    "txt-f17-t": "पीसी रखरखाव सुइट (मेनू 17):",
+    "txt-f17-d": "रजिस्ट्री अनुकूलन, कैश पुनर्निर्माण और डिस्क त्रुटि जाँच सहित एक निर्देशित, व्यापक बहु-चरणीय रखरखाव दिनचर्या प्रदान करता है।",
+    "txt-f18-t": "टूलकिट से बाहर निकलें (मेनू 18):",
+    "txt-f18-d": "सुरक्षित रूप से कंसोल विंडो को बंद करता है और आपकी मूल पावरशेल निष्पादन नीतियों को पुनर्स्थापित करता है।",
     "txt-cl-title": "संस्करण इतिहास / चेंजलॉग",
     "txt-cl-desc": "ncexs उपयोगिताओं में नवीनतम अपडेट और सुधारों की सूची।",
     "txt-how-at-title": "उपयोग कैसे करें - ncexs AutoTask",
@@ -1556,8 +1581,10 @@ const fallbackTranslations = {
     "txt-opt-12": "12 → Быстрая смена DNS",
     "txt-opt-13": "13 → Просмотр сохраненных паролей Wi-Fi",
     "txt-opt-14": "14 → Ускорение визуальных эффектов",
-    "txt-opt-15": "15 → Оптимизация хранилища WhatsApp",
-    "txt-opt-16": "16 → Выход из утилиты",
+    "txt-opt-15": "15 → Очистить кэш приложений",
+    "txt-opt-16": "16 → Очистить журналы событий",
+    "txt-opt-17": "17 → Центр обслуживания ПК",
+    "txt-opt-18": "18 → Выход из утилиты",
     "txt-opt-l": "L → Изменить язык интерфейса",
     "txt-tip-title": "Совет:",
     "txt-tip-desc": "Используйте <b>Меню [0] Compact OS</b>, если диск C: заполнен. Всегда делайте резервную копию важных данных перед глубоким обслуживанием системы.",
@@ -1594,10 +1621,14 @@ const fallbackTranslations = {
     "txt-f13-d": "Быстрый поиск и отображение всех сохраненных имен сетей Wi-Fi и паролей к ним на вашем ПК.",
     "txt-f14-t": "Ускорение визуальных эффектов (Меню 14):",
     "txt-f14-d": "Оптимизация анимации и визуальных эффектов Windows для повышения скорости и производительности на старых ПК.",
-    "txt-f15-t": "Оптимизация WhatsApp (Меню 15):",
-    "txt-f15-d": "Очистка ненужного кэша, логов и старых медиафайлов WhatsApp Desktop для освобождения гигабайт места.",
-    "txt-f16-t": "Выход из утилиты (Меню 16):",
-    "txt-f16-d": "Безопасное закрытие консоли и возврат политики выполнения PowerShell в исходное состояние.",
+    "txt-f15-t": "Очистить кэш приложений (Меню 15):",
+    "txt-f15-d": "Безопасная очистка временных файлов и кэша популярных приложений (Discord, WhatsApp, Spotify, Steam) для освобождения занятого места.",
+    "txt-f16-t": "Очистить журналы событий (Меню 16):",
+    "txt-f16-d": "Очистка всех журналов просмотрщика событий Windows (приложений, безопасности, системы и т. д.) для освобождения места и защиты конфиденциальности.",
+    "txt-f17-t": "Центр обслуживания ПК (Меню 17):",
+    "txt-f17-d": "Интерактивное пошаговое руководство по комплексному обслуживанию системы, включая оптимизацию реестра, пересборку кэша и проверку дисков.",
+    "txt-f18-t": "Выход из утилиты (Меню 18):",
+    "txt-f18-d": "Безопасное закрытие окна консоли и автоматическое восстановление исходных политик выполнения PowerShell.",
     "txt-cl-title": "История версий / Список изменений",
     "txt-cl-desc": "Список последних обновлений и улучшений в утилитах ncexs.",
     "txt-how-at-title": "Как использовать - ncexs AutoTask",
@@ -1630,13 +1661,16 @@ async function setLanguage(lang) {
   const langSelect = document.getElementById('lang-select');
   if (langSelect) langSelect.value = lang;
 
-  let t = fallbackTranslations[lang] || fallbackTranslations['en'];
+  let t = { ...fallbackTranslations['en'] };
+  if (fallbackTranslations[lang]) {
+    t = { ...t, ...fallbackTranslations[lang] };
+  }
   try {
     const res = await fetch(`./locales/${lang}.json`);
     if (res.ok) {
       const fetched = await res.json();
       if (fetched && typeof fetched === 'object') {
-        t = fetched;
+        t = { ...t, ...fetched };
       }
     }
   } catch (err) {
