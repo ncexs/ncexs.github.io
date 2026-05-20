@@ -41,6 +41,7 @@
   "txt-quick-4-1": "To cancel or exit any running process, press <b>Ctrl + C</b>.",
   "txt-quick-4-2": "To return and use the toolkit again, simply copy and paste the command below:",
   "txt-menu-title": "Interactive Menu Options",
+  "txt-opt-q": "<b>Q → Quick Fix (Recommended)</b>",
   "txt-opt-0": "<b>0 → Compact OS (Save 2-5GB Space)</b>",
   "txt-opt-1": "1 → System Information",
   "txt-opt-2": "2 → Enhanced Junk Cleaner",

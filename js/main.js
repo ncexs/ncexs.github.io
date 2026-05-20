@@ -30,95 +30,67 @@ updateRealTimeClock();
 
 let activeSubTab = 'guide';
 
-const isFileProtocol = window.location.protocol === 'file:';
+// ── Pure in-memory SPA navigation ──────────────────────────────────────────
+// URL stays at https://ncexs.github.io/ at all times.
+// All navigation is handled by show/hide DOM only — no URL changes ever.
 
-function getRoutePath() {
-  return window.location.hash.replace('#', '') || '/';
-}
+function showProjectDetail(project, tab) {
+  tab = tab || 'guide';
 
-function updateRoutePath(path) {
-  window.location.hash = '#' + path;
-}
+  const validProjects = ['toolkit', 'autotask', 'junkcleaner'];
+  if (!validProjects.includes(project)) project = 'toolkit';
 
-function handleRoute() {
-  let path = getRoutePath();
+  if (typeof setProject === 'function') setProject(project);
+  activeSubTab = tab;
 
-  if (!path || path === '/' || path.endsWith('index.html')) {
-    const homeView = document.getElementById('home-view');
-    const detailView = document.getElementById('project-detail-view');
-    if (homeView && homeView.classList.contains('hidden')) {
-      homeView.classList.remove('hidden');
-      if (detailView) detailView.classList.add('hidden');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    } else {
-      if (homeView) homeView.classList.remove('hidden');
-      if (detailView) detailView.classList.add('hidden');
-    }
+  document.querySelectorAll('.sub-tab').forEach(btn => {
+    btn.classList.toggle('active', btn.id === `sub-tab-${tab}`);
+  });
+
+  const guideContainer = document.getElementById('guide');
+  const changelogContainer = document.getElementById('changelog');
+  if (tab === 'guide') {
+    if (guideContainer) guideContainer.classList.remove('hidden');
+    if (changelogContainer) changelogContainer.classList.add('hidden');
   } else {
-    const parts = path.split('/').filter(Boolean);
-    let project = parts[0] || 'toolkit';
-    const tab = parts[1] || 'guide';
-    
-    const validProjects = ['toolkit', 'autotask', 'junkcleaner'];
-    if (!validProjects.includes(project)) {
-       project = 'toolkit'; // Fallback for safety
-    }
-    
-    if (typeof activeProject === 'undefined' || activeProject !== project) {
-      if (typeof setProject === 'function') setProject(project);
-    }
-    activeSubTab = tab;
-    
-    document.querySelectorAll('.sub-tab').forEach(btn => {
-      btn.classList.toggle('active', btn.id === `sub-tab-${tab}`);
-    });
-    
-    const guideContainer = document.getElementById('guide');
-    const changelogContainer = document.getElementById('changelog');
-    if (tab === 'guide') {
-      if (guideContainer) guideContainer.classList.remove('hidden');
-      if (changelogContainer) changelogContainer.classList.add('hidden');
-    } else {
-      if (guideContainer) guideContainer.classList.add('hidden');
-      if (changelogContainer) changelogContainer.classList.remove('hidden');
-    }
-    
-    const homeView = document.getElementById('home-view');
-    const detailView = document.getElementById('project-detail-view');
-    
-    let shouldScroll = false;
-    if (homeView && !homeView.classList.contains('hidden')) {
-      homeView.classList.add('hidden');
-      shouldScroll = true;
-    }
-    
-    if (detailView && detailView.classList.contains('hidden')) {
-      detailView.classList.remove('hidden');
-    }
-    
-    if (shouldScroll) {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
+    if (guideContainer) guideContainer.classList.add('hidden');
+    if (changelogContainer) changelogContainer.classList.remove('hidden');
   }
+
+  const homeView = document.getElementById('home-view');
+  const detailView = document.getElementById('project-detail-view');
+  if (homeView) homeView.classList.add('hidden');
+  if (detailView) detailView.classList.remove('hidden');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-window.addEventListener('hashchange', handleRoute);
+function showHome() {
+  const homeView = document.getElementById('home-view');
+  const detailView = document.getElementById('project-detail-view');
+  if (homeView) homeView.classList.remove('hidden');
+  if (detailView) detailView.classList.add('hidden');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
 
 function showSubTab(subTabId) {
   const proj = (typeof activeProject !== 'undefined') ? activeProject : 'toolkit';
-  updateRoutePath(`/${proj}/${subTabId}`);
+  showProjectDetail(proj, subTabId);
 }
 window.showSubTab = showSubTab;
 
 function openProjectDetail(project) {
-  updateRoutePath(`/${project}/guide`);
+  showProjectDetail(project, 'guide');
 }
 window.openProjectDetail = openProjectDetail;
 
 function goBackToHome() {
-  updateRoutePath(`/`);
+  showHome();
 }
 window.goBackToHome = goBackToHome;
+
+function handleRoute() {
+  showHome();
+}
 
 
 
