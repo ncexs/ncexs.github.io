@@ -108,33 +108,58 @@ https.get(SCRIPT_URL, (resp) => {
         fs.writeFileSync(JS_PATH, mainJs, 'utf8');
         console.log("index.html and js/main.js updated successfully.");
 
-        // NEW: Sync directly to locales/en.json and locales/id.json so they don't get overwritten!
-        if (fs.existsSync(LOCALE_EN_PATH)) {
-            const enJson = JSON.parse(fs.readFileSync(LOCALE_EN_PATH, 'utf8'));
-            menuKeys.forEach(key => {
-                const idSuffix = key.replace('Menu_Option', '').toLowerCase();
-                enJson["txt-opt-" + idSuffix] = formatText(idSuffix, enDict[key]);
-            });
-            if (!hasQ) {
-                enJson["txt-opt-q"] = "<b>Q → Quick Fix (Recommended)</b>";
-            }
-            fs.writeFileSync(LOCALE_EN_PATH, JSON.stringify(enJson, null, 2), 'utf8');
-            console.log("locales/en.json updated successfully.");
-        }
+        // NEW: Sync directly to ALL locale JSON files in the locales directory!
+        const LOCALES_DIR = 'locales';
+        if (fs.existsSync(LOCALES_DIR)) {
+            const localeFiles = fs.readdirSync(LOCALES_DIR).filter(f => f.endsWith('.json'));
+            localeFiles.forEach(file => {
+                const localePath = path.join(LOCALES_DIR, file);
+                const localeName = file.replace('.json', ''); // e.g. 'en', 'id', 'ja', etc.
+                const langJson = JSON.parse(fs.readFileSync(localePath, 'utf8'));
+                
+                menuKeys.forEach(key => {
+                    const idSuffix = key.replace('Menu_Option', '').toLowerCase();
+                    const transKey = "txt-opt-" + idSuffix;
+                    
+                    if (localeName === 'en') {
+                        // Always overwrite English with latest from PS1 script
+                        langJson[transKey] = formatText(idSuffix, enDict[key]);
+                    } else if (localeName === 'id') {
+                        // Always overwrite Indonesian with latest from PS1 script
+                        if (idDict[key]) {
+                            langJson[transKey] = formatText(idSuffix, idDict[key]);
+                        } else {
+                            // Fallback to English if Indonesian is missing in PS1
+                            langJson[transKey] = formatText(idSuffix, enDict[key]);
+                        }
+                    } else {
+                        // For other languages:
+                        // If it doesn't have the translation yet, set English as fallback
+                        // If it already has a translation, do not overwrite it!
+                        if (!langJson[transKey]) {
+                            langJson[transKey] = formatText(idSuffix, enDict[key]);
+                        }
+                    }
+                });
 
-        if (fs.existsSync(LOCALE_ID_PATH)) {
-            const idJson = JSON.parse(fs.readFileSync(LOCALE_ID_PATH, 'utf8'));
-            menuKeys.forEach(key => {
-                const idSuffix = key.replace('Menu_Option', '').toLowerCase();
-                if (idDict[key]) {
-                    idJson["txt-opt-" + idSuffix] = formatText(idSuffix, idDict[key]);
+                // Handle Option Q specifically if not present
+                if (!hasQ) {
+                    const qKey = "txt-opt-q";
+                    if (localeName === 'en') {
+                        langJson[qKey] = "<b>Q → Quick Fix (Recommended)</b>";
+                    } else if (localeName === 'id') {
+                        langJson[qKey] = "<b>Q → Perbaikan Cepat (Disarankan)</b>";
+                    } else {
+                        if (!langJson[qKey]) {
+                            langJson[qKey] = "<b>Q → Quick Fix (Recommended)</b>";
+                        }
+                    }
                 }
+
+                // Write back the updated JSON file
+                fs.writeFileSync(localePath, JSON.stringify(langJson, null, 2), 'utf8');
+                console.log(`${localePath} synchronized successfully.`);
             });
-            if (!hasQ) {
-                idJson["txt-opt-q"] = "<b>Q → Perbaikan Cepat (Disarankan)</b>";
-            }
-            fs.writeFileSync(LOCALE_ID_PATH, JSON.stringify(idJson, null, 2), 'utf8');
-            console.log("locales/id.json updated successfully.");
         }
 
         // Check if explanations are missing in index.html, and warn developer
