@@ -128,5 +128,10 @@
   "txt-jc-step-3": "انقر نقراً مزدوجاً فوق ملف <code class='code-inline'>ncexs-junkcleaner.bat</code> لتشغيل البرنامج.",
   "txt-jc-step-4": "إذا قام SmartScreen بحظر التشغيل ('Windows protected your PC')، فانقر فوق <b>More info</b> → <b>Run anyway</b>.",
   "txt-jc-step-5": "اسمح بصلاحيات المسؤول (Administrator) عند المطالبة بذلك من قبل UAC.",
-  "txt-jc-step-6": "اتبع المطالبات التي تظهر على الشاشة (اكتب <code class='code-inline'>Y</code> أو <code class='code-inline'>N</code>) لاختيار: تنظيف المخلفات، التنظيف العميق، الفحص السريع لمكافح الفيروسات، أو تحسين الذاكرة."
+  "txt-jc-step-6": "اتبع المطالبات التي تظهر على الشاشة (اكتب <code class='code-inline'>Y</code> أو <code class='code-inline'>N</code>) لاختيار: تنظيف المخلفات، التنظيف العميق، الفحص السريع لمكافح الفيروسات، أو تحسين الذاكرة.",
+  "txt-other-projects-title": "<i class=\"fas fa-cubes\" style=\"color: #38bdf8;\"></i> مشاريع أخرى",
+  "txt-other-projects-desc": "استكشف تطبيقات وأدوات الويب الأخرى المصممة لتسهيل التطوير والتعلم.",
+  "txt-sql-title": "ورقة مرجعية لـ SQL",
+  "txt-sql-desc": "دليل استعلام SQL تفاعلي ورقة مرجعية سريعة.",
+  "txt-cta-sql": "زيارة الموقع &larr;"
 }

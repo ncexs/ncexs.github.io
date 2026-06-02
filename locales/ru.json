@@ -128,5 +128,10 @@
   "txt-jc-step-3": "Дважды щелкните файл <code class='code-inline'>ncexs-junkcleaner.bat</code> для запуска программы.",
   "txt-jc-step-4": "Если SmartScreen предупреждает ('Windows protected your PC'), нажмите <b>Подробнее (More info)</b> → <b>Выполнить в любом случае (Run anyway)</b>.",
   "txt-jc-step-5": "Разрешите доступ администратора при появлении запроса от Контроля учетных записей (UAC).",
-  "txt-jc-step-6": "Следуйте инструкциям на экране (введите <code class='code-inline'>Y</code> или <code class='code-inline'>N</code>) для: очистки мусора, глубокой очистки, быстрой проверки антивирусом или оптимизации RAM."
+  "txt-jc-step-6": "Следуйте инструкциям на экране (введите <code class='code-inline'>Y</code> или <code class='code-inline'>N</code>) для: очистки мусора, глубокой очистки, быстрой проверки антивирусом или оптимизации RAM.",
+  "txt-other-projects-title": "<i class=\"fas fa-cubes\" style=\"color: #38bdf8;\"></i> Другие проекты",
+  "txt-other-projects-desc": "Посмотрите другие мои веб-приложения и инструменты, созданные для упрощения разработки и обучения.",
+  "txt-sql-title": "Шпаргалка по SQL",
+  "txt-sql-desc": "Интерактивное руководство по SQL-запросам и шпаргалка.",
+  "txt-cta-sql": "Перейти на сайт &rarr;"
 }

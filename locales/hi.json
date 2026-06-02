@@ -128,5 +128,10 @@
   "txt-jc-step-3": "प्रोग्राम शुरू करने के लिए <code class='code-inline'>ncexs-junkcleaner.bat</code> फ़ाइल पर डबल-क्लिक करें।",
   "txt-jc-step-4": "यदि SmartScreen चेतावनी देता है ('Windows protected your PC'), तो <b>More info</b> → <b>Run anyway</b> पर क्लिक करें।",
   "txt-jc-step-5": "उपयोगकर्ता खाता नियंत्रण (UAC) द्वारा संकेत दिए जाने पर व्यवस्थापक पहुंच की अनुमति दें।",
-  "txt-jc-step-6": "ऑन-स्क्रीन संकेतों (टाइप <code class='code-inline'>Y</code> या <code class='code-inline'>N</code>) का पालन करें: जंक क्लीनर, डीप क्लीनअप, एंटीवायरस क्विक स्कैन, या रैम अनुकूलन के लिए।"
+  "txt-jc-step-6": "ऑन-स्क्रीन संकेतों (टाइप <code class='code-inline'>Y</code> या <code class='code-inline'>N</code>) का पालन करें: जंक क्लीनर, डीप क्लीनअप, एंटीवायरस क्विक स्कैन, या रैम अनुकूलन के लिएम्।",
+  "txt-other-projects-title": "<i class=\"fas fa-cubes\" style=\"color: #38bdf8;\"></i> अन्य परियोजनाएं",
+  "txt-other-projects-desc": "विकास और सीखने को आसान बनाने के लिए डिज़ाइन किए गए मेरे अन्य वेब ऐप्स और टूल देखें।",
+  "txt-sql-title": "SQL चीट शीट",
+  "txt-sql-desc": "इंटरैक्टिव SQL क्वेरी गाइड और त्वरित संदर्भ चीट शीट।",
+  "txt-cta-sql": "साइट पर जाएं &rarr;"
 }

@@ -128,5 +128,10 @@
   "txt-jc-step-3": "Double-click the <code class='code-inline'>ncexs-junkcleaner.bat</code> file to launch the script.",
   "txt-jc-step-4": "If SmartScreen blocks execution ('Windows protected your PC'), click <b>More info</b> → <b>Run anyway</b>.",
   "txt-jc-step-5": "Allow Administrator access when prompted by User Account Control (UAC).",
-  "txt-jc-step-6": "Follow the on-screen prompts (type <code class='code-inline'>Y</code> or <code class='code-inline'>N</code>) for: Junk Cleaner, Deep Cleanup, Antivirus Quick Scan, or RAM optimization."
+  "txt-jc-step-6": "Follow the on-screen prompts (type <code class='code-inline'>Y</code> or <code class='code-inline'>N</code>) for: Junk Cleaner, Deep Cleanup, Antivirus Quick Scan, or RAM optimization.",
+  "txt-other-projects-title": "<i class=\"fas fa-cubes\" style=\"color: #38bdf8;\"></i> Other Projects",
+  "txt-other-projects-desc": "Explore my other web apps and tools designed to make development and learning easier.",
+  "txt-sql-title": "SQL Cheat Sheet",
+  "txt-sql-desc": "Interactive SQL query guide and quick reference cheat sheet.",
+  "txt-cta-sql": "Visit Site &rarr;"
 }

@@ -128,5 +128,10 @@
   "txt-jc-step-3": "<code class='code-inline'>ncexs-junkcleaner.bat</code> ファイルをダブルクリックしてスクリプトを直接実行します。",
   "txt-jc-step-4": "SmartScreenによる防御ダイアログ（「WindowsによってPCが保護されました」）が表示された場合は、<b>[詳細情報]</b>をクリックし、<b>[実行]</b>ボタンを押してください。",
   "txt-jc-step-5": "ユーザーアカウント制御 (UAC) 画面が表示されたら、<b>[はい]</b> を選択して管理者権限を許可します。",
-  "txt-jc-step-6": "画面に表示される選択肢（キーボードの <code class='code-inline'>Y</code> または <code class='code-inline'>N</code>）に従って決定します: ジャンククリーナー、ディープクリーンアップ、アンチウイルス簡易スキャン、RAM最適化などをお好みで構成できます。"
+  "txt-jc-step-6": "画面に表示される選択肢（キーボードの <code class='code-inline'>Y</code> または <code class='code-inline'>N</code>）に従って決定します: ジャンククリーナー、ディープクリーンアップ、アンチウイルス簡易スキャン、RAM最適化などをお好みで構成できます。",
+  "txt-other-projects-title": "<i class=\"fas fa-cubes\" style=\"color: #38bdf8;\"></i> その他のプロジェクト",
+  "txt-other-projects-desc": "開発や学習をより簡単にするために設計された、他のウェブアプリやツールをご覧ください。",
+  "txt-sql-title": "SQLチートシート",
+  "txt-sql-desc": "インタラクティブなSQLクエリガイドとクイックリファレンス。",
+  "txt-cta-sql": "サイトを訪ねる &rarr;"
 }

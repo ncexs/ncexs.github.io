@@ -128,5 +128,10 @@
   "txt-jc-step-3": "双击运行 <code class='code-inline'>ncexs-junkcleaner.bat</code> 批处理文件启动脚本。",
   "txt-jc-step-4": "若 Windows SmartScreen 拦截运行（“Windows 已保护你的 PC”），请点击 <b>更多信息</b> → <b>仍要运行</b>。",
   "txt-jc-step-5": "当用户账户控制 (UAC) 提示时，允许管理员权限。",
-  "txt-jc-step-6": "根据屏幕提示（输入 <code class='code-inline'>Y</code> 或 <code class='code-inline'>N</code>）进行选择：垃圾清理、深度清理、杀毒软件快速扫描或内存优化。"
+  "txt-jc-step-6": "根据屏幕提示（输入 <code class='code-inline'>Y</code> 或 <code class='code-inline'>N</code>) 进行选择：垃圾清理、深度清理、杀毒软件快速扫描或内存优化。",
+  "txt-other-projects-title": "<i class=\"fas fa-cubes\" style=\"color: #38bdf8;\"></i> 其他项目",
+  "txt-other-projects-desc": "探索我的其他 Web 应用程序和工具，旨在简化开发和学习。",
+  "txt-sql-title": "SQL 备忘单",
+  "txt-sql-desc": "交互式 SQL 查询指南和快速参考备忘单。",
+  "txt-cta-sql": "访问网站 &rarr;"
 }

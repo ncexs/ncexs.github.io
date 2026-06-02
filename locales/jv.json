@@ -128,5 +128,10 @@
   "txt-jc-step-3": "Double-click file <code class='code-inline'>ncexs-junkcleaner.bat</code> kagem miwiti program.",
   "txt-jc-step-4": "Menawi SmartScreen paring peringatan ('Windows protected your PC'), klik <b>More info</b> → <b>Run anyway</b>.",
   "txt-jc-step-5": "Paringi akses Administrator nalika dipunsuwun dening User Account Control (UAC).",
-  "txt-jc-step-6": "Tututi pituduh ing layar (ketik <code class='code-inline'>Y</code> utawi <code class='code-inline'>N</code>) kagem: Junk Cleaner, Deep Cleanup, Antivirus Quick Scan, utawi optimasi RAM."
+  "txt-jc-step-6": "Tututi pituduh ing layar (ketik <code class='code-inline'>Y</code> utawi <code class='code-inline'>N</code>) kagem: Junk Cleaner, Deep Cleanup, Antivirus Quick Scan, utawi optimasi RAM.",
+  "txt-other-projects-title": "<i class=\"fas fa-cubes\" style=\"color: #38bdf8;\"></i> Proyek Liyane",
+  "txt-other-projects-desc": "Jelajahi aplikasi web lan piranti liyane sing digawe kanggo nggampangake pangembangan lan sinau.",
+  "txt-sql-title": "SQL Cheat Sheet",
+  "txt-sql-desc": "Panduan pitakon SQL interaktif lan contekan referensi cepet.",
+  "txt-cta-sql": "Dolan Situs &rarr;"
 }

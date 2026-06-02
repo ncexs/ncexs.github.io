@@ -128,5 +128,10 @@
   "txt-jc-step-3": "압축 푼 폴더의 <code class='code-inline'>ncexs-junkcleaner.bat</code> 정비 배치파일을 가볍게 더블클릭해 시작합니다.",
   "txt-jc-step-4": "만약 SmartScreen 보안 화면('Windows의 PC 보호')이 떠서 일시 저지되면, 하단의 <b>[추가 정보]</b> 링크를 연 뒤 <b>[실행]</b>을 당차게 눌러 통과합니다.",
   "txt-jc-step-5": "사용자 계정 컨트롤(UAC) 가이드 팝업이 전면에 뜨면, <b>[예]</b>를 눌러 관리자 자격을 위임합니다.",
-  "txt-jc-step-6": "안내에 맞춰 간단히 키보드 영문 <code class='code-inline'>Y</code> 혹은 <code class='code-inline'>N</code> 키를 타이핑하여 불필요 파일 청소, 전동 하드클리닝, 윈도우 백신 빠른 정밀 검사, 내 RAM 캐시 반환 등 필요 옵션을 선별 적용해 진행합니다."
+  "txt-jc-step-6": "안내에 맞춰 간단히 키보드 영문 <code class='code-inline'>Y</code> 혹은 <code class='code-inline'>N</code> 키를 타이핑하여 불필요 파일 청소, 전동 하드클리닝, 윈도우 백신 빠른 정밀 검사, 내 RAM 캐시 반환 등 필요 옵션을 선별 적용해 진행합니다.",
+  "txt-other-projects-title": "<i class=\"fas fa-cubes\" style=\"color: #38bdf8;\"></i> 기타 프로젝트",
+  "txt-other-projects-desc": "개발과 학습을 더 쉽게 만들도록 설계된 다른 웹 앱과 도구를 살펴보세요.",
+  "txt-sql-title": "SQL 치트 시트",
+  "txt-sql-desc": "대화형 SQL 쿼리 가이드 및 빠른 참조 치트 시트.",
+  "txt-cta-sql": "사이트 방문 &rarr;"
 }
