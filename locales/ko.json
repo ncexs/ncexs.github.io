@@ -133,5 +133,7 @@
   "txt-other-projects-desc": "개발과 학습을 더 쉽게 만들도록 설계된 다른 웹 앱과 도구를 살펴보세요.",
   "txt-sql-title": "SQL 치트 시트",
   "txt-sql-desc": "대화형 SQL 쿼리 가이드 및 빠른 참조 치트 시트.",
-  "txt-cta-sql": "사이트 방문 &rarr;"
+  "txt-cta-sql": "사이트 방문 &rarr;",
+  "txt-opt-19": "19 → Wi-Fi Password Recovery",
+  "txt-opt-20": "20 → Exit Toolkit"
 }

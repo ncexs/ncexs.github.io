@@ -133,5 +133,7 @@
   "txt-other-projects-desc": "開発や学習をより簡単にするために設計された、他のウェブアプリやツールをご覧ください。",
   "txt-sql-title": "SQLチートシート",
   "txt-sql-desc": "インタラクティブなSQLクエリガイドとクイックリファレンス。",
-  "txt-cta-sql": "サイトを訪ねる &rarr;"
+  "txt-cta-sql": "サイトを訪ねる &rarr;",
+  "txt-opt-19": "19 → Wi-Fi Password Recovery",
+  "txt-opt-20": "20 → Exit Toolkit"
 }
